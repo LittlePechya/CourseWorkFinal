@@ -92,9 +92,8 @@ namespace CourseWorkFinal
             {
                 PathToFile = selectedFolder.SelectedPath;
             }
-
-            //try
-            //{
+            try
+            {
                 if (PathToFile != null || !PathToFile.Equals(""))
                 {
                     fileManager.GetFilesPath(PathToFile);
@@ -122,12 +121,13 @@ namespace CourseWorkFinal
 
                 StartDecomposition();
 
-           // }
-            //catch (Exception ex)
-           // {
-                //MessageBox.Show(ex.Message, "Ошибка");
-           // }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка");
+                MessageBox.Show(ex.StackTrace, "Путь к ошибке");
 
+            }
         }
 
         private void StartDecomposition()
@@ -155,8 +155,8 @@ namespace CourseWorkFinal
             // 0 точность измерений 1 количество блоков 2 количество точек 3 погрешность 
             measurmentError = double.Parse(objectData[0]);
             numericUpDownMeasurementError.Value = decimal.Parse(objectData[0]);
-            labelBlockCount.Text = " " + objectData[1].ToString();
-            labelPointCount.Text = " " + objectData[2].ToString();
+            labelBlockCount.Text = "Количество блоков на объекте: " + objectData[1].ToString();
+            labelPointCount.Text = "Количество марок на объекте: " + objectData[2].ToString();
             defaultAlpha = double.Parse(objectData[3]);
             numericUpDownSmoothingFactor.Value = decimal.Parse(objectData[3]);
         }
