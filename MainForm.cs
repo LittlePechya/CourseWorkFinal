@@ -22,6 +22,7 @@ namespace CourseWorkFinal
         List<DataGridView> dataGridViewList = new List<DataGridView>();
         double defaultAlpha = 0.9;
         double measurmentError = 0;
+        FirstLevelDecomposition decompositionFirst;
 
         /// <summary>
         /// Конструктор основной формы проекта MainForm
@@ -132,7 +133,7 @@ namespace CourseWorkFinal
         // Первый уровень декомпозиции
         public void FirstLevel()
         {
-            FirstLevelDecomposition decomposition = new FirstLevelDecomposition(defaultAlpha, measurmentError, 
+            decompositionFirst = new FirstLevelDecomposition(defaultAlpha, measurmentError, 
                 dataGridViewZCoordinate, dataGridViewFirstLevelPhaseCoordinates, dataGridViewFirstLevelObjectStatus, 
                 chartFirstLevelM, chartFirstLevelA, chartFirstLevelResponseFunction, dt);
         }
@@ -261,6 +262,21 @@ namespace CourseWorkFinal
                 return true;
             else 
                 return false;
+        }
+
+        private void checkBoxResponseFunctionBottom_CheckedChanged(object sender, EventArgs e)
+        {
+            decompositionFirst.CheckBoxResponseFunctionChange(checkBoxFirstLevelResponseFunctionBottom, chartFirstLevelResponseFunction, "нижняя");
+        }
+
+        private void checkBoxResponseFunctionOriginal_CheckedChanged(object sender, EventArgs e)
+        {
+            decompositionFirst.CheckBoxResponseFunctionChange(checkBoxFirstLevelResponseFunctionOriginal, chartFirstLevelResponseFunction, "исходное");
+        }
+
+        private void checkBoxResponseFunctionTop_CheckedChanged(object sender, EventArgs e)
+        {
+            decompositionFirst.CheckBoxResponseFunctionChange(checkBoxFirstLevelResponseFunctionOriginal, chartFirstLevelResponseFunction, "верхняя");
         }
     }
 

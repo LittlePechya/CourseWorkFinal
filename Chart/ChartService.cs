@@ -15,12 +15,11 @@ namespace CourseWorkFinal.Chart
         /// </summary>
         /// <param name="responseFunction"> Chart для функции отклика </param>
         /// <returns></returns>
-        public static ChartControl SetResponseFunctionSettings(ChartControl responseFunction)
+        public static void SetResponseFunctionSettings(ChartControl responseFunction)
         {
             responseFunction.ChartAreas[0].AxisX.Title = "M";
             responseFunction.ChartAreas[0].AxisY.Title = "Alpha";
             responseFunction.ChartAreas[0].AxisY.IsStartedFromZero = false;
-            return responseFunction;
         }
 
         /// <summary>
@@ -28,11 +27,10 @@ namespace CourseWorkFinal.Chart
         /// </summary>
         /// <param name="expoentialSmooth"></param>
         /// <returns></returns>
-        public static ChartControl SetExponentialSmoothSettings(ChartControl expoentialSmooth)
+        public static void SetExponentialSmoothSettings(ChartControl expoentialSmooth)
         {
             expoentialSmooth.ChartAreas[0].AxisX.Title = "Эпоха";
             expoentialSmooth.ChartAreas[0].AxisY.IsStartedFromZero=false;
-            return expoentialSmooth;
         }
 
         /// <summary>
@@ -41,7 +39,7 @@ namespace CourseWorkFinal.Chart
         /// <param name="chart"></param>
         /// <param name="serieName"></param>
         /// <returns></returns>
-        public static ChartControl SerieSetSettings(ChartControl chart, string serieName)
+        public static void SerieSetSettings(ChartControl chart, string serieName)
         {
             //Включаем маркеры кружочки
             chart.Series[serieName].MarkerStyle = MarkerStyle.Circle;
@@ -53,7 +51,6 @@ namespace CourseWorkFinal.Chart
             chart.Series[serieName].ChartType = SeriesChartType.Line;
             // Отображение координат при наведении на точку
             chart.Series[serieName].ToolTip = "X = #VALX, Y = #VALY";
-            return chart;
         }
 
         /// <summary>
@@ -68,7 +65,7 @@ namespace CourseWorkFinal.Chart
         /// <param name="YValue2"></param>
         /// <param name="epochList"></param>
         /// <returns></returns>
-        public static ChartControl AddLineToChart(ChartControl chart, string name, string forecastName, List<Double> XValue, List<Double> YValue, List<Double> XValue2, List<Double> YValue2, List<Int32> epochList)
+        public static void AddLineToChart(ChartControl chart, string name, string forecastName, List<Double> XValue, List<Double> YValue, List<Double> XValue2, List<Double> YValue2, List<Int32> epochList)
         {
             //Условие проверяет существует ли серия с таким названием, если существует то удаляет, если нет, то добавляем
             if (chart.Series.IndexOf(name) == -1)
@@ -108,7 +105,6 @@ namespace CourseWorkFinal.Chart
                 chart.Series[forecastName].Points.Clear();
                 chart.Series.Remove(chart.Series[forecastName]);
             }
-            return chart;
         }
     }
 }

@@ -65,21 +65,20 @@ namespace CourseWorkFinal.Decomposition
             this.dataTable = dataTable;
 
             FirsLevelDecompositionLoad();
-            CheckBoxResponseFunctionBottomChange(checkBoxResponseFunctionBottom, responseFunctionChart);
-
         }
 
         private void FirsLevelDecompositionLoad()
         {
             // Настройка графика функции отклика
-            responseFunctionChart = ChartService.SetResponseFunctionSettings(responseFunctionChart);
+            ChartService.SetResponseFunctionSettings(responseFunctionChart);
             // Настройка графика со сглаживанием
-            chartFirstLevelM = ChartService.SetExponentialSmoothSettings(chartFirstLevelM);
-            chartFirstLevelA = ChartService.SetExponentialSmoothSettings(chartFirstLevelA);
+            ChartService.SetExponentialSmoothSettings(chartFirstLevelM);
+            ChartService.SetExponentialSmoothSettings(chartFirstLevelA);
             // Создание объекта класса decompositionService для расчета M и A
             DecompositionService decompositionService = new DecompositionService();
             // Расчет M
             MValues = decompositionService.FirstLevelMValues(coordinatesTableZ, dataTable, measurementErorr, smoothingFactor);
+            // Расчет alpha
             AValues = decompositionService.FirstLevelAValues(coordinatesTableZ, dataTable, measurementErorr, smoothingFactor, phaseCoordinatesTable);
             // На основе M заполням таблицу оценки состояния c помощью метода из decompositionService
             objectStatusTable = decompositionService.FillObjectStatusTable(objectStatusTable, MValues, coordinatesTableZ);
@@ -103,9 +102,22 @@ namespace CourseWorkFinal.Decomposition
             }
         }
 
-        private void CheckBoxResponseFunctionBottomChange(CheckBox checkBoxResponseFunctionBottom, ChartControl responseFunctionChart)
+        public void CheckBoxResponseFunctionChange(CheckBox checkBoxResponseFunctionBottom, ChartControl responseFunctionChart, string location)
         {
-            ChartService.AddLineToChart(responseFunctionChart, "Функция отклика (нижняя граница)", "Прогнозное значение функции отклика (нижняя граница)", MValues[4], AValues[4], MValues[5], AValues[5], epochList);
+            switch(location)
+            {
+                case "нижняя":
+                    ChartService.AddLineToChart(responseFunctionChart, "Функция отклика (нижняя граница)", "Прогнозное значение функции отклика (нижняя граница)", MValues[4], AValues[4], MValues[5], AValues[5], epochList);
+                    break;
+                case "исходное":
+                    ChartService.AddLineToChart(responseFunctionChart, "Функция отклика (исходное)", "Прогнозное значение функции отклика (исходное)", MValues[1], AValues[1], MValues[2], AValues[2], epochList);
+                    break;
+                case "верхняя":
+                    ChartService.AddLineToChart(responseFunctionChart, "Функция отклика (верхняя граница)", "Прогнозное значение функции отклика (верхняя граница)", MValues[0], AValues[0], MValues[3], AValues[3], epochList);
+                    break;
+            }
         }
+
     }
 }
+

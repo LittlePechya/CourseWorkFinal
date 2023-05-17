@@ -80,9 +80,9 @@
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.buttonFirstLevelRemoveAllAlpha = new System.Windows.Forms.Button();
-            this.checkBoxResponseFunctionTop = new System.Windows.Forms.CheckBox();
-            this.checkBoxResponseFunctionOriginal = new System.Windows.Forms.CheckBox();
-            this.checkBoxResponseFunctionBottom = new System.Windows.Forms.CheckBox();
+            this.checkBoxFirstLevelResponseFunctionTop = new System.Windows.Forms.CheckBox();
+            this.checkBoxFirstLevelResponseFunctionOriginal = new System.Windows.Forms.CheckBox();
+            this.checkBoxFirstLevelResponseFunctionBottom = new System.Windows.Forms.CheckBox();
             this.chartFirstLevelResponseFunction = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
@@ -646,9 +646,9 @@
             // groupBox8
             // 
             this.groupBox8.Controls.Add(this.buttonFirstLevelRemoveAllAlpha);
-            this.groupBox8.Controls.Add(this.checkBoxResponseFunctionTop);
-            this.groupBox8.Controls.Add(this.checkBoxResponseFunctionOriginal);
-            this.groupBox8.Controls.Add(this.checkBoxResponseFunctionBottom);
+            this.groupBox8.Controls.Add(this.checkBoxFirstLevelResponseFunctionTop);
+            this.groupBox8.Controls.Add(this.checkBoxFirstLevelResponseFunctionOriginal);
+            this.groupBox8.Controls.Add(this.checkBoxFirstLevelResponseFunctionBottom);
             this.groupBox8.Location = new System.Drawing.Point(4, 449);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(701, 100);
@@ -665,35 +665,38 @@
             this.buttonFirstLevelRemoveAllAlpha.Text = "Убрать все";
             this.buttonFirstLevelRemoveAllAlpha.UseVisualStyleBackColor = true;
             // 
-            // checkBoxResponseFunctionTop
+            // checkBoxFirstLevelResponseFunctionTop
             // 
-            this.checkBoxResponseFunctionTop.AutoSize = true;
-            this.checkBoxResponseFunctionTop.Location = new System.Drawing.Point(7, 73);
-            this.checkBoxResponseFunctionTop.Name = "checkBoxResponseFunctionTop";
-            this.checkBoxResponseFunctionTop.Size = new System.Drawing.Size(262, 20);
-            this.checkBoxResponseFunctionTop.TabIndex = 2;
-            this.checkBoxResponseFunctionTop.Text = "Функция отклика (верхняя граница)";
-            this.checkBoxResponseFunctionTop.UseVisualStyleBackColor = true;
+            this.checkBoxFirstLevelResponseFunctionTop.AutoSize = true;
+            this.checkBoxFirstLevelResponseFunctionTop.Location = new System.Drawing.Point(7, 73);
+            this.checkBoxFirstLevelResponseFunctionTop.Name = "checkBoxFirstLevelResponseFunctionTop";
+            this.checkBoxFirstLevelResponseFunctionTop.Size = new System.Drawing.Size(262, 20);
+            this.checkBoxFirstLevelResponseFunctionTop.TabIndex = 2;
+            this.checkBoxFirstLevelResponseFunctionTop.Text = "Функция отклика (верхняя граница)";
+            this.checkBoxFirstLevelResponseFunctionTop.UseVisualStyleBackColor = true;
+            this.checkBoxFirstLevelResponseFunctionTop.CheckedChanged += new System.EventHandler(this.checkBoxResponseFunctionTop_CheckedChanged);
             // 
-            // checkBoxResponseFunctionOriginal
+            // checkBoxFirstLevelResponseFunctionOriginal
             // 
-            this.checkBoxResponseFunctionOriginal.AutoSize = true;
-            this.checkBoxResponseFunctionOriginal.Location = new System.Drawing.Point(7, 48);
-            this.checkBoxResponseFunctionOriginal.Name = "checkBoxResponseFunctionOriginal";
-            this.checkBoxResponseFunctionOriginal.Size = new System.Drawing.Size(214, 20);
-            this.checkBoxResponseFunctionOriginal.TabIndex = 1;
-            this.checkBoxResponseFunctionOriginal.Text = "Функция отклика (исходное)";
-            this.checkBoxResponseFunctionOriginal.UseVisualStyleBackColor = true;
+            this.checkBoxFirstLevelResponseFunctionOriginal.AutoSize = true;
+            this.checkBoxFirstLevelResponseFunctionOriginal.Location = new System.Drawing.Point(7, 48);
+            this.checkBoxFirstLevelResponseFunctionOriginal.Name = "checkBoxFirstLevelResponseFunctionOriginal";
+            this.checkBoxFirstLevelResponseFunctionOriginal.Size = new System.Drawing.Size(214, 20);
+            this.checkBoxFirstLevelResponseFunctionOriginal.TabIndex = 1;
+            this.checkBoxFirstLevelResponseFunctionOriginal.Text = "Функция отклика (исходное)";
+            this.checkBoxFirstLevelResponseFunctionOriginal.UseVisualStyleBackColor = true;
+            this.checkBoxFirstLevelResponseFunctionOriginal.CheckedChanged += new System.EventHandler(this.checkBoxResponseFunctionOriginal_CheckedChanged);
             // 
-            // checkBoxResponseFunctionBottom
+            // checkBoxFirstLevelResponseFunctionBottom
             // 
-            this.checkBoxResponseFunctionBottom.AutoSize = true;
-            this.checkBoxResponseFunctionBottom.Location = new System.Drawing.Point(7, 22);
-            this.checkBoxResponseFunctionBottom.Name = "checkBoxResponseFunctionBottom";
-            this.checkBoxResponseFunctionBottom.Size = new System.Drawing.Size(257, 20);
-            this.checkBoxResponseFunctionBottom.TabIndex = 0;
-            this.checkBoxResponseFunctionBottom.Text = "Функция отклика (нижняя граница)";
-            this.checkBoxResponseFunctionBottom.UseVisualStyleBackColor = true;
+            this.checkBoxFirstLevelResponseFunctionBottom.AutoSize = true;
+            this.checkBoxFirstLevelResponseFunctionBottom.Location = new System.Drawing.Point(7, 22);
+            this.checkBoxFirstLevelResponseFunctionBottom.Name = "checkBoxFirstLevelResponseFunctionBottom";
+            this.checkBoxFirstLevelResponseFunctionBottom.Size = new System.Drawing.Size(257, 20);
+            this.checkBoxFirstLevelResponseFunctionBottom.TabIndex = 0;
+            this.checkBoxFirstLevelResponseFunctionBottom.Text = "Функция отклика (нижняя граница)";
+            this.checkBoxFirstLevelResponseFunctionBottom.UseVisualStyleBackColor = true;
+            this.checkBoxFirstLevelResponseFunctionBottom.CheckedChanged += new System.EventHandler(this.checkBoxResponseFunctionBottom_CheckedChanged);
             // 
             // chartFirstLevelResponseFunction
             // 
@@ -1844,9 +1847,9 @@
         private System.Windows.Forms.TabPage tabPage7;
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartFirstLevelResponseFunction;
-        private System.Windows.Forms.CheckBox checkBoxResponseFunctionTop;
-        private System.Windows.Forms.CheckBox checkBoxResponseFunctionOriginal;
-        private System.Windows.Forms.CheckBox checkBoxResponseFunctionBottom;
+        private System.Windows.Forms.CheckBox checkBoxFirstLevelResponseFunctionTop;
+        private System.Windows.Forms.CheckBox checkBoxFirstLevelResponseFunctionOriginal;
+        private System.Windows.Forms.CheckBox checkBoxFirstLevelResponseFunctionBottom;
         private System.Windows.Forms.Button buttonFirstLevelRemoveAllAlpha;
         private System.Windows.Forms.TabControl tabControl2;
         private System.Windows.Forms.TabPage tabPage8;
