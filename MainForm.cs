@@ -14,14 +14,6 @@ namespace CourseWorkFinal
 {
     public partial class MainForm : Form
     {
-
-        // TODO: если класс decomposition только 1 (все описано в нем) -> создаешь 1 экземпляр класса в Program.cs и передаешь
-        // в конструктор MainForm`ы
-        // public MainForm(Decomposition decomposition) {...}
-
-        // file: Program.cs, Decomposition decomposition = new Decomposition();
-        // Application.Run(new MainForm(decomposition));
-
         int epochCount;
         FileManager fileManager;
         string[] objectData;
@@ -112,7 +104,8 @@ namespace CourseWorkFinal
                 }
 
                 objectData[3] = defaultAlpha.ToString();
-
+                
+                // TODO: вместо добавления в элементы форы нужно добавить эти данные в таблицу в таблицу
                 placeTextDataToFormElements(objectData);
                 openDataBaseTable();
                 SetStatusToFormComponents(true);
@@ -141,7 +134,7 @@ namespace CourseWorkFinal
         {
             FirstLevelDecomposition decomposition = new FirstLevelDecomposition(defaultAlpha, measurmentError, 
                 dataGridViewZCoordinate, dataGridViewFirstLevelPhaseCoordinates, dataGridViewFirstLevelObjectStatus, 
-                chartFirstLevelExponentialSmooth, chartFirstLevelResponseFunction, dt);
+                chartFirstLevelM, chartFirstLevelResponseFunction, dt);
         }
 
         // Данные
@@ -270,8 +263,6 @@ namespace CourseWorkFinal
             else 
                 return false;
         }
-
-       
     }
 
 }

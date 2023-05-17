@@ -10,6 +10,11 @@ namespace CourseWorkFinal.Chart
 {
     public static class ChartService
     {
+        /// <summary>
+        /// Настройка графика функции отклика
+        /// </summary>
+        /// <param name="responseFunction"> Chart для функции отклика </param>
+        /// <returns></returns>
         public static ChartControl SetResponseFunctionSettings(ChartControl responseFunction)
         {
             responseFunction.ChartAreas[0].AxisX.Title = "M";
@@ -18,6 +23,11 @@ namespace CourseWorkFinal.Chart
             return responseFunction;
         }
 
+        /// <summary>
+        /// Настройка графика экспоненциального сглаживания
+        /// </summary>
+        /// <param name="expoentialSmooth"></param>
+        /// <returns></returns>
         public static ChartControl SetExponentialSmoothSettings(ChartControl expoentialSmooth)
         {
             expoentialSmooth.ChartAreas[0].AxisX.Title = "Эпоха";
@@ -25,6 +35,12 @@ namespace CourseWorkFinal.Chart
             return expoentialSmooth;
         }
 
+        /// <summary>
+        /// Настройка отображения серии на графике
+        /// </summary>
+        /// <param name="chart"></param>
+        /// <param name="serieName"></param>
+        /// <returns></returns>
         public static ChartControl SerieSetSettings(ChartControl chart, string serieName)
         {
             //Включаем маркеры кружочки
@@ -40,6 +56,18 @@ namespace CourseWorkFinal.Chart
             return chart;
         }
 
+        /// <summary>
+        /// Добавление серии
+        /// </summary>
+        /// <param name="chart"></param>
+        /// <param name="name"></param>
+        /// <param name="forecastName"></param>
+        /// <param name="XValue"></param>
+        /// <param name="YValue"></param>
+        /// <param name="XValue2"></param>
+        /// <param name="YValue2"></param>
+        /// <param name="epochList"></param>
+        /// <returns></returns>
         public static ChartControl AddLineToChart(ChartControl chart, string name, string forecastName, List<Double> XValue, List<Double> YValue, List<Double> XValue2, List<Double> YValue2, List<Int32> epochList)
         {
             //Условие проверяет существует ли серия с таким названием, если существует то удаляет, если нет, то добавляем

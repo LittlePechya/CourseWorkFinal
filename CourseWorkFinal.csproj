@@ -89,6 +89,12 @@
     <Compile Include="Analysis\DecompositionService.cs" />
     <Compile Include="Analysis\SubblocksDistribution.cs" />
     <Compile Include="Chart\ChartService.cs" />
+    <Compile Include="chooseTable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="chooseTable.Designer.cs">
+      <DependentUpon>chooseTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="ExternalData\FileManager.cs" />
     <Compile Include="ExternalData\Database.cs" />
     <Compile Include="Decomposition\FirstLevelDecomposition.cs" />
@@ -100,6 +106,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="chooseTable.resx">
+      <DependentUpon>chooseTable.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

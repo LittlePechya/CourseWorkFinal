@@ -20,6 +20,7 @@ namespace CourseWorkFinal
         private string pathToDataBase;
         private SQLiteConnection sqlConnection;
         private string tableName;
+        private List<string> tableNames;
 
         /// <summary>
         /// Конструктор класса 
@@ -42,7 +43,8 @@ namespace CourseWorkFinal
         }
 
         /// <summary>
-        /// Получение списка таблиц из базы данных
+        /// Получение списка таблиц из базы данных и выбор таблицы
+        /// Работает, только если в БД одна таблица
         /// </summary>
         public void GetTableNames()
         {
@@ -53,6 +55,29 @@ namespace CourseWorkFinal
             {
                 tableName = reader.GetString(0);
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="databasePath"></param>
+        /// <returns></returns>
+        private List<string> GetTableNames(string databasePath)
+        {
+           tableNames = new List<string>();
+
+            using (var connection = new SQLiteConnection($"Data Source={databasePath};Version=3;"))
+            {
+                connection.Open();
+                var command = new SQLiteCommand("SELECT name FROM sqlite_master WHERE type='table';", connection);
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    tableNames.Add(reader.GetString(0));
+                }
+            }
+
+            return tableNames;
         }
 
         /// <summary>
