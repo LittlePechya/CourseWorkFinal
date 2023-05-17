@@ -271,7 +271,7 @@ namespace CourseWorkFinal.Analysis
 
         private DataGridView FillNewTable(DataTable dataTable)
         {
-            //Добавляем колонки из переданного датаТейбл (я сам не знаю как работает, взял у Петра Юрьевича код)
+            //Добавляем колонки из переданного dataTable
             DataGridView newTable = new DataGridView();
             for (int column = 0; column < dataTable.Columns.Count; column++)
             {
