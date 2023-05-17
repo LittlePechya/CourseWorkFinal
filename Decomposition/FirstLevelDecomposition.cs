@@ -17,9 +17,16 @@ namespace CourseWorkFinal.Decomposition
         private DataGridView coordinatesTableZ;
         private DataGridView phaseCoordinatesTable;
         private DataGridView objectStatusTable;
-        private ChartControl exponentialSmoothChart;
+
+        private ChartControl chartFirstLevelM;
+        private ChartControl chartFirstLevelA;
         private ChartControl responseFunctionChart;
+
         private DataTable dataTable;
+
+        private CheckBox checkBoxResponseFunctionBottom;
+        private CheckBox checkBoxResponseFunctionOriginal;
+        private CheckBox checkBoxResponseFunctionTop;
 
         // Поля для расчетов
         private double smoothingFactor;
@@ -44,7 +51,7 @@ namespace CourseWorkFinal.Decomposition
         /// <param name="dataTable"></param>
         public FirstLevelDecomposition(double smoothingFactor, double measurementError,
             DataGridView coordinatesTableZ, DataGridView phaseCoordinatesTable, 
-            DataGridView objectStatusTable, ChartControl exponenthialSmoothChart,
+            DataGridView objectStatusTable, ChartControl chartFirstLevelM, ChartControl chartFirstLevelA,
             ChartControl responseFunctionChart, DataTable dataTable)
         {
             this.smoothingFactor = smoothingFactor;
@@ -52,11 +59,14 @@ namespace CourseWorkFinal.Decomposition
             this.coordinatesTableZ = coordinatesTableZ;
             this.phaseCoordinatesTable = phaseCoordinatesTable;
             this.objectStatusTable = objectStatusTable;
-            this.exponentialSmoothChart = exponenthialSmoothChart;
+            this.chartFirstLevelM = chartFirstLevelM;
+            this.chartFirstLevelA = chartFirstLevelA;
             this.responseFunctionChart = responseFunctionChart; 
             this.dataTable = dataTable;
 
             FirsLevelDecompositionLoad();
+            CheckBoxResponseFunctionBottomChange(checkBoxResponseFunctionBottom, responseFunctionChart);
+
         }
 
         private void FirsLevelDecompositionLoad()
@@ -64,7 +74,8 @@ namespace CourseWorkFinal.Decomposition
             // Настройка графика функции отклика
             responseFunctionChart = ChartService.SetResponseFunctionSettings(responseFunctionChart);
             // Настройка графика со сглаживанием
-            exponentialSmoothChart = ChartService.SetExponentialSmoothSettings(exponentialSmoothChart);
+            chartFirstLevelM = ChartService.SetExponentialSmoothSettings(chartFirstLevelM);
+            chartFirstLevelA = ChartService.SetExponentialSmoothSettings(chartFirstLevelA);
             // Создание объекта класса decompositionService для расчета M и A
             DecompositionService decompositionService = new DecompositionService();
             // Расчет M
@@ -79,12 +90,22 @@ namespace CourseWorkFinal.Decomposition
             AValues.Add(smoothAValues);
             // Заполнение листа с эпохами
             epochList = new List<Int32>();
-            for (int i =0; i < objectStatusTable.Rows.Count - 1; i++) 
+            fillEpochList(epochList);
+            // Добавление прогнозной эпохи
+            epochList.Add(epochList.Last() + 1);
+        }
+
+        private void fillEpochList(List<Int32> epochList)
+        {
+            for (int i = 0; i < objectStatusTable.Rows.Count - 1; i++)
             {
                 epochList.Add(Convert.ToInt32(objectStatusTable.Rows[i].Cells[0].Value));
             }
-            // Добавление прогнозной эпохи
-            epochList.Add(epochList.Last() + 1);
+        }
+
+        private void CheckBoxResponseFunctionBottomChange(CheckBox checkBoxResponseFunctionBottom, ChartControl responseFunctionChart)
+        {
+            ChartService.AddLineToChart(responseFunctionChart, "Функция отклика (нижняя граница)", "Прогнозное значение функции отклика (нижняя граница)", MValues[4], AValues[4], MValues[5], AValues[5], epochList);
         }
     }
 }

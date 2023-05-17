@@ -134,9 +134,8 @@ namespace CourseWorkFinal
         {
             FirstLevelDecomposition decomposition = new FirstLevelDecomposition(defaultAlpha, measurmentError, 
                 dataGridViewZCoordinate, dataGridViewFirstLevelPhaseCoordinates, dataGridViewFirstLevelObjectStatus, 
-                chartFirstLevelM, chartFirstLevelResponseFunction, dt);
+                chartFirstLevelM, chartFirstLevelA, chartFirstLevelResponseFunction, dt);
         }
-
         // Данные
 
         /// <summary>
