@@ -34,13 +34,13 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripDropDownFile = new System.Windows.Forms.ToolStripDropDownButton();
             this.ToolStripMenuItemOpen = new System.Windows.Forms.ToolStripMenuItem();
@@ -95,6 +95,15 @@
             this.checkBoxFirstLevelMBottom = new System.Windows.Forms.CheckBox();
             this.chartFirstLevelM = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabPage14 = new System.Windows.Forms.TabPage();
+            this.groupBox15 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.checkBoxFirstLevelATopPredict = new System.Windows.Forms.CheckBox();
+            this.checkBoxFirstLevelAOriginalPredict = new System.Windows.Forms.CheckBox();
+            this.checkBoxFirstLevelABottomPredict = new System.Windows.Forms.CheckBox();
+            this.checkBoxFirstLevelATop = new System.Windows.Forms.CheckBox();
+            this.checkBoxFirstLevelAOriginal = new System.Windows.Forms.CheckBox();
+            this.checkBoxFirstLevelABottom = new System.Windows.Forms.CheckBox();
+            this.chartFirstLevelA = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage8 = new System.Windows.Forms.TabPage();
@@ -169,15 +178,6 @@
             this.comboBox4 = new System.Windows.Forms.ComboBox();
             this.label17 = new System.Windows.Forms.Label();
             this.chartFourthLevel = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.chartFirstLevelA = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.groupBox15 = new System.Windows.Forms.GroupBox();
-            this.checkBoxFirstLevelABottom = new System.Windows.Forms.CheckBox();
-            this.checkBoxFirstLevelAOriginal = new System.Windows.Forms.CheckBox();
-            this.checkBoxFirstLevelATop = new System.Windows.Forms.CheckBox();
-            this.checkBoxFirstLevelABottomPredict = new System.Windows.Forms.CheckBox();
-            this.checkBoxFirstLevelAOriginalPredict = new System.Windows.Forms.CheckBox();
-            this.checkBoxFirstLevelATopPredict = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.toolStrip.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -211,6 +211,8 @@
             this.groupBox13.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartFirstLevelM)).BeginInit();
             this.tabPage14.SuspendLayout();
+            this.groupBox15.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartFirstLevelA)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabPage8.SuspendLayout();
@@ -243,8 +245,6 @@
             this.splitContainerFourthLevel.Panel2.SuspendLayout();
             this.splitContainerFourthLevel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartFourthLevel)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartFirstLevelA)).BeginInit();
-            this.groupBox15.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip
@@ -257,7 +257,7 @@
             this.toolStripLabelSaveStatus});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(1232, 31);
+            this.toolStrip.Size = new System.Drawing.Size(1232, 27);
             this.toolStrip.TabIndex = 0;
             this.toolStrip.Text = "toolStrip1";
             // 
@@ -272,7 +272,7 @@
             this.toolStripDropDownFile.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownFile.Image")));
             this.toolStripDropDownFile.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownFile.Name = "toolStripDropDownFile";
-            this.toolStripDropDownFile.Size = new System.Drawing.Size(59, 28);
+            this.toolStripDropDownFile.Size = new System.Drawing.Size(59, 24);
             this.toolStripDropDownFile.Text = "Файл";
             // 
             // ToolStripMenuItemOpen
@@ -301,19 +301,19 @@
             this.toolStripButtonAboutAuthor.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonAboutAuthor.Image")));
             this.toolStripButtonAboutAuthor.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonAboutAuthor.Name = "toolStripButtonAboutAuthor";
-            this.toolStripButtonAboutAuthor.Size = new System.Drawing.Size(85, 28);
+            this.toolStripButtonAboutAuthor.Size = new System.Drawing.Size(85, 24);
             this.toolStripButtonAboutAuthor.Text = "Об авторе";
             // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(6, 31);
+            this.toolStripSeparator.Size = new System.Drawing.Size(6, 27);
             // 
             // toolStripLabelSaveStatus
             // 
             this.toolStripLabelSaveStatus.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.toolStripLabelSaveStatus.Name = "toolStripLabelSaveStatus";
-            this.toolStripLabelSaveStatus.Size = new System.Drawing.Size(155, 28);
+            this.toolStripLabelSaveStatus.Size = new System.Drawing.Size(155, 24);
             this.toolStripLabelSaveStatus.Text = "Статус: не сохранено";
             // 
             // tabControl
@@ -828,6 +828,103 @@
             this.tabPage14.Text = "a(t)";
             this.tabPage14.UseVisualStyleBackColor = true;
             // 
+            // groupBox15
+            // 
+            this.groupBox15.Controls.Add(this.button1);
+            this.groupBox15.Controls.Add(this.checkBoxFirstLevelATopPredict);
+            this.groupBox15.Controls.Add(this.checkBoxFirstLevelAOriginalPredict);
+            this.groupBox15.Controls.Add(this.checkBoxFirstLevelABottomPredict);
+            this.groupBox15.Controls.Add(this.checkBoxFirstLevelATop);
+            this.groupBox15.Controls.Add(this.checkBoxFirstLevelAOriginal);
+            this.groupBox15.Controls.Add(this.checkBoxFirstLevelABottom);
+            this.groupBox15.Location = new System.Drawing.Point(0, 443);
+            this.groupBox15.Name = "groupBox15";
+            this.groupBox15.Size = new System.Drawing.Size(707, 100);
+            this.groupBox15.TabIndex = 1;
+            this.groupBox15.TabStop = false;
+            this.groupBox15.Text = "groupBox15";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(433, 30);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(237, 53);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "Убрать все";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxFirstLevelATopPredict
+            // 
+            this.checkBoxFirstLevelATopPredict.AutoSize = true;
+            this.checkBoxFirstLevelATopPredict.Location = new System.Drawing.Point(192, 73);
+            this.checkBoxFirstLevelATopPredict.Name = "checkBoxFirstLevelATopPredict";
+            this.checkBoxFirstLevelATopPredict.Size = new System.Drawing.Size(216, 20);
+            this.checkBoxFirstLevelATopPredict.TabIndex = 6;
+            this.checkBoxFirstLevelATopPredict.Text = "Прогноз a (верхняя граница)";
+            this.checkBoxFirstLevelATopPredict.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxFirstLevelAOriginalPredict
+            // 
+            this.checkBoxFirstLevelAOriginalPredict.AutoSize = true;
+            this.checkBoxFirstLevelAOriginalPredict.Location = new System.Drawing.Point(192, 47);
+            this.checkBoxFirstLevelAOriginalPredict.Name = "checkBoxFirstLevelAOriginalPredict";
+            this.checkBoxFirstLevelAOriginalPredict.Size = new System.Drawing.Size(168, 20);
+            this.checkBoxFirstLevelAOriginalPredict.TabIndex = 5;
+            this.checkBoxFirstLevelAOriginalPredict.Text = "Прогноз a (исходное)";
+            this.checkBoxFirstLevelAOriginalPredict.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxFirstLevelABottomPredict
+            // 
+            this.checkBoxFirstLevelABottomPredict.AutoSize = true;
+            this.checkBoxFirstLevelABottomPredict.Location = new System.Drawing.Point(192, 21);
+            this.checkBoxFirstLevelABottomPredict.Name = "checkBoxFirstLevelABottomPredict";
+            this.checkBoxFirstLevelABottomPredict.Size = new System.Drawing.Size(211, 20);
+            this.checkBoxFirstLevelABottomPredict.TabIndex = 4;
+            this.checkBoxFirstLevelABottomPredict.Text = "Прогноз a (нижняя граница)";
+            this.checkBoxFirstLevelABottomPredict.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxFirstLevelATop
+            // 
+            this.checkBoxFirstLevelATop.AutoSize = true;
+            this.checkBoxFirstLevelATop.Location = new System.Drawing.Point(6, 73);
+            this.checkBoxFirstLevelATop.Name = "checkBoxFirstLevelATop";
+            this.checkBoxFirstLevelATop.Size = new System.Drawing.Size(157, 20);
+            this.checkBoxFirstLevelATop.TabIndex = 3;
+            this.checkBoxFirstLevelATop.Text = "a (верхняя граница)";
+            this.checkBoxFirstLevelATop.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxFirstLevelAOriginal
+            // 
+            this.checkBoxFirstLevelAOriginal.AutoSize = true;
+            this.checkBoxFirstLevelAOriginal.Location = new System.Drawing.Point(6, 47);
+            this.checkBoxFirstLevelAOriginal.Name = "checkBoxFirstLevelAOriginal";
+            this.checkBoxFirstLevelAOriginal.Size = new System.Drawing.Size(109, 20);
+            this.checkBoxFirstLevelAOriginal.TabIndex = 2;
+            this.checkBoxFirstLevelAOriginal.Text = "a (исходное)";
+            this.checkBoxFirstLevelAOriginal.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxFirstLevelABottom
+            // 
+            this.checkBoxFirstLevelABottom.AutoSize = true;
+            this.checkBoxFirstLevelABottom.Location = new System.Drawing.Point(6, 21);
+            this.checkBoxFirstLevelABottom.Name = "checkBoxFirstLevelABottom";
+            this.checkBoxFirstLevelABottom.Size = new System.Drawing.Size(152, 20);
+            this.checkBoxFirstLevelABottom.TabIndex = 1;
+            this.checkBoxFirstLevelABottom.Text = "a (нижняя граница)";
+            this.checkBoxFirstLevelABottom.UseVisualStyleBackColor = true;
+            // 
+            // chartFirstLevelA
+            // 
+            chartArea3.Name = "ChartArea1";
+            this.chartFirstLevelA.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.chartFirstLevelA.Legends.Add(legend3);
+            this.chartFirstLevelA.Location = new System.Drawing.Point(6, 0);
+            this.chartFirstLevelA.Name = "chartFirstLevelA";
+            this.chartFirstLevelA.Size = new System.Drawing.Size(704, 445);
+            this.chartFirstLevelA.TabIndex = 0;
+            this.chartFirstLevelA.Text = "chart1";
+            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.tabControl2);
@@ -1157,8 +1254,8 @@
             // 
             // chartSecondLevelAlpha
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chartSecondLevelAlpha.ChartAreas.Add(chartArea3);
+            chartArea4.Name = "ChartArea1";
+            this.chartSecondLevelAlpha.ChartAreas.Add(chartArea4);
             legend4.Name = "Legend1";
             this.chartSecondLevelAlpha.Legends.Add(legend4);
             this.chartSecondLevelAlpha.Location = new System.Drawing.Point(6, 6);
@@ -1266,8 +1363,8 @@
             // 
             // chartSecondLevelM
             // 
-            chartArea4.Name = "ChartArea1";
-            this.chartSecondLevelM.ChartAreas.Add(chartArea4);
+            chartArea5.Name = "ChartArea1";
+            this.chartSecondLevelM.ChartAreas.Add(chartArea5);
             legend5.Name = "Legend1";
             this.chartSecondLevelM.Legends.Add(legend5);
             this.chartSecondLevelM.Location = new System.Drawing.Point(3, 3);
@@ -1593,8 +1690,8 @@
             // 
             // chartFourthLevel
             // 
-            chartArea5.Name = "ChartArea1";
-            this.chartFourthLevel.ChartAreas.Add(chartArea5);
+            chartArea6.Name = "ChartArea1";
+            this.chartFourthLevel.ChartAreas.Add(chartArea6);
             legend6.Name = "Legend1";
             this.chartFourthLevel.Legends.Add(legend6);
             this.chartFourthLevel.Location = new System.Drawing.Point(32, 4);
@@ -1602,104 +1699,6 @@
             this.chartFourthLevel.Size = new System.Drawing.Size(980, 582);
             this.chartFourthLevel.TabIndex = 0;
             this.chartFourthLevel.Text = "chart5";
-            // 
-            // chartFirstLevelA
-            // 
-            legend3.Name = "Legend1";
-            this.chartFirstLevelA.Legends.Add(legend3);
-            this.chartFirstLevelA.Location = new System.Drawing.Point(6, 0);
-            this.chartFirstLevelA.Name = "chartFirstLevelA";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chartFirstLevelA.Series.Add(series1);
-            this.chartFirstLevelA.Size = new System.Drawing.Size(704, 445);
-            this.chartFirstLevelA.TabIndex = 0;
-            this.chartFirstLevelA.Text = "chart1";
-            // 
-            // groupBox15
-            // 
-            this.groupBox15.Controls.Add(this.button1);
-            this.groupBox15.Controls.Add(this.checkBoxFirstLevelATopPredict);
-            this.groupBox15.Controls.Add(this.checkBoxFirstLevelAOriginalPredict);
-            this.groupBox15.Controls.Add(this.checkBoxFirstLevelABottomPredict);
-            this.groupBox15.Controls.Add(this.checkBoxFirstLevelATop);
-            this.groupBox15.Controls.Add(this.checkBoxFirstLevelAOriginal);
-            this.groupBox15.Controls.Add(this.checkBoxFirstLevelABottom);
-            this.groupBox15.Location = new System.Drawing.Point(0, 443);
-            this.groupBox15.Name = "groupBox15";
-            this.groupBox15.Size = new System.Drawing.Size(707, 100);
-            this.groupBox15.TabIndex = 1;
-            this.groupBox15.TabStop = false;
-            this.groupBox15.Text = "groupBox15";
-            // 
-            // checkBoxFirstLevelABottom
-            // 
-            this.checkBoxFirstLevelABottom.AutoSize = true;
-            this.checkBoxFirstLevelABottom.Location = new System.Drawing.Point(6, 21);
-            this.checkBoxFirstLevelABottom.Name = "checkBoxFirstLevelABottom";
-            this.checkBoxFirstLevelABottom.Size = new System.Drawing.Size(152, 20);
-            this.checkBoxFirstLevelABottom.TabIndex = 1;
-            this.checkBoxFirstLevelABottom.Text = "a (нижняя граница)";
-            this.checkBoxFirstLevelABottom.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxFirstLevelAOriginal
-            // 
-            this.checkBoxFirstLevelAOriginal.AutoSize = true;
-            this.checkBoxFirstLevelAOriginal.Location = new System.Drawing.Point(6, 47);
-            this.checkBoxFirstLevelAOriginal.Name = "checkBoxFirstLevelAOriginal";
-            this.checkBoxFirstLevelAOriginal.Size = new System.Drawing.Size(109, 20);
-            this.checkBoxFirstLevelAOriginal.TabIndex = 2;
-            this.checkBoxFirstLevelAOriginal.Text = "a (исходное)";
-            this.checkBoxFirstLevelAOriginal.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxFirstLevelATop
-            // 
-            this.checkBoxFirstLevelATop.AutoSize = true;
-            this.checkBoxFirstLevelATop.Location = new System.Drawing.Point(6, 73);
-            this.checkBoxFirstLevelATop.Name = "checkBoxFirstLevelATop";
-            this.checkBoxFirstLevelATop.Size = new System.Drawing.Size(157, 20);
-            this.checkBoxFirstLevelATop.TabIndex = 3;
-            this.checkBoxFirstLevelATop.Text = "a (верхняя граница)";
-            this.checkBoxFirstLevelATop.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxFirstLevelABottomPredict
-            // 
-            this.checkBoxFirstLevelABottomPredict.AutoSize = true;
-            this.checkBoxFirstLevelABottomPredict.Location = new System.Drawing.Point(192, 21);
-            this.checkBoxFirstLevelABottomPredict.Name = "checkBoxFirstLevelABottomPredict";
-            this.checkBoxFirstLevelABottomPredict.Size = new System.Drawing.Size(211, 20);
-            this.checkBoxFirstLevelABottomPredict.TabIndex = 4;
-            this.checkBoxFirstLevelABottomPredict.Text = "Прогноз a (нижняя граница)";
-            this.checkBoxFirstLevelABottomPredict.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxFirstLevelAOriginalPredict
-            // 
-            this.checkBoxFirstLevelAOriginalPredict.AutoSize = true;
-            this.checkBoxFirstLevelAOriginalPredict.Location = new System.Drawing.Point(192, 47);
-            this.checkBoxFirstLevelAOriginalPredict.Name = "checkBoxFirstLevelAOriginalPredict";
-            this.checkBoxFirstLevelAOriginalPredict.Size = new System.Drawing.Size(168, 20);
-            this.checkBoxFirstLevelAOriginalPredict.TabIndex = 5;
-            this.checkBoxFirstLevelAOriginalPredict.Text = "Прогноз a (исходное)";
-            this.checkBoxFirstLevelAOriginalPredict.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxFirstLevelATopPredict
-            // 
-            this.checkBoxFirstLevelATopPredict.AutoSize = true;
-            this.checkBoxFirstLevelATopPredict.Location = new System.Drawing.Point(192, 73);
-            this.checkBoxFirstLevelATopPredict.Name = "checkBoxFirstLevelATopPredict";
-            this.checkBoxFirstLevelATopPredict.Size = new System.Drawing.Size(216, 20);
-            this.checkBoxFirstLevelATopPredict.TabIndex = 6;
-            this.checkBoxFirstLevelATopPredict.Text = "Прогноз a (верхняя граница)";
-            this.checkBoxFirstLevelATopPredict.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(433, 30);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(237, 53);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Убрать все";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -1756,6 +1755,9 @@
             this.groupBox13.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartFirstLevelM)).EndInit();
             this.tabPage14.ResumeLayout(false);
+            this.groupBox15.ResumeLayout(false);
+            this.groupBox15.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartFirstLevelA)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabControl2.ResumeLayout(false);
             this.tabPage8.ResumeLayout(false);
@@ -1794,9 +1796,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerFourthLevel)).EndInit();
             this.splitContainerFourthLevel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartFourthLevel)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartFirstLevelA)).EndInit();
-            this.groupBox15.ResumeLayout(false);
-            this.groupBox15.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
