@@ -106,7 +106,6 @@ namespace CourseWorkFinal
 
                 objectData[3] = defaultAlpha.ToString();
                 
-                // TODO: вместо добавления в элементы форы нужно добавить эти данные в таблицу в таблицу
                 placeTextDataToFormElements(objectData);
                 openDataBaseTable();
                 SetStatusToFormComponents(true);
@@ -277,6 +276,65 @@ namespace CourseWorkFinal
         private void checkBoxResponseFunctionTop_CheckedChanged(object sender, EventArgs e)
         {
             decompositionFirst.CheckBoxResponseFunctionChange(checkBoxFirstLevelResponseFunctionOriginal, chartFirstLevelResponseFunction, "верхняя");
+        }
+
+        private void checkBoxFirstLevelMBottom_CheckedChanged(object sender, EventArgs e)
+        {
+            decompositionFirst.CheckBoxMChange(chartFirstLevelM, "нижняя");
+        }
+
+        private void numericUpDownSmoothingFactor_ValueChanged(object sender, EventArgs e)
+        {
+            defaultAlpha = Convert.ToDouble(numericUpDownSmoothingFactor.Value);
+            if (defaultAlpha > 0 & defaultAlpha < 1) 
+            {
+                ResetFormAfterSmoothingFactorChanged();
+            }
+            
+        }
+
+        /// <summary>
+        /// Этот метод нужен для того, чтобы очистить необходимые компоненты и заново рассчитать декомпозицию после изменения пользователем сглаживания
+        /// </summary>
+        public void ResetFormAfterSmoothingFactorChanged()
+        {
+            // Важно! Сначала отключаем чекбоксы, потом используем метод ResetLevel
+            checkBoxFirstLevelABottom.Checked = false;
+            checkBoxFirstLevelAOriginal.Checked = false;
+            checkBoxFirstLevelATop.Checked = false;
+            
+            checkBoxFirstLevelMBottom.Checked = false;
+            checkBoxFirstLevelAOriginal.Checked = false;
+            checkBoxFirstLevelATop.Checked = false;
+            
+            decompositionFirst.ResetFirstLevel(chartFirstLevelM, chartFirstLevelM);
+
+            FirstLevel();
+        }
+
+        private void checkBoxFirstLevelMBase_CheckedChanged(object sender, EventArgs e)
+        {
+            decompositionFirst.CheckBoxMChange(chartFirstLevelM, "исходное");
+        }
+
+        private void checkBoxFirstLevelMTop_CheckedChanged(object sender, EventArgs e)
+        {
+            decompositionFirst.CheckBoxMChange(chartFirstLevelM, "верхняя");
+        }
+
+        private void checkBoxFirstLevelABottom_CheckedChanged(object sender, EventArgs e)
+        {
+            decompositionFirst.CheckBoxAChange(chartFirstLevelA, "нижняя");
+        }
+
+        private void checkBoxFirstLevelAOriginal_CheckedChanged(object sender, EventArgs e)
+        {
+            decompositionFirst.CheckBoxAChange(chartFirstLevelA, "исходное");
+        }
+
+        private void checkBoxFirstLevelATop_CheckedChanged(object sender, EventArgs e)
+        {
+            decompositionFirst.CheckBoxAChange(chartFirstLevelA, "верхняя");
         }
     }
 

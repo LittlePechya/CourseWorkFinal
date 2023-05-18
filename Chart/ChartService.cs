@@ -30,7 +30,7 @@ namespace CourseWorkFinal.Chart
         public static void SetExponentialSmoothSettings(ChartControl expoentialSmooth)
         {
             expoentialSmooth.ChartAreas[0].AxisX.Title = "Эпоха";
-            expoentialSmooth.ChartAreas[0].AxisY.IsStartedFromZero=false;
+            expoentialSmooth.ChartAreas[0].AxisY.IsStartedFromZero = false;
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace CourseWorkFinal.Chart
         }
 
         /// <summary>
-        /// Добавление серии
+        /// Добавление серии, используется на 1 и 4 уровне
         /// </summary>
         /// <param name="chart"></param>
         /// <param name="name"></param>
@@ -104,6 +104,63 @@ namespace CourseWorkFinal.Chart
                 chart.Series.Remove(chart.Series[name]);
                 chart.Series[forecastName].Points.Clear();
                 chart.Series.Remove(chart.Series[forecastName]);
+            }
+        }
+
+        /// <summary>
+        /// Используется на втором уровне
+        /// </summary>
+        /// <param name="chart"></param>
+        /// <param name="name"></param>
+        /// <param name="smoothName"></param>
+        /// <param name="YValue"></param>
+        /// <param name="YValue2"></param>
+        /// <param name="epochList"></param>
+        public static void AddXYLineToChart(ChartControl chart, string name, string smoothName, List<Double> YValue, List<Double> YValue2, List<Int32> epochList)
+        {
+            //Условие проверяет существует ли серия с таким названием, если существует то удаляет, если нет, то добавляем
+            if (chart.Series.IndexOf(name) == -1)
+            {
+                //Добавляем серию по названию и устанавливаем настройки графика
+                chart.Series.Add(name);
+                //И ставим настройки графика
+                SerieSetSettings(chart, name);
+                //Вот эта штука ниже нужна чтобы при наведении на точку появлялись её значения
+                chart.Series[name].ToolTip = "X = #VALX, Y = #VALY";
+
+                //В цикле добавляем точки по оси Х и У
+                for (int i = 0; i < YValue.Count; i++)
+                {
+
+                    chart.Series[name].Points.AddXY(epochList[i], YValue[i]);
+                    //Добавляем подпись
+                    chart.Series[name].Points[i].Label = i.ToString();
+                }
+                //Тут добавляем точку прогнозного значения по названию графика
+                chart.Series.Add(smoothName);
+
+                //В цикле добавляем точки по оси Х и У
+                for (int i = 0; i < YValue2.Count; i++)
+                {
+
+                    chart.Series[smoothName].Points.AddXY(epochList[i], YValue2[i]);
+                    //Добавляем подпись
+                    chart.Series[smoothName].Points[i].Label = i.ToString();
+                }
+
+                chart.Series[smoothName].ToolTip = "X = #VALX, Y = #VALY";
+
+                //Добавляем последнее значение из рассчитанных предсказанных (потому что нам нужна только последняя точка)
+                //И ставим настройки графика
+                SerieSetSettings(chart, smoothName);
+            }
+            else
+            {
+                //Тут удаляем график, если он был
+                chart.Series[name].Points.Clear();
+                chart.Series.Remove(chart.Series[name]);
+                chart.Series[smoothName].Points.Clear();
+                chart.Series.Remove(chart.Series[smoothName]);
             }
         }
     }

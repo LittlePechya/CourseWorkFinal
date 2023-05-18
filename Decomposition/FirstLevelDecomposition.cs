@@ -24,9 +24,7 @@ namespace CourseWorkFinal.Decomposition
 
         private DataTable dataTable;
 
-        private CheckBox checkBoxResponseFunctionBottom;
-        private CheckBox checkBoxResponseFunctionOriginal;
-        private CheckBox checkBoxResponseFunctionTop;
+  
 
         // Поля для расчетов
         private double smoothingFactor;
@@ -102,20 +100,80 @@ namespace CourseWorkFinal.Decomposition
             }
         }
 
-        public void CheckBoxResponseFunctionChange(CheckBox checkBoxResponseFunctionBottom, ChartControl responseFunctionChart, string location)
+        public void CheckBoxResponseFunctionChange(CheckBox checkBoxResponseFunction, ChartControl responseFunctionChart, string location)
         {
+            /*MValuesLists.Add(listOfBottomMValues); //0
+            MValuesLists.Add(listOfTopMValues); //1
+            MValuesLists.Add(smoothTopMValues); //2 
+            MValuesLists.Add(smoothBottomMValues); //3
+            MValuesLists.Add(listOfMValues); //4
+            MValuesLists.Add(smoothMValues); //5*/
+
+           /* AValuesLists.Add(listOfBottomAValues); //0
+            AValuesLists.Add(listOfTopAValues); //1
+            AValuesLists.Add(forecastTopAValue); //2
+            AValuesLists.Add(forecastBottomAValue); //3
+            AValuesLists.Add(listOfAValues); //4
+            AValuesLists.Add(forecastAValue); //5*/
+            switch (location)
+            {
+                case "нижняя":
+                    ChartService.AddLineToChart(responseFunctionChart, "Функция отклика (нижняя граница)", "Прогнозное значение функции отклика (нижняя граница)", MValues[0], AValues[0], MValues[3], AValues[3], epochList);
+                    break;
+                case "исходное":
+                    ChartService.AddLineToChart(responseFunctionChart, "Функция отклика (исходное)", "Прогнозное значение функции отклика (исходное)", MValues[4], AValues[4], MValues[5], AValues[5], epochList);
+                    break;
+                case "верхняя":
+                    ChartService.AddLineToChart(responseFunctionChart, "Функция отклика (верхняя граница)", "Прогнозное значение функции отклика (верхняя граница)", MValues[1], AValues[1], MValues[2], AValues[2], epochList);
+                    break;
+            }
+        }
+
+        public void CheckBoxMChange(ChartControl chartM, string location)
+        {
+            // 4-5 исходная граница
+            // 0-3 нижняя граница
+            // 1-2 верхняя граница
             switch(location)
             {
                 case "нижняя":
-                    ChartService.AddLineToChart(responseFunctionChart, "Функция отклика (нижняя граница)", "Прогнозное значение функции отклика (нижняя граница)", MValues[4], AValues[4], MValues[5], AValues[5], epochList);
+                    ChartService.AddXYLineToChart(chartM, "Функция отклика (нижняя граница)", "Прогнозное значение функции отклика (нижняя граница)", MValues[0], MValues[3],  epochList);
                     break;
                 case "исходное":
-                    ChartService.AddLineToChart(responseFunctionChart, "Функция отклика (исходное)", "Прогнозное значение функции отклика (исходное)", MValues[1], AValues[1], MValues[2], AValues[2], epochList);
+                    ChartService.AddXYLineToChart(chartM, "Функция отклика (исходное)", "Прогнозное значение функции отклика (исходное)", MValues[4], MValues[5], epochList);
                     break;
                 case "верхняя":
-                    ChartService.AddLineToChart(responseFunctionChart, "Функция отклика (верхняя граница)", "Прогнозное значение функции отклика (верхняя граница)", MValues[0], AValues[0], MValues[3], AValues[3], epochList);
+                    ChartService.AddXYLineToChart(chartM, "Функция отклика (верхняя граница)", "Прогнозное значение функции отклика (верхняя граница)", MValues[1], MValues[2], epochList);
                     break;
             }
+        }
+
+        public void CheckBoxAChange(ChartControl chartM, string location)
+        {
+            // 4-5 исходная граница
+            // 0-3 нижняя граница
+            // 1-2 верхняя граница
+            switch (location)
+            {
+                case "нижняя":
+                    ChartService.AddXYLineToChart(chartM, "Функция отклика (нижняя граница)", "Прогнозное значение функции отклика (нижняя граница)", AValues[0], AValues[3], epochList);
+                    break;
+                case "исходное":
+                    ChartService.AddXYLineToChart(chartM, "Функция отклика (исходное)", "Прогнозное значение функции отклика (исходное)", AValues[4], AValues[5], epochList);
+                    break;
+                case "верхняя":
+                    ChartService.AddXYLineToChart(chartM, "Функция отклика (верхняя граница)", "Прогнозное значение функции отклика (верхняя граница)", AValues[1], AValues[2], epochList);
+                    break;
+            }
+        }
+
+        public void ResetFirstLevel(ChartControl chartM, ChartControl chartA)
+        {
+            AValues.Clear();
+            MValues.Clear();
+            epochList.Clear();
+            chartM.Series.Clear();
+            chartA.Series.Clear();
         }
 
     }
