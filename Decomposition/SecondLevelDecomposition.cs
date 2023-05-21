@@ -175,6 +175,9 @@ namespace CourseWorkFinal.Decomposition
                     _comboBoxSecondLevelChooseBlock.Items.Add(_blocksName[i]);
                 }
 
+                // Эта строчка нужна, чтобы при перерасчете уровня декомпозиции comboBox был пустым
+                _comboBoxSecondLevelChooseBlock.SelectedItem = -1;
+
                 pointsAreDistributed = true;
                 resetFlag = false;
             }
@@ -230,11 +233,80 @@ namespace CourseWorkFinal.Decomposition
             {
                 _AValuesLists.Clear();
                 _epochList.Clear();
-                _comboBoxSecondLevelChooseBlock.Items.Clear();
                 pointsAreDistributed = false;
+                _chartSecondLevelA.Series.Clear();
+                _chartSecondLevelM.Series.Clear();
+                _chartSecondLevelResponseFunction.Series.Clear();
             }
 
             resetFlag = true;
+        }
+
+        public void CheckBoxResponseFunctionChange(CheckBox checkBoxResponseFunction, ChartControl responseFunctionChart, string location)
+        {
+            /*MValuesLists.Add(listOfBottomMValues); //0
+            MValuesLists.Add(listOfTopMValues); //1
+            MValuesLists.Add(smoothTopMValues); //2 
+            MValuesLists.Add(smoothBottomMValues); //3
+            MValuesLists.Add(listOfMValues); //4
+            MValuesLists.Add(smoothMValues); //5*/
+
+            /* AValuesLists.Add(listOfBottomAValues); //0
+             AValuesLists.Add(listOfTopAValues); //1
+             AValuesLists.Add(forecastTopAValue); //2
+             AValuesLists.Add(forecastBottomAValue); //3
+             AValuesLists.Add(listOfAValues); //4
+             AValuesLists.Add(forecastAValue); //5*/
+            switch (location)
+            {
+                case "нижняя":
+                    ChartService.AddLineToChart(responseFunctionChart, "Функция отклика (нижняя граница)", "Прогнозное значение функции отклика (нижняя граница)", _MValuesLists[0], _AValuesLists[0], _MValuesLists[3], _AValuesLists[3], _epochList);
+                    break;
+                case "исходное":
+                    ChartService.AddLineToChart(responseFunctionChart, "Функция отклика (исходное)", "Прогнозное значение функции отклика (исходное)", _MValuesLists[4], _AValuesLists[4], _MValuesLists[5], _AValuesLists[5], _epochList);
+                    break;
+                case "верхняя":
+                    ChartService.AddLineToChart(responseFunctionChart, "Функция отклика (верхняя граница)", "Прогнозное значение функции отклика (верхняя граница)", _MValuesLists[1], _AValuesLists[1], _MValuesLists[2], _AValuesLists[2], _epochList);
+                    break;
+            }
+        }
+
+        public void CheckBoxMChange(ChartControl chartM, string location)
+        {
+            // 4-5 исходная граница
+            // 0-3 нижняя граница
+            // 1-2 верхняя граница
+            switch (location)
+            {
+                case "нижняя":
+                    ChartService.AddXYLineToChart(chartM, "Функция отклика (нижняя граница)", "Прогнозное значение функции отклика (нижняя граница)", _MValuesLists[0], _MValuesLists[3], _epochList);
+                    break;
+                case "исходное":
+                    ChartService.AddXYLineToChart(chartM, "Функция отклика (исходное)", "Прогнозное значение функции отклика (исходное)", _MValuesLists[4], _MValuesLists[5], _epochList);
+                    break;
+                case "верхняя":
+                    ChartService.AddXYLineToChart(chartM, "Функция отклика (верхняя граница)", "Прогнозное значение функции отклика (верхняя граница)", _MValuesLists[1], _MValuesLists[2], _epochList);
+                    break;
+            }
+        }
+
+        public void CheckBoxAChange(ChartControl chartA, string location)
+        {
+            // 4-5 исходная граница
+            // 0-3 нижняя граница
+            // 1-2 верхняя граница
+            switch (location)
+            {
+                case "нижняя":
+                    ChartService.AddXYLineToChart(chartA, "Функция отклика (нижняя граница)", "Прогнозное значение функции отклика (нижняя граница)", _AValuesLists[0], _AValuesLists[3], _epochList);
+                    break;
+                case "исходное":
+                    ChartService.AddXYLineToChart(chartA, "Функция отклика (исходное)", "Прогнозное значение функции отклика (исходное)", _AValuesLists[4], _AValuesLists[5], _epochList);
+                    break;
+                case "верхняя":
+                    ChartService.AddXYLineToChart(chartA, "Функция отклика (верхняя граница)", "Прогнозное значение функции отклика (верхняя граница)", _AValuesLists[1], _AValuesLists[2], _epochList);
+                    break;
+            }
         }
     }
 }

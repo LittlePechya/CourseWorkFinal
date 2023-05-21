@@ -172,8 +172,8 @@ namespace CourseWorkFinal.Decomposition
             AValues.Clear();
             MValues.Clear();
             epochList.Clear();
-            chartM.Series.Clear();
-            chartA.Series.Clear();
+            //chartM.Series.Clear();
+            //chartA.Series.Clear();
         }
 
     }

@@ -319,20 +319,36 @@ namespace CourseWorkFinal
         public void ResetFormAfterSmoothingFactorChanged()
         {
             // Важно! Сначала отключаем чекбоксы, потом используем метод ResetLevel
+            checkBoxFirstLevelResponseFunctionBottom.Checked = false;
+            checkBoxSecondLevelResponseFunctionBottom.Checked = false;
+            checkBoxFirstLevelResponseFunctionOriginal.Checked = false;
+            checkBoxSecondLevelResponseFunctionOriginal.Checked = false;
+            checkBoxFirstLevelResponseFunctionTop.Checked = false;
+            checkBoxSecondLevelResponseFunctionTop.Checked = false;
+
             checkBoxFirstLevelABottom.Checked = false;
             checkBoxFirstLevelAOriginal.Checked = false;
             checkBoxFirstLevelATop.Checked = false;
+            checkBoxSecondLevelABottom.Checked = false;
+            checkBoxSecondLevelAOriginal.Checked = false;
+            checkBoxSecondLevelATop.Checked = false;
             
             checkBoxFirstLevelMBottom.Checked = false;
+            checkBoxSecondLevelMBottom.Checked = false;
             checkBoxFirstLevelMOriginal.Checked = false;
+            checkBoxSecondLevelMOriginal.Checked = false;
             checkBoxFirstLevelATop.Checked = false;
+            checkBoxSecondLevelATop.Checked = false;
 
-            tabPage5.Enabled = false;
-            tabPage9.Enabled = false;
-
+            comboBoxSecondLevelChooseBlock.Items.Clear();
+            dataGridViewSecondLevelPhaseCoordinates.Rows.Clear();
+            dataGridViewSecondLevelObjectStatus.Rows.Clear();
             decompositionFirst.ResetFirstLevel(chartFirstLevelM, chartFirstLevelM);
             decompositionSecond.ResetSecondLevel();
 
+            // Табпейджи тоже обязательно выключать в самом конце, иначе невозможно отключить элементы формы
+            tabPage5.Enabled = false;
+            tabPage9.Enabled = false;
             StartDecomposition();
         }
 
@@ -392,6 +408,35 @@ namespace CourseWorkFinal
             decompositionSecond.ComboBoxSecondLevelChooseBlock_SelectedIndexChanged();
         }
 
+        private void checkBoxSecondLevelResponseFunctionBottom_CheckedChanged(object sender, EventArgs e)
+        {
+            decompositionSecond.CheckBoxResponseFunctionChange(checkBoxSecondLevelResponseFunctionBottom, chartSecondLevelResponseFunction, "нижняя");
+        }
+
+        private void checkBoxSecondLevelResponseFunctionOriginal_CheckedChanged(object sender, EventArgs e)
+        {
+            decompositionSecond.CheckBoxResponseFunctionChange(checkBoxSecondLevelResponseFunctionOriginal, chartSecondLevelResponseFunction, "исходное");
+        }
+
+        private void checkBoxSecondLevelResponseFunctionTop_CheckedChanged(object sender, EventArgs e)
+        {
+            decompositionSecond.CheckBoxResponseFunctionChange(checkBoxSecondLevelResponseFunctionTop, chartSecondLevelResponseFunction, "верхняя");
+        }
+
+        private void checkBoxSecondMBottom_CheckedChanged(object sender, EventArgs e)
+        {
+            decompositionSecond.CheckBoxMChange(chartSecondLevelM, "нижняя");
+        }
+
+        private void checkBoxSecondLevelMBase_CheckedChanged(object sender, EventArgs e)
+        {
+            decompositionSecond.CheckBoxMChange(chartSecondLevelM, "исходное");
+        }
+
+        private void checkBoxSecondLevelMTop_CheckedChanged(object sender, EventArgs e)
+        {
+            decompositionSecond.CheckBoxMChange(chartSecondLevelM, "верхняя");
+        }
     }
 
 }
