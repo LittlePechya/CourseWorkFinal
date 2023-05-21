@@ -189,78 +189,78 @@ namespace CourseWorkFinal.Analysis
             }
         }
 
-        public DataGridView FillObjectStatusTable(DataGridView dataTable, List<List<Double>> lists, DataGridView elevatorTable)
+        public DataGridView FillObjectStatusTable(DataGridView statusTable, List<List<Double>> lists, DataGridView elevatorTable)
         {
-            dataTable.Rows.Clear();
-            dataTable.Columns.Clear();
+            statusTable.Rows.Clear();
+            statusTable.Columns.Clear();
 
             //Добавляем столбики
-            dataTable.Columns.Add(new DataGridViewTextBoxColumn());
-            dataTable.Columns.Add(new DataGridViewTextBoxColumn());
-            dataTable.Columns.Add(new DataGridViewTextBoxColumn());
-            dataTable.Columns.Add(new DataGridViewTextBoxColumn());
-            dataTable.Columns.Add(new DataGridViewTextBoxColumn());
-            dataTable.Columns.Add(new DataGridViewTextBoxColumn());
-            dataTable.Columns.Add(new DataGridViewTextBoxColumn());
-            dataTable.Columns[0].Name = "Эпоха";
-            dataTable.Columns[1].Name = "М(нижнее)";
-            dataTable.Columns[2].Name = "М";
-            dataTable.Columns[3].Name = "М(верхнее)";
-            dataTable.Columns[4].Name = "2E";
-            dataTable.Columns[5].Name = "L";
-            dataTable.Columns[6].Name = "Состояние";
+            statusTable.Columns.Add(new DataGridViewTextBoxColumn());
+            statusTable.Columns.Add(new DataGridViewTextBoxColumn());
+            statusTable.Columns.Add(new DataGridViewTextBoxColumn());
+            statusTable.Columns.Add(new DataGridViewTextBoxColumn());
+            statusTable.Columns.Add(new DataGridViewTextBoxColumn());
+            statusTable.Columns.Add(new DataGridViewTextBoxColumn());
+            statusTable.Columns.Add(new DataGridViewTextBoxColumn());
+            statusTable.Columns[0].Name = "Эпоха";
+            statusTable.Columns[1].Name = "М(нижнее)";
+            statusTable.Columns[2].Name = "М";
+            statusTable.Columns[3].Name = "М(верхнее)";
+            statusTable.Columns[4].Name = "2E";
+            statusTable.Columns[5].Name = "L";
+            statusTable.Columns[6].Name = "Состояние";
 
             int forecastIndex = 0;
             //Записываем эпохи
             for (int i = 0; i < elevatorTable.RowCount; i++)
             {
-                dataTable.Rows.Add();
-                dataTable.Rows[i].Cells[0].Value = elevatorTable.Rows[i].Cells[0].Value;
+                statusTable.Rows.Add();
+                statusTable.Rows[i].Cells[0].Value = elevatorTable.Rows[i].Cells[0].Value;
                 forecastIndex = i + 1;
             }
-            dataTable.Rows[forecastIndex - 1].Cells[0].Value = Convert.ToDouble(elevatorTable.Rows[forecastIndex - 2].Cells[0].Value) + 1;
+            statusTable.Rows[forecastIndex - 1].Cells[0].Value = Convert.ToDouble(elevatorTable.Rows[forecastIndex - 2].Cells[0].Value) + 1;
             //Заполняем таблицу значениями M(низ) + прогноз
             for (int i = 0; i < lists[0].Count; i++)
             {
-                dataTable.Rows[i].Cells[1].Value = lists[0][i];
+                statusTable.Rows[i].Cells[1].Value = lists[0][i];
 
             }
-            dataTable.Rows[elevatorTable.Rows.Count - 1].Cells[1].Value = lists[3].Last();
+            statusTable.Rows[elevatorTable.Rows.Count - 1].Cells[1].Value = lists[3].Last();
             //Заполняем таблицу значениями M(вверх) + прогноз
             for (int i = 0; i < lists[1].Count; i++)
             {
-                dataTable.Rows[i].Cells[3].Value = lists[1][i];
+                statusTable.Rows[i].Cells[3].Value = lists[1][i];
 
             }
-            dataTable.Rows[elevatorTable.Rows.Count - 1].Cells[3].Value = lists[2].Last();
+            statusTable.Rows[elevatorTable.Rows.Count - 1].Cells[3].Value = lists[2].Last();
             //Заполняем таблицу значениями M(исходное) + прогноз
             for (int i = 0; i < lists[4].Count; i++)
             {
-                dataTable.Rows[i].Cells[2].Value = lists[4][i];
+                statusTable.Rows[i].Cells[2].Value = lists[4][i];
 
             }
-            dataTable.Rows[elevatorTable.Rows.Count - 1].Cells[2].Value = lists[5].Last();
+            statusTable.Rows[elevatorTable.Rows.Count - 1].Cells[2].Value = lists[5].Last();
             //Считаем значение 2Е (по модулю (М(верх) - М(низ)))
-            for (int i = 0; i < dataTable.Rows.Count - 1; i++)
+            for (int i = 0; i < statusTable.Rows.Count - 1; i++)
             {
-                dataTable.Rows[i].Cells[4].Value = Math.Abs(Convert.ToDouble(dataTable.Rows[i].Cells[1].Value) - Convert.ToDouble(dataTable.Rows[i].Cells[3].Value));
+                statusTable.Rows[i].Cells[4].Value = Math.Abs(Convert.ToDouble(statusTable.Rows[i].Cells[1].Value) - Convert.ToDouble(statusTable.Rows[i].Cells[3].Value));
             }
             //Считаем L (по модулю (M(0) - M(i)))
-            for (int i = 0; i < dataTable.Rows.Count - 1; i++)
+            for (int i = 0; i < statusTable.Rows.Count - 1; i++)
             {
-                dataTable.Rows[i].Cells[5].Value = Math.Abs(Convert.ToDouble(dataTable.Rows[0].Cells[2].Value) - Convert.ToDouble(dataTable.Rows[i].Cells[2].Value));
+                statusTable.Rows[i].Cells[5].Value = Math.Abs(Convert.ToDouble(statusTable.Rows[0].Cells[2].Value) - Convert.ToDouble(statusTable.Rows[i].Cells[2].Value));
             }
 
             //Считаем есть ли выход за границу
-            for (int i = 0; i < dataTable.Rows.Count - 1; i++)
+            for (int i = 0; i < statusTable.Rows.Count - 1; i++)
             {
-                if (Convert.ToDouble(dataTable.Rows[i].Cells[5].Value) < Convert.ToDouble(dataTable.Rows[i].Cells[4].Value) / 2)
+                if (Convert.ToDouble(statusTable.Rows[i].Cells[5].Value) < Convert.ToDouble(statusTable.Rows[i].Cells[4].Value) / 2)
                 {
-                    dataTable.Rows[i].Cells[6].Value = "В пределе";
+                    statusTable.Rows[i].Cells[6].Value = "В пределе";
                 }
-                else dataTable.Rows[i].Cells[6].Value = "Выход за границу";
+                else statusTable.Rows[i].Cells[6].Value = "Выход за границу";
             }
-            return dataTable;
+            return statusTable;
         }
     }
 }

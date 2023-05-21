@@ -46,12 +46,15 @@ namespace CourseWorkFinal.Decomposition
 
         // Логическое поле, которое включается только после того, когда пользователь распределил все точки по блокам
         public bool pointsAreDistributed = false;
+        // Логическое поле, нужно чтобы списки не очищались повторно после того, как уже были очищены
+        public bool resetFlag = true;
 
         public SecondLevelDecomposition(double smoothingFactor, double measurementError, DataGridView coordinatesTableZ, int BlockCount, int pointsCount,
             ListBox listBoxAllPointsOfTheObject, ListBox listBoxPointsOnTheblock, Label labelPointsOfTheSelectedBlock,
             ChartControl chartSecondLevelResponseFunction, ChartControl chartSecondLevelM, ChartControl chartSecondLevelA,
-            ComboBox comboBoxSecondLevelChooseBlock)
+            ComboBox comboBoxSecondLevelChooseBlock, DataGridView dataGridViewSecondLevelObjectStatus, DataGridView dataGridViewSecondLevelPhaseCoordinates)
         {
+
             _smoothingFactor = smoothingFactor;
             _measurementErorr = measurementError;
             _coordinatesTableZ = coordinatesTableZ;
@@ -65,6 +68,9 @@ namespace CourseWorkFinal.Decomposition
             _chartSecondLevelResponseFunction = chartSecondLevelResponseFunction;
             _chartSecondLevelM = chartSecondLevelM;
             _chartSecondLevelA = chartSecondLevelA;
+
+            _dataGridViewSecondLevelObjectStatus = dataGridViewSecondLevelObjectStatus;
+            _dataGridViewSecondLevelPhaseCoordinates = dataGridViewSecondLevelPhaseCoordinates;
 
             _comboBoxSecondLevelChooseBlock = comboBoxSecondLevelChooseBlock;
 
@@ -170,7 +176,65 @@ namespace CourseWorkFinal.Decomposition
                 }
 
                 pointsAreDistributed = true;
+                resetFlag = false;
             }
+        }
+        
+        /// <summary>
+        /// При двойном клике по элементу списка текущего блока этот элемент перемещается обратно в список всех точек объекта
+        /// </summary>
+        public void ListBoxPointsOnTheBlock_DoubleClick()
+        {
+            if (_listBoxPointsOnTheBlock.SelectedItem != null)
+            {
+                _listBoxAllPointsOfTheObject.Items.Add(_listBoxPointsOnTheBlock.SelectedItem);
+                _listBoxPointsOnTheBlock.Items.Remove(_listBoxPointsOnTheBlock.SelectedItem);
+            }
+        }
+        /// <summary>
+        /// Если пользователь выбирает блок в комбоБоксе на 2 уровне, то выполняются расчеты для выбранного блока
+        /// </summary>
+        public void ComboBoxSecondLevelChooseBlock_SelectedIndexChanged()
+        {
+            // Расчет значений M
+            _MValuesLists = _decompositionService.SecondLevelMValues(_coordinatesTableZ, _dataTable, _measurementErorr, 
+                _smoothingFactor, _points[_comboBoxSecondLevelChooseBlock.SelectedIndex]);
+
+            // Заполнение таблицы состояния блока
+            _dataGridViewSecondLevelObjectStatus = _decompositionService.FillObjectStatusTable(_dataGridViewSecondLevelObjectStatus, _MValuesLists, _coordinatesTableZ);
+
+            // Расчет значений A
+            _AValuesLists = _decompositionService.SecondLevelAValues(_coordinatesTableZ, _dataTable, _measurementErorr, 
+                _smoothingFactor, _points[_comboBoxSecondLevelChooseBlock.SelectedIndex], _dataGridViewSecondLevelPhaseCoordinates);
+
+            // Расчет сглаженных значений для графиков сглаживания
+            List<double> smoothMValues = _calculations.SmoothValue(_MValuesLists[4], _smoothingFactor);
+            List<double> smoothAValues = _calculations.SmoothValue(_AValuesLists[4], _smoothingFactor);
+            _MValuesLists.Add(smoothMValues);
+            _AValuesLists.Add(smoothAValues);
+
+            // Заполнение листа с эпохами
+            _epochList = new List<Int32>();
+            for (int i = 0; i < _dataGridViewSecondLevelObjectStatus.Rows.Count - 1; i++)
+            {
+                _epochList.Add(Convert.ToInt32(_dataGridViewSecondLevelObjectStatus.Rows[i].Cells[0].Value));
+            }
+
+            // Добавление прогнозной эпохи
+            _epochList.Add(_epochList.Last() +1);
+        }
+
+        public void ResetSecondLevel()
+        {
+            if (resetFlag == false)
+            {
+                _AValuesLists.Clear();
+                _epochList.Clear();
+                _comboBoxSecondLevelChooseBlock.Items.Clear();
+                pointsAreDistributed = false;
+            }
+
+            resetFlag = true;
         }
     }
 }

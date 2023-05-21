@@ -154,7 +154,7 @@ namespace CourseWorkFinal
             str = labelPointCount.Text;
             pointsCount = Int32.Parse(new String(str.Where(Char.IsDigit).ToArray()));
             decompositionSecond = new SecondLevelDecomposition(defaultAlpha, measurmentError, dataGridViewZCoordinate, blockCount, pointsCount, listBoxAllPointsOfTheObject, listBoxPointsOnTheBlock, labelPointsOfTheSelectedBlock,
-                chartSecondLevelResponseFunction, chartSecondLevelM, chartSecondLevelA, comboBoxSecondLevelChooseBlock);
+                chartSecondLevelResponseFunction, chartSecondLevelM, chartSecondLevelA, comboBoxSecondLevelChooseBlock, dataGridViewSecondLevelObjectStatus, dataGridViewSecondLevelPhaseCoordinates);
         }
         // Данные
 
@@ -326,8 +326,12 @@ namespace CourseWorkFinal
             checkBoxFirstLevelMBottom.Checked = false;
             checkBoxFirstLevelMOriginal.Checked = false;
             checkBoxFirstLevelATop.Checked = false;
-            
+
+            tabPage5.Enabled = false;
+            tabPage9.Enabled = false;
+
             decompositionFirst.ResetFirstLevel(chartFirstLevelM, chartFirstLevelM);
+            decompositionSecond.ResetSecondLevel();
 
             StartDecomposition();
         }
@@ -377,6 +381,17 @@ namespace CourseWorkFinal
                 tabPage9.Enabled = true;
             }
         }
+
+        private void listBoxPointsOnTheBlock_DoubleClick(object sender, EventArgs e)
+        {
+            decompositionSecond.ListBoxPointsOnTheBlock_DoubleClick();
+        }
+
+        private void comboBoxSecondLevelChooseBlock_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            decompositionSecond.ComboBoxSecondLevelChooseBlock_SelectedIndexChanged();
+        }
+
     }
 
 }

@@ -80,8 +80,8 @@ namespace CourseWorkFinal.Decomposition
             AValues = decompositionService.FirstLevelAValues(coordinatesTableZ, dataTable, measurementErorr, smoothingFactor, phaseCoordinatesTable);
             // На основе M заполням таблицу оценки состояния c помощью метода из decompositionService
             objectStatusTable = decompositionService.FillObjectStatusTable(objectStatusTable, MValues, coordinatesTableZ);
-            // Расчет сглаженных значений для графика сглаживания
-            List<Double> smoothMValues = calculations.SmoothValue(MValues[4], smoothingFactor);
+            // Расчет сглаженных значений для графиков сглаживания
+            List<double> smoothMValues = calculations.SmoothValue(MValues[4], smoothingFactor);
             List<Double> smoothAValues = calculations.SmoothValue(AValues[4], smoothingFactor);
             MValues.Add(smoothMValues);
             AValues.Add(smoothAValues);

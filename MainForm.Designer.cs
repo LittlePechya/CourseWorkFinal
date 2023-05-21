@@ -68,12 +68,9 @@
             this.tabPage11 = new System.Windows.Forms.TabPage();
             this.chartSecondLevelM = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
-            this.checkBoxSecondLevelMBottom = new System.Windows.Forms.CheckBox();
+            this.checkBoxSecondMBottom = new System.Windows.Forms.CheckBox();
             this.checkBoxSecondLevelMBase = new System.Windows.Forms.CheckBox();
             this.checkBoxSecondLevelMTop = new System.Windows.Forms.CheckBox();
-            this.checkBoxSecondLevelMBottomPredict = new System.Windows.Forms.CheckBox();
-            this.checkBoxSecondLevelMBasePredict = new System.Windows.Forms.CheckBox();
-            this.checkBoxSecondLevelMTopPredict = new System.Windows.Forms.CheckBox();
             this.buttonSecondLevelRemoveAllM = new System.Windows.Forms.Button();
             this.tabPage10 = new System.Windows.Forms.TabPage();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
@@ -146,6 +143,11 @@
             this.checkBoxSecondLevelResponseFunctionBottom = new System.Windows.Forms.CheckBox();
             this.checkBoxSecondLevelResponseFunctionOriginal = new System.Windows.Forms.CheckBox();
             this.checkBoxSecondLevelResponseFunctionTop = new System.Windows.Forms.CheckBox();
+            this.groupBox16 = new System.Windows.Forms.GroupBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.checkBoxSecondLevelATop = new System.Windows.Forms.CheckBox();
+            this.checkBoxSecondLevelAOriginal = new System.Windows.Forms.CheckBox();
+            this.checkBoxSecondLevelABottom = new System.Windows.Forms.CheckBox();
             this.toolStrip.SuspendLayout();
             this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerFourthLevel)).BeginInit();
@@ -210,6 +212,7 @@
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartSecondLevelResponseFunction)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartSecondLevelA)).BeginInit();
+            this.groupBox16.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip
@@ -467,12 +470,9 @@
             // groupBox14
             // 
             this.groupBox14.Controls.Add(this.buttonSecondLevelRemoveAllM);
-            this.groupBox14.Controls.Add(this.checkBoxSecondLevelMTopPredict);
-            this.groupBox14.Controls.Add(this.checkBoxSecondLevelMBasePredict);
-            this.groupBox14.Controls.Add(this.checkBoxSecondLevelMBottomPredict);
             this.groupBox14.Controls.Add(this.checkBoxSecondLevelMTop);
             this.groupBox14.Controls.Add(this.checkBoxSecondLevelMBase);
-            this.groupBox14.Controls.Add(this.checkBoxSecondLevelMBottom);
+            this.groupBox14.Controls.Add(this.checkBoxSecondMBottom);
             this.groupBox14.Location = new System.Drawing.Point(9, 418);
             this.groupBox14.Name = "groupBox14";
             this.groupBox14.Size = new System.Drawing.Size(771, 98);
@@ -480,15 +480,15 @@
             this.groupBox14.TabStop = false;
             this.groupBox14.Text = "Параметры графиков";
             // 
-            // checkBoxSecondLevelMBottom
+            // checkBoxSecondMBottom
             // 
-            this.checkBoxSecondLevelMBottom.AutoSize = true;
-            this.checkBoxSecondLevelMBottom.Location = new System.Drawing.Point(3, 23);
-            this.checkBoxSecondLevelMBottom.Name = "checkBoxSecondLevelMBottom";
-            this.checkBoxSecondLevelMBottom.Size = new System.Drawing.Size(152, 20);
-            this.checkBoxSecondLevelMBottom.TabIndex = 0;
-            this.checkBoxSecondLevelMBottom.Text = "M(нижняя граница)";
-            this.checkBoxSecondLevelMBottom.UseVisualStyleBackColor = true;
+            this.checkBoxSecondMBottom.AutoSize = true;
+            this.checkBoxSecondMBottom.Location = new System.Drawing.Point(3, 23);
+            this.checkBoxSecondMBottom.Name = "checkBoxSecondMBottom";
+            this.checkBoxSecondMBottom.Size = new System.Drawing.Size(155, 20);
+            this.checkBoxSecondMBottom.TabIndex = 0;
+            this.checkBoxSecondMBottom.Text = "M (нижняя граница)";
+            this.checkBoxSecondMBottom.UseVisualStyleBackColor = true;
             // 
             // checkBoxSecondLevelMBase
             // 
@@ -509,36 +509,6 @@
             this.checkBoxSecondLevelMTop.TabIndex = 2;
             this.checkBoxSecondLevelMTop.Text = "M (верхняя граница)";
             this.checkBoxSecondLevelMTop.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxSecondLevelMBottomPredict
-            // 
-            this.checkBoxSecondLevelMBottomPredict.AutoSize = true;
-            this.checkBoxSecondLevelMBottomPredict.Location = new System.Drawing.Point(176, 23);
-            this.checkBoxSecondLevelMBottomPredict.Name = "checkBoxSecondLevelMBottomPredict";
-            this.checkBoxSecondLevelMBottomPredict.Size = new System.Drawing.Size(214, 20);
-            this.checkBoxSecondLevelMBottomPredict.TabIndex = 3;
-            this.checkBoxSecondLevelMBottomPredict.Text = "Прогноз M (нижняя граница)";
-            this.checkBoxSecondLevelMBottomPredict.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxSecondLevelMBasePredict
-            // 
-            this.checkBoxSecondLevelMBasePredict.AutoSize = true;
-            this.checkBoxSecondLevelMBasePredict.Location = new System.Drawing.Point(176, 49);
-            this.checkBoxSecondLevelMBasePredict.Name = "checkBoxSecondLevelMBasePredict";
-            this.checkBoxSecondLevelMBasePredict.Size = new System.Drawing.Size(171, 20);
-            this.checkBoxSecondLevelMBasePredict.TabIndex = 4;
-            this.checkBoxSecondLevelMBasePredict.Text = "Прогноз M (исходное)";
-            this.checkBoxSecondLevelMBasePredict.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxSecondLevelMTopPredict
-            // 
-            this.checkBoxSecondLevelMTopPredict.AutoSize = true;
-            this.checkBoxSecondLevelMTopPredict.Location = new System.Drawing.Point(176, 74);
-            this.checkBoxSecondLevelMTopPredict.Name = "checkBoxSecondLevelMTopPredict";
-            this.checkBoxSecondLevelMTopPredict.Size = new System.Drawing.Size(219, 20);
-            this.checkBoxSecondLevelMTopPredict.TabIndex = 5;
-            this.checkBoxSecondLevelMTopPredict.Text = "Прогноз M (верхняя граница)";
-            this.checkBoxSecondLevelMTopPredict.UseVisualStyleBackColor = true;
             // 
             // buttonSecondLevelRemoveAllM
             // 
@@ -600,6 +570,7 @@
             this.comboBoxSecondLevelChooseBlock.Name = "comboBoxSecondLevelChooseBlock";
             this.comboBoxSecondLevelChooseBlock.Size = new System.Drawing.Size(91, 24);
             this.comboBoxSecondLevelChooseBlock.TabIndex = 2;
+            this.comboBoxSecondLevelChooseBlock.SelectedIndexChanged += new System.EventHandler(this.comboBoxSecondLevelChooseBlock_SelectedIndexChanged);
             // 
             // groupBox11
             // 
@@ -695,6 +666,7 @@
             this.listBoxPointsOnTheBlock.Name = "listBoxPointsOnTheBlock";
             this.listBoxPointsOnTheBlock.Size = new System.Drawing.Size(159, 484);
             this.listBoxPointsOnTheBlock.TabIndex = 3;
+            this.listBoxPointsOnTheBlock.DoubleClick += new System.EventHandler(this.listBoxPointsOnTheBlock_DoubleClick);
             // 
             // groupBox10
             // 
@@ -1276,6 +1248,7 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.groupBox16);
             this.tabPage4.Controls.Add(this.chartSecondLevelA);
             this.tabPage4.Location = new System.Drawing.Point(4, 25);
             this.tabPage4.Name = "tabPage4";
@@ -1338,6 +1311,58 @@
             this.checkBoxSecondLevelResponseFunctionTop.TabIndex = 9;
             this.checkBoxSecondLevelResponseFunctionTop.Text = "Функция отклика (нижняя граница)";
             this.checkBoxSecondLevelResponseFunctionTop.UseVisualStyleBackColor = true;
+            // 
+            // groupBox16
+            // 
+            this.groupBox16.Controls.Add(this.button2);
+            this.groupBox16.Controls.Add(this.checkBoxSecondLevelATop);
+            this.groupBox16.Controls.Add(this.checkBoxSecondLevelAOriginal);
+            this.groupBox16.Controls.Add(this.checkBoxSecondLevelABottom);
+            this.groupBox16.Location = new System.Drawing.Point(3, 391);
+            this.groupBox16.Name = "groupBox16";
+            this.groupBox16.Size = new System.Drawing.Size(771, 124);
+            this.groupBox16.TabIndex = 4;
+            this.groupBox16.TabStop = false;
+            this.groupBox16.Text = "Параметры графиков";
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(422, 32);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(237, 53);
+            this.button2.TabIndex = 6;
+            this.button2.Text = "Убрать все";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxSecondLevelATop
+            // 
+            this.checkBoxSecondLevelATop.AutoSize = true;
+            this.checkBoxSecondLevelATop.Location = new System.Drawing.Point(11, 75);
+            this.checkBoxSecondLevelATop.Name = "checkBoxSecondLevelATop";
+            this.checkBoxSecondLevelATop.Size = new System.Drawing.Size(160, 20);
+            this.checkBoxSecondLevelATop.TabIndex = 2;
+            this.checkBoxSecondLevelATop.Text = "M (верхняя граница)";
+            this.checkBoxSecondLevelATop.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxSecondLevelAOriginal
+            // 
+            this.checkBoxSecondLevelAOriginal.AutoSize = true;
+            this.checkBoxSecondLevelAOriginal.Location = new System.Drawing.Point(11, 49);
+            this.checkBoxSecondLevelAOriginal.Name = "checkBoxSecondLevelAOriginal";
+            this.checkBoxSecondLevelAOriginal.Size = new System.Drawing.Size(112, 20);
+            this.checkBoxSecondLevelAOriginal.TabIndex = 1;
+            this.checkBoxSecondLevelAOriginal.Text = "M (исходное)";
+            this.checkBoxSecondLevelAOriginal.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxSecondLevelABottom
+            // 
+            this.checkBoxSecondLevelABottom.AutoSize = true;
+            this.checkBoxSecondLevelABottom.Location = new System.Drawing.Point(11, 21);
+            this.checkBoxSecondLevelABottom.Name = "checkBoxSecondLevelABottom";
+            this.checkBoxSecondLevelABottom.Size = new System.Drawing.Size(152, 20);
+            this.checkBoxSecondLevelABottom.TabIndex = 0;
+            this.checkBoxSecondLevelABottom.Text = "M(нижняя граница)";
+            this.checkBoxSecondLevelABottom.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -1431,6 +1456,8 @@
             this.tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartSecondLevelResponseFunction)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartSecondLevelA)).EndInit();
+            this.groupBox16.ResumeLayout(false);
+            this.groupBox16.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1479,12 +1506,9 @@
         private System.Windows.Forms.TabPage tabPage11;
         private System.Windows.Forms.GroupBox groupBox14;
         private System.Windows.Forms.Button buttonSecondLevelRemoveAllM;
-        private System.Windows.Forms.CheckBox checkBoxSecondLevelMTopPredict;
-        private System.Windows.Forms.CheckBox checkBoxSecondLevelMBasePredict;
-        private System.Windows.Forms.CheckBox checkBoxSecondLevelMBottomPredict;
         private System.Windows.Forms.CheckBox checkBoxSecondLevelMTop;
         private System.Windows.Forms.CheckBox checkBoxSecondLevelMBase;
-        private System.Windows.Forms.CheckBox checkBoxSecondLevelMBottom;
+        private System.Windows.Forms.CheckBox checkBoxSecondMBottom;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartSecondLevelM;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.SplitContainer splitContainerFirstLevel;
@@ -1541,6 +1565,11 @@
         private System.Windows.Forms.CheckBox checkBoxSecondLevelResponseFunctionBottom;
         private System.Windows.Forms.CheckBox checkBoxSecondLevelResponseFunctionOriginal;
         private System.Windows.Forms.CheckBox checkBoxSecondLevelResponseFunctionTop;
+        private System.Windows.Forms.GroupBox groupBox16;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.CheckBox checkBoxSecondLevelATop;
+        private System.Windows.Forms.CheckBox checkBoxSecondLevelAOriginal;
+        private System.Windows.Forms.CheckBox checkBoxSecondLevelABottom;
     }
 }
 

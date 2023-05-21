@@ -275,7 +275,7 @@ namespace CourseWorkFinal.Analysis
             DataGridView newTable = new DataGridView();
             for (int column = 0; column < dataTable.Columns.Count; column++)
             {
-                String ColName = dataTable.Columns[column].ColumnName;
+                string ColName = dataTable.Columns[column].ColumnName;
                 newTable.Columns.Add(ColName, ColName);
                 newTable.Columns[column].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             }
