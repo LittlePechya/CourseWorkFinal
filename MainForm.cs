@@ -15,6 +15,8 @@ namespace CourseWorkFinal
     public partial class MainForm : Form
     {
         int epochCount;
+        int blockCount;
+        int pointsCount;
         FileManager fileManager;
         string[] objectData;
         DataTable dt = new DataTable();
@@ -23,6 +25,7 @@ namespace CourseWorkFinal
         double defaultAlpha = 0.9;
         double measurmentError = 0;
         FirstLevelDecomposition decompositionFirst;
+        SecondLevelDecomposition decompositionSecond;
 
         /// <summary>
         /// Конструктор основной формы проекта MainForm
@@ -35,7 +38,7 @@ namespace CourseWorkFinal
             // tabPage1
 
             // tabControl заполняет весь экран
-            tabControl.Dock = DockStyle.Fill;
+            anotherTabControl.Dock = DockStyle.Fill;
 
             // Заполнение списка таблиц с координатами, которые находятся на форме
             dataGridViewList.Add(dataGridViewZCoordinate);
@@ -51,6 +54,11 @@ namespace CourseWorkFinal
             splitContainerFirstLevel.SplitterDistance = decompositionSplitterWidth;
             splitContainerSecondLevel.SplitterDistance = decompositionSplitterWidth;
             splitContainerFourthLevel.SplitterDistance = decomposition4lvlSplitterWidth;
+
+            // tabPage9 с расчетами на втором уровне должен быть заблокирован, пока пользователь не распределит точки по блокам на втором уровне
+            // tapPage5 с 4 уровнем декомпозиции также заблокирован, пока пользователь не распределит точки по блокам
+            tabPage9.Enabled = false;
+            tabPage5.Enabled = false;
 
             //
             showSaveStatus(false);
@@ -96,6 +104,8 @@ namespace CourseWorkFinal
                 {
                     pictureBoxObject.Load(fileManager.pathToObjectPicture);
                     pictureBoxObject.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBoxSecondLevelDecomposition.Load(fileManager.pathToObjectPicture);
+                    pictureBoxSecondLevelDecomposition.SizeMode = PictureBoxSizeMode.StretchImage;
                 }
 
                 objectData = new string[4];
@@ -126,15 +136,25 @@ namespace CourseWorkFinal
         private void StartDecomposition()
         {
             FirstLevel();
-            //Second...
+            SecondLevel();
         }
 
         // Первый уровень декомпозиции
         public void FirstLevel()
         {
-            decompositionFirst = new FirstLevelDecomposition(defaultAlpha, measurmentError, 
-                dataGridViewZCoordinate, dataGridViewFirstLevelPhaseCoordinates, dataGridViewFirstLevelObjectStatus, 
+            decompositionFirst = new FirstLevelDecomposition(defaultAlpha, measurmentError,
+                dataGridViewZCoordinate, dataGridViewFirstLevelPhaseCoordinates, dataGridViewFirstLevelObjectStatus,
                 chartFirstLevelM, chartFirstLevelA, chartFirstLevelResponseFunction, dt);
+        }
+
+        public void SecondLevel()
+        {
+            string str = labelBlockCount.Text;
+            blockCount = Int32.Parse(new String(str.Where(Char.IsDigit).ToArray()));
+            str = labelPointCount.Text;
+            pointsCount = Int32.Parse(new String(str.Where(Char.IsDigit).ToArray()));
+            decompositionSecond = new SecondLevelDecomposition(defaultAlpha, measurmentError, dataGridViewZCoordinate, blockCount, pointsCount, listBoxAllPointsOfTheObject, listBoxPointsOnTheBlock, labelPointsOfTheSelectedBlock,
+                chartSecondLevelResponseFunction, chartSecondLevelM, chartSecondLevelA, comboBoxSecondLevelChooseBlock);
         }
         // Данные
 
@@ -304,12 +324,12 @@ namespace CourseWorkFinal
             checkBoxFirstLevelATop.Checked = false;
             
             checkBoxFirstLevelMBottom.Checked = false;
-            checkBoxFirstLevelAOriginal.Checked = false;
+            checkBoxFirstLevelMOriginal.Checked = false;
             checkBoxFirstLevelATop.Checked = false;
             
             decompositionFirst.ResetFirstLevel(chartFirstLevelM, chartFirstLevelM);
 
-            FirstLevel();
+            StartDecomposition();
         }
 
         private void checkBoxFirstLevelMBase_CheckedChanged(object sender, EventArgs e)
@@ -335,6 +355,27 @@ namespace CourseWorkFinal
         private void checkBoxFirstLevelATop_CheckedChanged(object sender, EventArgs e)
         {
             decompositionFirst.CheckBoxAChange(chartFirstLevelA, "верхняя");
+        }
+
+        private void groupBox8_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBoxAllPointsOfTheObject_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBoxAllPointsOfTheObject_DoubleClick(object sender, EventArgs e)
+        {
+            decompositionSecond.AllPointsListBox_DoubleClick();
+           
+            if (decompositionSecond.pointsAreDistributed == true)
+            {
+                tabPage5.Enabled = true;
+                tabPage9.Enabled = true;
+            }
         }
     }
 

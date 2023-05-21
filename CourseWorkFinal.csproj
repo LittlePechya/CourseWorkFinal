@@ -87,7 +87,6 @@
   <ItemGroup>
     <Compile Include="Analysis\Calculations.cs" />
     <Compile Include="Analysis\DecompositionService.cs" />
-    <Compile Include="Analysis\SubblocksDistribution.cs" />
     <Compile Include="Chart\ChartService.cs" />
     <Compile Include="chooseTable.cs">
       <SubType>Form</SubType>
@@ -95,6 +94,7 @@
     <Compile Include="chooseTable.Designer.cs">
       <DependentUpon>chooseTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Decomposition\SecondLevelDecomposition.cs" />
     <Compile Include="ExternalData\FileManager.cs" />
     <Compile Include="ExternalData\Database.cs" />
     <Compile Include="Decomposition\FirstLevelDecomposition.cs" />
