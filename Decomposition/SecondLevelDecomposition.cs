@@ -47,7 +47,7 @@ namespace CourseWorkFinal.Decomposition
         // Логическое поле, которое включается только после того, когда пользователь распределил все точки по блокам
         public bool pointsAreDistributed = false;
         // Логическое поле, нужно чтобы списки не очищались повторно после того, как уже были очищены
-        public bool resetFlag = true;
+        public bool resetFlag = false;
 
         public SecondLevelDecomposition(double smoothingFactor, double measurementError, DataGridView coordinatesTableZ, int BlockCount, int pointsCount,
             ListBox listBoxAllPointsOfTheObject, ListBox listBoxPointsOnTheblock, Label labelPointsOfTheSelectedBlock,

@@ -1,4 +1,5 @@
-﻿using CourseWorkFinal.Chart;
+﻿using CourseWorkFinal.Analysis;
+using CourseWorkFinal.Chart;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace CourseWorkFinal.Decomposition
         // Поля-компоненты, которые передаются из основной формы
         ComboBox _comboBoxFourthLevelChooseBlock;
         CheckedListBox _checkedListBoxFourthLevelAvailablePoints;
+        Button _buttonFourthLevelSelectAll;
         Button _buttonFourthLevelReset;
         ChartControl _chartFourthLevel;
 
@@ -30,7 +32,7 @@ namespace CourseWorkFinal.Decomposition
         //Объекты для расчетов
 
         public FourthLevelDecomposition(double smoothingFactor, double measurementError, DataGridView CoordinatesTableZ, int blockCount, List<List<string>> points,
-            ComboBox comboBoxFourthLevelChooseBlock, CheckedListBox checkedListBoxFourthLevelAvailablePoints, Button buttonFourthLevelReset, ChartControl chartFourthLevel)
+            ComboBox comboBoxFourthLevelChooseBlock, CheckedListBox checkedListBoxFourthLevelAvailablePoints, Button buttonFourthLevelSelectAll, Button buttonFourthLevelReset, ChartControl chartFourthLevel)
         {
             _smoothingFactor = smoothingFactor;
             _measurementErorr = measurementError;
@@ -39,15 +41,18 @@ namespace CourseWorkFinal.Decomposition
             _points = points;
             _comboBoxFourthLevelChooseBlock = comboBoxFourthLevelChooseBlock;
             _checkedListBoxFourthLevelAvailablePoints = checkedListBoxFourthLevelAvailablePoints;
+            _buttonFourthLevelReset = buttonFourthLevelSelectAll;
             _buttonFourthLevelReset = buttonFourthLevelReset;
             _chartFourthLevel = chartFourthLevel;
 
-            _blocksName = new Dictionary<Int32, string>();
-            _blocksName.Add(0, "A");
-            _blocksName.Add(1, "Б");
-            _blocksName.Add(2, "В");
-            _blocksName.Add(3, "Г");
-            _blocksName.Add(4, "Д");
+            _blocksName = new Dictionary<Int32, string>
+            {
+                { 0, "A" },
+                { 1, "Б" },
+                { 2, "В" },
+                { 3, "Г" },
+                { 4, "Д" }
+            };
 
             FourthLevelDecompositionLoad();
         }
@@ -69,6 +74,9 @@ namespace CourseWorkFinal.Decomposition
             {
                 _comboBoxFourthLevelChooseBlock.Items.Add(_blocksName[i]);
             }
+
+            // Эта строчка нужна, чтобы при перерасчете уровня декомпозиции comboBox был пустым
+            _comboBoxFourthLevelChooseBlock.SelectedItem = -1;
         }
 
         /// <summary>
@@ -84,6 +92,39 @@ namespace CourseWorkFinal.Decomposition
                     _checkedListBoxFourthLevelAvailablePoints.Items.Add(str);
                 }
             }
+
+        }
+
+        /// <summary>
+        /// Метод рассчитывает значения и выводит их на график при нажатии галочки в чекБоксе
+        /// </summary>
+        public void CheckedListBoxFourthLevelAvailablePoints_ItemCheck()
+        {
+            Calculations calculations = new Calculations();
+            List<double> pointsHeight = new List<double>();
+
+            for (int i = 0; i < _coordinatesTableZ.Rows.Count - 1; i++)
+            {
+                // Заполнение списка высот точек
+                pointsHeight.Add(Convert.ToDouble(_coordinatesTableZ.Rows[i].Cells[Convert.ToInt32(_checkedListBoxFourthLevelAvailablePoints.SelectedItem) + 1].Value));
+            }
+
+            // Получение прогнозных значений высот
+            List<double> forecastPointsHeight = calculations.SmoothValue(pointsHeight, _smoothingFactor);
+
+            // Добавление графика 
+            ChartService.AddLineToChartOnFourthLevel(_chartFourthLevel, _checkedListBoxFourthLevelAvailablePoints.SelectedItem.ToString(),
+                (_checkedListBoxFourthLevelAvailablePoints.SelectedItem.ToString() + " прогноз"), _epochCount, pointsHeight, _epochCount, forecastPointsHeight);
+        }
+
+        public void ResetFourthLevel(List<List<string>> points, ChartControl fourthLevelChart, CheckedListBox availablePoints, ComboBox chooseBlockComboBox)
+        {
+            points.Clear();
+            fourthLevelChart.Series.Clear();
+            availablePoints.Items.Clear();
+            chooseBlockComboBox.Items.Clear();
+            chooseBlockComboBox.SelectedItem = -1;
+
         }
     }
 }

@@ -168,7 +168,7 @@ namespace CourseWorkFinal
         public void FourthLevel()
         {
             decompositionFourth = new FourthLevelDecomposition(defaultAlpha, measurmentError, dataGridViewZCoordinate, blockCount, _points, comboBoxFourthLevelChooseBlock,
-                checkedListBoxFourthLevelAvailablePoints, buttonFourthLevelReset, chartFourthLevel);
+                checkedListBoxFourthLevelAvailablePoints, buttonFourthLevelSelectAll, buttonFourthLevelReset, chartFourthLevel);
         }
 
         /// <summary>
@@ -357,7 +357,10 @@ namespace CourseWorkFinal
             dataGridViewSecondLevelPhaseCoordinates.Rows.Clear();
             dataGridViewSecondLevelObjectStatus.Rows.Clear();
             decompositionFirst.ResetFirstLevel(chartFirstLevelM, chartFirstLevelM);
+            decompositionSecond.resetFlag = true;
+            comboBoxFourthLevelChooseBlock.Items.Clear();
             decompositionSecond.ResetSecondLevel();
+            decompositionFourth.ResetFourthLevel(_points, chartFourthLevel, checkedListBoxFourthLevelAvailablePoints, comboBoxFourthLevelChooseBlock);
 
             // Табпейджи тоже обязательно выключать в самом конце, иначе невозможно отключить элементы формы
             tabPage5.Enabled = false;
@@ -459,6 +462,21 @@ namespace CourseWorkFinal
         private void comboBoxFourthLevelChooseBlock_SelectedIndexChanged(object sender, EventArgs e)
         {
             decompositionFourth.ComboBoxFourthLevelChooseBlock_SelectedIndexChanged();
+        }
+
+        private void checkedListBoxFourthLevelAvailablePoints_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            decompositionFourth.CheckedListBoxFourthLevelAvailablePoints_ItemCheck();
+        }
+
+        private void buttonFourthLevelSelectAll_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonFourthLevelReset_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

@@ -107,10 +107,7 @@ namespace CourseWorkFinal.Chart
             else
             {
                 //Тут удаляем график, если он был
-                chart.Series[name].Points.Clear();
-                chart.Series.Remove(chart.Series[name]);
-                chart.Series[forecastName].Points.Clear();
-                chart.Series.Remove(chart.Series[forecastName]);
+                DeleteChart(chart, name, forecastName);
             }
         }
 
@@ -164,11 +161,51 @@ namespace CourseWorkFinal.Chart
             else
             {
                 //Тут удаляем график, если он был
-                chart.Series[name].Points.Clear();
-                chart.Series.Remove(chart.Series[name]);
-                chart.Series[smoothName].Points.Clear();
-                chart.Series.Remove(chart.Series[smoothName]);
+                DeleteChart(chart, name, smoothName);
             }
+        }
+
+        public static void AddLineToChartOnFourthLevel(ChartControl chart, string name, string forecastName, List<double> XValue, List<double> YValue, List<double> Xvalue2, List<double> YValue2)
+        {
+            // Если серия уже существует, то происходит удаление
+
+            if (chart.Series.IndexOf(name) == -1)
+            {
+                // Добавление серии и настройка графика
+                chart.Series.Add(name);
+                SerieSetSettings(chart, name);
+
+                // Добавление точек по оси Х и У
+                for (int i = 0; i < XValue.Count; i++)
+                {
+
+                    chart.Series[name].Points.AddXY(XValue[i], YValue[i]);
+                    chart.Series[name].Points[i].Label = i.ToString();
+                }
+                // Добавление прогнозной серии
+                chart.Series.Add(forecastName);
+
+                // Добавление прогнозного значения
+                chart.Series[forecastName].Points.AddXY(Xvalue2.Last() + 1, YValue2.Last());
+                chart.Series[forecastName].Points.Last().Label = (Xvalue2.Last() + 1).ToString();
+
+                // Настройка графика
+                SerieSetSettings(chart, forecastName);
+
+            }
+            else
+            {
+                //Тут удаляем график, если он был
+                DeleteChart(chart, name, forecastName);
+            }
+        }
+
+        private static void DeleteChart(ChartControl chart, string serieName, string forecastOrSmoothSerieName)
+        {
+            chart.Series[serieName].Points.Clear();
+            chart.Series.Remove(chart.Series[serieName]);
+            chart.Series[forecastOrSmoothSerieName].Points.Clear();
+            chart.Series.Remove(chart.Series[forecastOrSmoothSerieName]);
         }
     }
 }
