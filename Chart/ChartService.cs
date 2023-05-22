@@ -33,6 +33,13 @@ namespace CourseWorkFinal.Chart
             expoentialSmooth.ChartAreas[0].AxisY.IsStartedFromZero = false;
         }
 
+        public static void SetFourthLevelChartSetting(ChartControl fourthLevelChart)
+        {
+            fourthLevelChart.ChartAreas[0].AxisX.Title = "Эпоха";
+            fourthLevelChart.ChartAreas[0].AxisY.Title = "Высота";
+            fourthLevelChart.ChartAreas[0].AxisY.IsStartedFromZero = false;
+        }
+
         /// <summary>
         /// Настройка отображения серии на графике
         /// </summary>

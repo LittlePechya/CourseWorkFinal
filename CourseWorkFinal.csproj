@@ -94,6 +94,7 @@
     <Compile Include="chooseTable.Designer.cs">
       <DependentUpon>chooseTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Decomposition\FourthLevelDecomposition.cs" />
     <Compile Include="Decomposition\SecondLevelDecomposition.cs" />
     <Compile Include="ExternalData\FileManager.cs" />
     <Compile Include="ExternalData\Database.cs" />

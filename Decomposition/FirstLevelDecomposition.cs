@@ -14,24 +14,24 @@ namespace CourseWorkFinal.Decomposition
     internal class FirstLevelDecomposition
     {
         // Поля-компоненты, которые передаются из основной формы
-        private DataGridView coordinatesTableZ;
-        private DataGridView phaseCoordinatesTable;
-        private DataGridView objectStatusTable;
+        private DataGridView _coordinatesTableZ;
+        private DataGridView _phaseCoordinatesTable;
+        private DataGridView _objectStatusTable;
 
-        private ChartControl chartFirstLevelM;
-        private ChartControl chartFirstLevelA;
-        private ChartControl responseFunctionChart;
+        private ChartControl _chartFirstLevelM;
+        private ChartControl _chartFirstLevelA;
+        private ChartControl _responseFunctionChart;
 
-        private DataTable dataTable;
+        private DataTable _dataTable;
 
   
 
         // Поля для расчетов
-        private double smoothingFactor;
-        private double measurementErorr;
-        private List<List<Double>> AValues;
-        private List<List<Double>> MValues;
-        private List<Int32> epochList;
+        private double _smoothingFactor;
+        private double _measurementErorr;
+        private List<List<Double>> _AValues;
+        private List<List<Double>> _MValues;
+        private List<Int32> _epochList;
 
         // Создание объекта для расчетов
         private Calculations calculations = new Calculations();
@@ -52,15 +52,15 @@ namespace CourseWorkFinal.Decomposition
             DataGridView objectStatusTable, ChartControl chartFirstLevelM, ChartControl chartFirstLevelA,
             ChartControl responseFunctionChart, DataTable dataTable)
         {
-            this.smoothingFactor = smoothingFactor;
-            this.measurementErorr = measurementError;
-            this.coordinatesTableZ = coordinatesTableZ;
-            this.phaseCoordinatesTable = phaseCoordinatesTable;
-            this.objectStatusTable = objectStatusTable;
-            this.chartFirstLevelM = chartFirstLevelM;
-            this.chartFirstLevelA = chartFirstLevelA;
-            this.responseFunctionChart = responseFunctionChart; 
-            this.dataTable = dataTable;
+            this._smoothingFactor = smoothingFactor;
+            this._measurementErorr = measurementError;
+            this._coordinatesTableZ = coordinatesTableZ;
+            this._phaseCoordinatesTable = phaseCoordinatesTable;
+            this._objectStatusTable = objectStatusTable;
+            this._chartFirstLevelM = chartFirstLevelM;
+            this._chartFirstLevelA = chartFirstLevelA;
+            this._responseFunctionChart = responseFunctionChart; 
+            this._dataTable = dataTable;
 
             FirsLevelDecompositionLoad();
         }
@@ -68,35 +68,35 @@ namespace CourseWorkFinal.Decomposition
         private void FirsLevelDecompositionLoad()
         {
             // Настройка графика функции отклика
-            ChartService.SetResponseFunctionSettings(responseFunctionChart);
+            ChartService.SetResponseFunctionSettings(_responseFunctionChart);
             // Настройка графика со сглаживанием
-            ChartService.SetExponentialSmoothSettings(chartFirstLevelM);
-            ChartService.SetExponentialSmoothSettings(chartFirstLevelA);
+            ChartService.SetExponentialSmoothSettings(_chartFirstLevelM);
+            ChartService.SetExponentialSmoothSettings(_chartFirstLevelA);
             // Создание объекта класса decompositionService для расчета M и A
             DecompositionService decompositionService = new DecompositionService();
             // Расчет M
-            MValues = decompositionService.FirstLevelMValues(coordinatesTableZ, dataTable, measurementErorr, smoothingFactor);
+            _MValues = decompositionService.FirstLevelMValues(_coordinatesTableZ, _dataTable, _measurementErorr, _smoothingFactor);
             // Расчет alpha
-            AValues = decompositionService.FirstLevelAValues(coordinatesTableZ, dataTable, measurementErorr, smoothingFactor, phaseCoordinatesTable);
+            _AValues = decompositionService.FirstLevelAValues(_coordinatesTableZ, _dataTable, _measurementErorr, _smoothingFactor, _phaseCoordinatesTable);
             // На основе M заполням таблицу оценки состояния c помощью метода из decompositionService
-            objectStatusTable = decompositionService.FillObjectStatusTable(objectStatusTable, MValues, coordinatesTableZ);
+            _objectStatusTable = decompositionService.FillObjectStatusTable(_objectStatusTable, _MValues, _coordinatesTableZ);
             // Расчет сглаженных значений для графиков сглаживания
-            List<double> smoothMValues = calculations.SmoothValue(MValues[4], smoothingFactor);
-            List<Double> smoothAValues = calculations.SmoothValue(AValues[4], smoothingFactor);
-            MValues.Add(smoothMValues);
-            AValues.Add(smoothAValues);
+            List<double> smoothMValues = calculations.SmoothValue(_MValues[4], _smoothingFactor);
+            List<Double> smoothAValues = calculations.SmoothValue(_AValues[4], _smoothingFactor);
+            _MValues.Add(smoothMValues);
+            _AValues.Add(smoothAValues);
             // Заполнение листа с эпохами
-            epochList = new List<Int32>();
-            fillEpochList(epochList);
+            _epochList = new List<Int32>();
+            fillEpochList(_epochList);
             // Добавление прогнозной эпохи
-            epochList.Add(epochList.Last() + 1);
+            _epochList.Add(_epochList.Last() + 1);
         }
 
         private void fillEpochList(List<Int32> epochList)
         {
-            for (int i = 0; i < objectStatusTable.Rows.Count - 1; i++)
+            for (int i = 0; i < _objectStatusTable.Rows.Count - 1; i++)
             {
-                epochList.Add(Convert.ToInt32(objectStatusTable.Rows[i].Cells[0].Value));
+                epochList.Add(Convert.ToInt32(_objectStatusTable.Rows[i].Cells[0].Value));
             }
         }
 
@@ -118,13 +118,13 @@ namespace CourseWorkFinal.Decomposition
             switch (location)
             {
                 case "нижняя":
-                    ChartService.AddLineToChart(responseFunctionChart, "Функция отклика (нижняя граница)", "Прогнозное значение функции отклика (нижняя граница)", MValues[0], AValues[0], MValues[3], AValues[3], epochList);
+                    ChartService.AddLineToChart(responseFunctionChart, "Функция отклика (нижняя граница)", "Прогнозное значение функции отклика (нижняя граница)", _MValues[0], _AValues[0], _MValues[3], _AValues[3], _epochList);
                     break;
                 case "исходное":
-                    ChartService.AddLineToChart(responseFunctionChart, "Функция отклика (исходное)", "Прогнозное значение функции отклика (исходное)", MValues[4], AValues[4], MValues[5], AValues[5], epochList);
+                    ChartService.AddLineToChart(responseFunctionChart, "Функция отклика (исходное)", "Прогнозное значение функции отклика (исходное)", _MValues[4], _AValues[4], _MValues[5], _AValues[5], _epochList);
                     break;
                 case "верхняя":
-                    ChartService.AddLineToChart(responseFunctionChart, "Функция отклика (верхняя граница)", "Прогнозное значение функции отклика (верхняя граница)", MValues[1], AValues[1], MValues[2], AValues[2], epochList);
+                    ChartService.AddLineToChart(responseFunctionChart, "Функция отклика (верхняя граница)", "Прогнозное значение функции отклика (верхняя граница)", _MValues[1], _AValues[1], _MValues[2], _AValues[2], _epochList);
                     break;
             }
         }
@@ -137,13 +137,13 @@ namespace CourseWorkFinal.Decomposition
             switch(location)
             {
                 case "нижняя":
-                    ChartService.AddXYLineToChart(chartM, "Функция отклика (нижняя граница)", "Прогнозное значение функции отклика (нижняя граница)", MValues[0], MValues[3],  epochList);
+                    ChartService.AddXYLineToChart(chartM, "Функция отклика (нижняя граница)", "Прогнозное значение функции отклика (нижняя граница)", _MValues[0], _MValues[3],  _epochList);
                     break;
                 case "исходное":
-                    ChartService.AddXYLineToChart(chartM, "Функция отклика (исходное)", "Прогнозное значение функции отклика (исходное)", MValues[4], MValues[5], epochList);
+                    ChartService.AddXYLineToChart(chartM, "Функция отклика (исходное)", "Прогнозное значение функции отклика (исходное)", _MValues[4], _MValues[5], _epochList);
                     break;
                 case "верхняя":
-                    ChartService.AddXYLineToChart(chartM, "Функция отклика (верхняя граница)", "Прогнозное значение функции отклика (верхняя граница)", MValues[1], MValues[2], epochList);
+                    ChartService.AddXYLineToChart(chartM, "Функция отклика (верхняя граница)", "Прогнозное значение функции отклика (верхняя граница)", _MValues[1], _MValues[2], _epochList);
                     break;
             }
         }
@@ -156,22 +156,22 @@ namespace CourseWorkFinal.Decomposition
             switch (location)
             {
                 case "нижняя":
-                    ChartService.AddXYLineToChart(chartM, "Функция отклика (нижняя граница)", "Прогнозное значение функции отклика (нижняя граница)", AValues[0], AValues[3], epochList);
+                    ChartService.AddXYLineToChart(chartM, "Функция отклика (нижняя граница)", "Прогнозное значение функции отклика (нижняя граница)", _AValues[0], _AValues[3], _epochList);
                     break;
                 case "исходное":
-                    ChartService.AddXYLineToChart(chartM, "Функция отклика (исходное)", "Прогнозное значение функции отклика (исходное)", AValues[4], AValues[5], epochList);
+                    ChartService.AddXYLineToChart(chartM, "Функция отклика (исходное)", "Прогнозное значение функции отклика (исходное)", _AValues[4], _AValues[5], _epochList);
                     break;
                 case "верхняя":
-                    ChartService.AddXYLineToChart(chartM, "Функция отклика (верхняя граница)", "Прогнозное значение функции отклика (верхняя граница)", AValues[1], AValues[2], epochList);
+                    ChartService.AddXYLineToChart(chartM, "Функция отклика (верхняя граница)", "Прогнозное значение функции отклика (верхняя граница)", _AValues[1], _AValues[2], _epochList);
                     break;
             }
         }
 
         public void ResetFirstLevel(ChartControl chartM, ChartControl chartA)
         {
-            AValues.Clear();
-            MValues.Clear();
-            epochList.Clear();
+            _AValues.Clear();
+            _MValues.Clear();
+            _epochList.Clear();
             //chartM.Series.Clear();
             //chartA.Series.Clear();
         }

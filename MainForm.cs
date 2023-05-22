@@ -24,8 +24,10 @@ namespace CourseWorkFinal
         List<DataGridView> dataGridViewList = new List<DataGridView>();
         double defaultAlpha = 0.9;
         double measurmentError = 0;
+        private List<List<string>> _points = new List<List<string>>();
         FirstLevelDecomposition decompositionFirst;
         SecondLevelDecomposition decompositionSecond;
+        FourthLevelDecomposition decompositionFourth;
 
         /// <summary>
         /// Конструктор основной формы проекта MainForm
@@ -137,6 +139,7 @@ namespace CourseWorkFinal
         {
             FirstLevel();
             SecondLevel();
+            FourthLevel();
         }
 
         // Первый уровень декомпозиции
@@ -155,8 +158,18 @@ namespace CourseWorkFinal
             pointsCount = Int32.Parse(new String(str.Where(Char.IsDigit).ToArray()));
             decompositionSecond = new SecondLevelDecomposition(defaultAlpha, measurmentError, dataGridViewZCoordinate, blockCount, pointsCount, listBoxAllPointsOfTheObject, listBoxPointsOnTheBlock, labelPointsOfTheSelectedBlock,
                 chartSecondLevelResponseFunction, chartSecondLevelM, chartSecondLevelA, comboBoxSecondLevelChooseBlock, dataGridViewSecondLevelObjectStatus, dataGridViewSecondLevelPhaseCoordinates);
+
+            if (decompositionSecond.GetPoints() != null)
+            {
+                _points = decompositionSecond.GetPoints();
+            }
         }
-        // Данные
+
+        public void FourthLevel()
+        {
+            decompositionFourth = new FourthLevelDecomposition(defaultAlpha, measurmentError, dataGridViewZCoordinate, blockCount, _points, comboBoxFourthLevelChooseBlock,
+                checkedListBoxFourthLevelAvailablePoints, buttonFourthLevelReset, chartFourthLevel);
+        }
 
         /// <summary>
         /// Полученные из текстового файла значения располагаются на соответствующих элементах формы
@@ -337,8 +350,8 @@ namespace CourseWorkFinal
             checkBoxSecondLevelMBottom.Checked = false;
             checkBoxFirstLevelMOriginal.Checked = false;
             checkBoxSecondLevelMOriginal.Checked = false;
-            checkBoxFirstLevelATop.Checked = false;
-            checkBoxSecondLevelATop.Checked = false;
+            checkBoxFirstLevelMTop.Checked = false;
+            checkBoxSecondLevelMTop.Checked = false;
 
             comboBoxSecondLevelChooseBlock.Items.Clear();
             dataGridViewSecondLevelPhaseCoordinates.Rows.Clear();
@@ -375,16 +388,6 @@ namespace CourseWorkFinal
         private void checkBoxFirstLevelATop_CheckedChanged(object sender, EventArgs e)
         {
             decompositionFirst.CheckBoxAChange(chartFirstLevelA, "верхняя");
-        }
-
-        private void groupBox8_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listBoxAllPointsOfTheObject_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void listBoxAllPointsOfTheObject_DoubleClick(object sender, EventArgs e)
@@ -436,6 +439,26 @@ namespace CourseWorkFinal
         private void checkBoxSecondLevelMTop_CheckedChanged(object sender, EventArgs e)
         {
             decompositionSecond.CheckBoxMChange(chartSecondLevelM, "верхняя");
+        }
+
+        private void checkBoxSecondLevelABottom_CheckedChanged(object sender, EventArgs e)
+        {
+            decompositionSecond.CheckBoxAChange(chartSecondLevelA, "нижняя");
+        }
+
+        private void checkBoxSecondLevelAOriginal_CheckedChanged(object sender, EventArgs e)
+        {
+            decompositionSecond.CheckBoxAChange(chartSecondLevelA, "исходное");
+        }
+
+        private void checkBoxSecondLevelATop_CheckedChanged(object sender, EventArgs e)
+        {
+            decompositionSecond.CheckBoxAChange(chartSecondLevelA, "верхняя");
+        }
+
+        private void comboBoxFourthLevelChooseBlock_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            decompositionFourth.ComboBoxFourthLevelChooseBlock_SelectedIndexChanged();
         }
     }
 

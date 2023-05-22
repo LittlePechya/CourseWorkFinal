@@ -308,5 +308,14 @@ namespace CourseWorkFinal.Decomposition
                     break;
             }
         }
+
+        /// <summary>
+        /// Метод для получения заполненного списка точек по объектам
+        /// </summary>
+        /// <returns></returns>
+        public List<List<string>> GetPoints()
+        {
+            return _points;
+        }
     }
 }
