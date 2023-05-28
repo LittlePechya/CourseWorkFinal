@@ -53,6 +53,7 @@
             this.comboBoxChooseTable.Name = "comboBoxChooseTable";
             this.comboBoxChooseTable.Size = new System.Drawing.Size(121, 24);
             this.comboBoxChooseTable.TabIndex = 1;
+            this.comboBoxChooseTable.SelectedIndexChanged += new System.EventHandler(this.comboBoxChooseTable_SelectedIndexChanged);
             // 
             // buttonAccept
             // 
@@ -62,16 +63,21 @@
             this.buttonAccept.TabIndex = 2;
             this.buttonAccept.Text = "Подтвердить";
             this.buttonAccept.UseVisualStyleBackColor = true;
+            this.buttonAccept.Click += new System.EventHandler(this.buttonAccept_Click);
             // 
             // chooseTable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(453, 243);
+            this.ControlBox = false;
             this.Controls.Add(this.buttonAccept);
             this.Controls.Add(this.comboBoxChooseTable);
             this.Controls.Add(this.label1);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "chooseTable";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "chooseTable";
             this.ResumeLayout(false);
             this.PerformLayout();

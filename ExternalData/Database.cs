@@ -88,7 +88,18 @@ namespace CourseWorkFinal
         /// <returns></returns>
         public DataGridView FillTable(DataTable dt, DataGridView coordinatesTable)
         {
-            GetTableNames();
+            tableNames = GetTableNames(pathToDataBase);
+            if (tableNames.Count > 1)
+            {
+                // Если больше одной таблицы, то надо открыть форму для выбора
+                chooseTable chooseTable = new chooseTable(tableNames);
+                chooseTable.ShowDialog();
+                tableName = chooseTable.SelectedTableName;
+            }
+            else
+            {
+                tableName = "Данные";
+            }
             string SQLQuerySelectAll = "SELECT * FROM [" + tableName + "]";
             ClearDataTable(dt);
             SQLiteCommand command = new SQLiteCommand(sqlConnection);
