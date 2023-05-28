@@ -177,39 +177,35 @@ namespace CourseWorkFinal
         /// <param name="db"></param>
         /// <param name="epochCount"></param>
         /// <returns></returns>
-        public DataGridView CalculateNewRowValues(DataGridView coordinatesTable, Database db, int newRowIndex)
+        public void CalculateNewRowValues(DataGridView coordinatesTable, Database db)
         {
             double delta = 0, averageDelta = 0, newCellValue = 0;
-            /// new row number - podvoh
-            int newRowNumber = coordinatesTable.RowCount - 1;
             Random random = new Random();
+            int newRow = coordinatesTable.Rows.Count;
 
+            coordinatesTable.Rows[newRow - 1].Cells[0].Value = Convert.ToInt32(coordinatesTable.Rows[newRow - 2].Cells[0].Value) + 1;
+            AddNewRowQuery(Convert.ToDouble(coordinatesTable.Rows[newRow - 1].Cells[0].Value));
             // Цикл начинается с 1, чтобы пропустить колонку, содержащую номер эпохи
-            for (int col = 1; col < coordinatesTable.Columns.Count; col++)
+            for (int cols = 1; cols < coordinatesTable.Columns.Count; cols++)
             {
+
                 for (int rows = 0; rows < coordinatesTable.Rows.Count - 1; rows++)
                 {
-                    if (Convert.ToDouble(coordinatesTable.Rows[rows + 1].Cells[col].Value) != 0)
+                    if (Convert.ToDouble(coordinatesTable.Rows[rows + 1].Cells[cols].Value) != 0)
                     {
-                        // Расчет delta между значением и предыдущим значением
-                        delta = Math.Abs(Convert.ToDouble(coordinatesTable.Rows[rows].Cells[col].Value) - Convert.ToDouble(coordinatesTable.Rows[rows + 1].Cells[col].Value));
+                        delta = Math.Abs(Convert.ToDouble(coordinatesTable.Rows[rows].Cells[cols].Value) - Convert.ToDouble(coordinatesTable.Rows[rows + 1].Cells[cols].Value));
                     }
-
 
                     averageDelta += delta;
                     delta = 0;
                 }
 
-                // Расчет среднего значения averageData
-                averageDelta /= coordinatesTable.Rows.Count - 1;
-                // Генерация случайного значения в диапазоне от -averageDelta до +averageDelta
+                averageDelta /= coordinatesTable.Rows.Count;
                 newCellValue = random.NextDouble() * (averageDelta - (-averageDelta)) + averageDelta;
-                // Округление до 4 знаков и добавление значения в новую эпоху
-                coordinatesTable.Rows[newRowNumber].Cells[col].Value = 
-                Math.Round(newCellValue + Convert.ToDouble(coordinatesTable.Rows[newRowNumber - 1].Cells[col].Value), 4);
+                coordinatesTable.Rows[newRow - 1].Cells[cols].Value = Math.Round(newCellValue + Convert.ToDouble(coordinatesTable.Rows[newRow - 2].Cells[cols].Value), 4);
+                AddValuesInNewRowQuery(cols, newRow - 1, Convert.ToDouble(coordinatesTable.Rows[newRow - 1].Cells[cols].Value));
+                averageDelta = 0;
             }
-            coordinatesTable.Rows.Add();
-            return coordinatesTable;
         }
 
         public void AddValuesInNewRowQuery(int column, int row, double value)
@@ -221,10 +217,9 @@ namespace CourseWorkFinal
         /// Добавление новой строки в БД с помощью INSERT
         /// </summary>
         /// <param name="index"></param>
-        public void AddNewRowQuery(int index)
+        public void AddNewRowQuery(double value)
         {
-            index++;
-            string SQLQuery = "INSERT INTO [" + tableName + "] (Эпоха) VALUES (\"" + index + "\")";
+            string SQLQuery = "INSERT INTO [" + tableName + "] (Эпоха) VALUES (\"" + value + "\")";
             DoSQLQuery(SQLQuery);
         }
 

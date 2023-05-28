@@ -124,9 +124,10 @@ namespace CourseWorkFinal
                 }
 
                 objectData[3] = _smoothingFactor.ToString();
-                
+
                 placeTextDataToFormElements(objectData);
                 openDataBaseTable();
+                epochCount = dataGridViewZCoordinate.Rows.Count - 2;
                 SetStatusToFormComponents(true);
                 showSaveStatus(true);
 
@@ -207,8 +208,6 @@ namespace CourseWorkFinal
             db.GetDataBaseConnection();
             // Заполнение таблиц
             FillAllTables(dataGridViewList, dt, db);
-            // Подсчет нынешнего количества эпох
-            epochCount = Convert.ToInt32(dataGridViewZCoordinate.RowCount)-1;
             setConnectionStatus(true);
 
         }
@@ -248,19 +247,8 @@ namespace CourseWorkFinal
 
         private void buttonAddLoop_Click(object sender, EventArgs e)
         {
-            int newRowIndex = checkNewRowIndex();
-            // Добавление новой строки и запись её номера в первую колонку
-            dataGridViewZCoordinate.Rows[newRowIndex].Cells[0].Value = findMaxEpochInTable();
-            // Добавление строки в базу данных
-            // Расчет значений новой строки
-            db.CalculateNewRowValues(dataGridViewZCoordinate, db, newRowIndex);
-            //db.AddNewRowQuery(epochCount + 1);
-
-
-            db.AddNewRowQuery(newRowIndex);
-            // Глобальный счетчик строк увеличивается на 1
-            epochCount++;
-            // Необходимо снова открыть таблицу, чтобы увидеть изменения
+            dataGridViewZCoordinate.Rows.Add();
+            db.CalculateNewRowValues(dataGridViewZCoordinate, db);
             openDataBaseTable();
 
         }
