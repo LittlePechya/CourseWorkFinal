@@ -161,6 +161,10 @@ namespace CourseWorkFinal.Decomposition
                 }
                 // Индекс текущего блока увеличивается на 1
                 _currentBlock++;
+                if (_currentBlock == _blockCount)
+                {
+                    _listBoxAllPointsOfTheObject.Enabled = false;
+                }
                 // Очищаем список распределенных по блоку точек
                 _listBoxPointsOnTheBlock.Items.Clear();
                 // Меняем подпись в соответствии со следующим блоком
@@ -238,6 +242,7 @@ namespace CourseWorkFinal.Decomposition
                 _chartSecondLevelA.Series.Clear();
                 _chartSecondLevelM.Series.Clear();
                 _chartSecondLevelResponseFunction.Series.Clear();
+                _comboBoxSecondLevelChooseBlock.Items.Clear();
             }
 
             resetFlag = true;

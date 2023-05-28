@@ -26,9 +26,12 @@ namespace CourseWorkFinal
         DataTable dt = new DataTable();
         Database db;
         List<DataGridView> dataGridViewList = new List<DataGridView>();
-        double defaultAlpha = 0.9;
-        double measurmentError = 0;
+        private double _smoothingFactor = 0.9;
+        private double _measurmentError = 0;
         private List<List<string>> _points = new List<List<string>>();
+
+        // Этот флаг снимается, после того как пользователь открывает проект, иначе вызывается метод valueChanged у numericUpDown
+        private bool _flagFirstOpen = true;
         FirstLevelDecomposition decompositionFirst;
         SecondLevelDecomposition decompositionSecond;
         FourthLevelDecomposition decompositionFourth;
@@ -72,8 +75,8 @@ namespace CourseWorkFinal
 
         private void showSaveStatus(bool saveStatus)
         {
-            if (saveStatus) { toolStripLabelSaveStatus.ForeColor = System.Drawing.Color.LimeGreen; }
-            else { toolStripLabelSaveStatus.ForeColor = System.Drawing.Color.DarkRed; }
+            if (saveStatus) { toolStripLabelSaveStatus.ForeColor = System.Drawing.Color.LimeGreen; toolStripLabelSaveStatus.Text = "Статус: сохранено"; }
+            else { toolStripLabelSaveStatus.ForeColor = System.Drawing.Color.DarkRed; toolStripLabelSaveStatus.Text = "Статус: не сохранено"; }
         }
         private void SetStatusToFormComponents(bool status)
         {
@@ -120,12 +123,12 @@ namespace CourseWorkFinal
                     objectData = fileManager.GetDataFromTextFile();
                 }
 
-                objectData[3] = defaultAlpha.ToString();
+                objectData[3] = _smoothingFactor.ToString();
                 
                 placeTextDataToFormElements(objectData);
                 openDataBaseTable();
                 SetStatusToFormComponents(true);
-
+                showSaveStatus(true);
 
 
                 StartDecomposition();
@@ -149,7 +152,7 @@ namespace CourseWorkFinal
         // Первый уровень декомпозиции
         public void FirstLevel()
         {
-            decompositionFirst = new FirstLevelDecomposition(defaultAlpha, measurmentError,
+            decompositionFirst = new FirstLevelDecomposition(_smoothingFactor, _measurmentError,
                 dataGridViewZCoordinate, dataGridViewFirstLevelPhaseCoordinates, dataGridViewFirstLevelObjectStatus,
                 chartFirstLevelM, chartFirstLevelA, chartFirstLevelResponseFunction, dt);
         }
@@ -160,7 +163,7 @@ namespace CourseWorkFinal
             blockCount = Int32.Parse(new String(str.Where(Char.IsDigit).ToArray()));
             str = labelPointCount.Text;
             pointsCount = Int32.Parse(new String(str.Where(Char.IsDigit).ToArray()));
-            decompositionSecond = new SecondLevelDecomposition(defaultAlpha, measurmentError, dataGridViewZCoordinate, blockCount, pointsCount, listBoxAllPointsOfTheObject, listBoxPointsOnTheBlock, labelPointsOfTheSelectedBlock,
+            decompositionSecond = new SecondLevelDecomposition(_smoothingFactor, _measurmentError, dataGridViewZCoordinate, blockCount, pointsCount, listBoxAllPointsOfTheObject, listBoxPointsOnTheBlock, labelPointsOfTheSelectedBlock,
                 chartSecondLevelResponseFunction, chartSecondLevelM, chartSecondLevelA, comboBoxSecondLevelChooseBlock, dataGridViewSecondLevelObjectStatus, dataGridViewSecondLevelPhaseCoordinates);
 
             if (decompositionSecond.GetPoints() != null)
@@ -171,7 +174,7 @@ namespace CourseWorkFinal
 
         public void FourthLevel()
         {
-            decompositionFourth = new FourthLevelDecomposition(defaultAlpha, measurmentError, dataGridViewZCoordinate, blockCount, _points, comboBoxFourthLevelChooseBlock,
+            decompositionFourth = new FourthLevelDecomposition(_smoothingFactor, _measurmentError, dataGridViewZCoordinate, blockCount, _points, comboBoxFourthLevelChooseBlock,
                 checkedListBoxFourthLevelAvailablePoints, buttonFourthLevelSelectAll, buttonFourthLevelReset, chartFourthLevel);
         }
 
@@ -182,11 +185,11 @@ namespace CourseWorkFinal
         public void placeTextDataToFormElements(string[] objectData)
         {
             // 0 точность измерений 1 количество блоков 2 количество точек 3 погрешность 
-            measurmentError = double.Parse(objectData[0]);
+            _measurmentError = double.Parse(objectData[0]);
             numericUpDownMeasurementError.Value = decimal.Parse(objectData[0]);
             labelBlockCount.Text = "Количество блоков на объекте: " + objectData[1].ToString();
             labelPointCount.Text = "Количество марок на объекте: " + objectData[2].ToString();
-            defaultAlpha = double.Parse(objectData[3]);
+            _smoothingFactor = double.Parse(objectData[3]);
             numericUpDownSmoothingFactor.Value = decimal.Parse(objectData[3]);
         }
 
@@ -322,8 +325,8 @@ namespace CourseWorkFinal
 
         private void numericUpDownSmoothingFactor_ValueChanged(object sender, EventArgs e)
         {
-            defaultAlpha = Convert.ToDouble(numericUpDownSmoothingFactor.Value);
-            if (defaultAlpha > 0 & defaultAlpha < 1) 
+            _smoothingFactor = Convert.ToDouble(numericUpDownSmoothingFactor.Value);
+            if (_smoothingFactor > 0 & _smoothingFactor < 1) 
             {
                 ResetFormAfterSmoothingFactorChanged();
             }
@@ -545,6 +548,25 @@ namespace CourseWorkFinal
             OpenChartOnFullScreen(chartFourthLevel);
         }
 
+        private void ToolStripMenuItemSave_Click(object sender, EventArgs e)
+        {
+            fileManager.ChangeDataInTextFile(numericUpDownMeasurementError.Value, numericUpDownSmoothingFactor.Value);
+            showSaveStatus(true);
+        }
+
+        private void numericUpDownMeasurementError_ValueChanged(object sender, EventArgs e)
+        {
+            if (_flagFirstOpen)
+            {
+                return;
+            }
+            else
+            {
+                _flagFirstOpen = false;
+                showSaveStatus(false);
+                ResetFormAfterSmoothingFactorChanged();
+            }
+        }
     }
 
 }

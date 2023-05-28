@@ -100,6 +100,7 @@ namespace CourseWorkFinal
             {
                 tableName = "Данные";
             }
+
             string SQLQuerySelectAll = "SELECT * FROM [" + tableName + "]";
             ClearDataTable(dt);
             SQLiteCommand command = new SQLiteCommand(sqlConnection);

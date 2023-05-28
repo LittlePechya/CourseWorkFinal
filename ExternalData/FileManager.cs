@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using SharpCompress.Archives;
@@ -137,6 +138,28 @@ namespace CourseWorkFinal
             }
 
             return result;
+        }
+
+        public void ChangeDataInTextFile(decimal measurmentError, decimal smoothingFactor)
+        {
+            string[] lines = File.ReadAllLines(pathToTextFile, Encoding.Unicode);
+
+            for (int i = 0; i < lines.Length; i++)
+            {
+                // найти число с помощью регулярного выражения
+                string pattern = @"\d+,\d+м";
+                Match match = Regex.Match(lines[i], pattern);
+                if (match.Success)
+                {
+                    // заменить число на новое значение
+                    string newPrecision = measurmentError.ToString() + "м";
+                    lines[i] = lines[i].Replace(match.Value, newPrecision);
+                    break; // завершить цикл после первой замены значения
+                }
+            }
+
+            // записать измененные данные в файл
+            File.WriteAllLines(pathToTextFile, lines, Encoding.Unicode);
         }
 
     }
