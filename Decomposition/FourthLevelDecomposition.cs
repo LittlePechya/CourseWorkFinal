@@ -76,7 +76,7 @@ namespace CourseWorkFinal.Decomposition
             }
 
             // Эта строчка нужна, чтобы при перерасчете уровня декомпозиции comboBox был пустым
-            _comboBoxFourthLevelChooseBlock.SelectedItem = -1;
+            _comboBoxFourthLevelChooseBlock.SelectedItem = null;
         }
 
         /// <summary>
@@ -92,6 +92,8 @@ namespace CourseWorkFinal.Decomposition
                     _checkedListBoxFourthLevelAvailablePoints.Items.Add(str);
                 }
             }
+
+
 
         }
 
@@ -122,9 +124,6 @@ namespace CourseWorkFinal.Decomposition
             points.Clear();
             fourthLevelChart.Series.Clear();
             availablePoints.Items.Clear();
-            chooseBlockComboBox.Items.Clear();
-            chooseBlockComboBox.SelectedItem = -1;
-
         }
     }
 }

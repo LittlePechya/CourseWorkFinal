@@ -81,7 +81,8 @@ namespace CourseWorkFinal.Decomposition
                 { 1, "Б" },
                 { 2, "В" },
                 { 3, "Г" },
-                { 4, "Д" }
+                { 4, "Д" },
+                { 5, "Е" }
             };
 
             SecondLevelDecompositionLoad();
@@ -257,6 +258,8 @@ namespace CourseWorkFinal.Decomposition
              AValuesLists.Add(forecastBottomAValue); //3
              AValuesLists.Add(listOfAValues); //4
              AValuesLists.Add(forecastAValue); //5*/
+            if (_comboBoxSecondLevelChooseBlock.SelectedItem == null) return;
+            
             switch (location)
             {
                 case "нижняя":

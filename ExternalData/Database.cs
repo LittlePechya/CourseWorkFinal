@@ -195,19 +195,7 @@ namespace CourseWorkFinal
                 // Округление до 4 знаков и добавление значения в новую эпоху
                 coordinatesTable.Rows[newRowNumber].Cells[col].Value = 
                 Math.Round(newCellValue + Convert.ToDouble(coordinatesTable.Rows[newRowNumber - 1].Cells[col].Value), 4);
-
-                // TODO: nextEpochValue - следующий номер эпохи, которая должна быть добавлена (после добавления нужно ее увеличивать)
-                // можно в параметры передать эту переменную по указателю из main формы (всегда будешь знать какую добавить следующую)
-                // а можно из бд получать просто вообще-то так и  надо))))))))))
-                // Пример:
-                // public DataGridView CalculateNewRowValues(DataGridView coordinatesTable, Database db, int newRowIndex, ref int nextEpochValue)
-
-                //db.AddValuesInNewRowQuery(col, nextEpochValue, Convert.ToDouble(coordinatesTable.Rows[newRowIndex].Cells[col].Value));
-                // nextEpochValue++;
             }
-
-            // TODO: понять какие значениия добавлять надо (row, column, value) db.AddValuesInNewRowQuery();
-
             coordinatesTable.Rows.Add();
             return coordinatesTable;
         }

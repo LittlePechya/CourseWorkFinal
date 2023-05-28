@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using CourseWorkFinal.Decomposition;
+using SharpCompress;
+using ChartControl = System.Windows.Forms.DataVisualization.Charting.Chart;
 
 namespace CourseWorkFinal
 {
@@ -358,9 +362,11 @@ namespace CourseWorkFinal
             dataGridViewSecondLevelObjectStatus.Rows.Clear();
             decompositionFirst.ResetFirstLevel(chartFirstLevelM, chartFirstLevelM);
             decompositionSecond.resetFlag = true;
+          
             comboBoxFourthLevelChooseBlock.Items.Clear();
-            decompositionSecond.ResetSecondLevel();
+
             decompositionFourth.ResetFourthLevel(_points, chartFourthLevel, checkedListBoxFourthLevelAvailablePoints, comboBoxFourthLevelChooseBlock);
+            decompositionSecond.ResetSecondLevel();
 
             // Табпейджи тоже обязательно выключать в самом конце, иначе невозможно отключить элементы формы
             tabPage5.Enabled = false;
@@ -460,8 +466,17 @@ namespace CourseWorkFinal
         }
 
         private void comboBoxFourthLevelChooseBlock_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        {    
+            for (int i = 0; i < checkedListBoxFourthLevelAvailablePoints.Items.Count; i++)
+            {
+                if (checkedListBoxFourthLevelAvailablePoints.GetItemChecked(i) == true)
+                {
+                    checkedListBoxFourthLevelAvailablePoints.SetItemChecked(i, false);
+                }
+            }
+
             decompositionFourth.ComboBoxFourthLevelChooseBlock_SelectedIndexChanged();
+            chartFourthLevel.Series.Clear();
         }
 
         private void checkedListBoxFourthLevelAvailablePoints_ItemCheck(object sender, ItemCheckEventArgs e)
@@ -478,6 +493,58 @@ namespace CourseWorkFinal
         {
 
         }
+
+        private void chartFirstLevelResponseFunction_Click(object sender, EventArgs e)
+        {
+            OpenChartOnFullScreen(chartFirstLevelResponseFunction);
+        }
+
+        private ChartControl CloneChart(ChartControl chart)
+        {
+            MemoryStream stream = new MemoryStream();
+            ChartControl clonedChart = chart;
+            clonedChart.Serializer.Save(stream);
+            clonedChart = new ChartControl();
+            clonedChart.Serializer.Load(stream);
+            return clonedChart;
+        }
+
+        private void OpenChartOnFullScreen(ChartControl chart)
+        {
+            fullScreenChart fullScreen = new fullScreenChart(CloneChart(chart));
+            fullScreen.ShowDialog();
+        }
+
+        private void chartFirstLevelM_Click(object sender, EventArgs e)
+        {
+            OpenChartOnFullScreen(chartFirstLevelM);
+        }
+
+        private void chartFirstLevelA_Click(object sender, EventArgs e)
+        {
+            OpenChartOnFullScreen(chartFirstLevelA);
+        }
+
+        private void chartSecondLevelResponseFunction_Click(object sender, EventArgs e)
+        {
+            OpenChartOnFullScreen(chartSecondLevelResponseFunction);
+        }
+
+        private void chartSecondLevelM_Click(object sender, EventArgs e)
+        {
+            OpenChartOnFullScreen(chartSecondLevelM);
+        }
+
+        private void chartSecondLevelA_Click(object sender, EventArgs e)
+        {
+            OpenChartOnFullScreen(chartSecondLevelA);
+        }
+
+        private void chartFourthLevel_Click(object sender, EventArgs e)
+        {
+            OpenChartOnFullScreen(chartFourthLevel);
+        }
+
     }
 
 }
