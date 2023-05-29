@@ -127,7 +127,9 @@ namespace CourseWorkFinal
 
                 placeTextDataToFormElements(objectData);
                 openDataBaseTable();
-                epochCount = dataGridViewZCoordinate.Rows.Count - 2;
+                db.ChangeCommasToDots(dt);
+                // Здесь база данных открывается второй раз, чтобы вывести все числа в правильном виде double
+                openDataBaseTable();
                 SetStatusToFormComponents(true);
                 showSaveStatus(true);
 
@@ -254,11 +256,15 @@ namespace CourseWorkFinal
             int newRowIndex = dataGridViewZCoordinate.RowCount;
             // Добавляем новую строку в саму БД
             // В базе данных он должен быть записан под индексом 9
-            db.AddNewRowQuery(newRowIndex);
+            //db.AddNewRowQuery(newRowIndex);
             // Определеяем имя максимальной эпохи, чтобы записать его в новой строчке
             int maxEpoch = findMaxEpochInTable();
-            // Добавлением значения в новую строку
-            db.CalculateNewRowValues(dataGridViewZCoordinate, db, newRowIndex, maxEpoch);
+            // Индекс в БД определяется сам, а нам нужно только указать имя для эпохи
+            db.AddNewRowQuery(maxEpoch + 1);
+            // Добавлением значения в новую строку с индексом 9
+            db.CalculateNewRowValues(dataGridViewZCoordinate, db, newRowIndex, maxEpoch + 1);
+            // Это нам надо, чтобы числа в табличку выводились в правильном виде double
+            db.ChangeCommasToDots(dt);
             // Открывает БД для обновления таблицы
             openDataBaseTable();
         }

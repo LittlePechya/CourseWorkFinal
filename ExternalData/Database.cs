@@ -181,7 +181,8 @@ namespace CourseWorkFinal
         {
             double delta = 0, averageDelta = 0, newCellValue = 0;
             Random random = new Random();
-
+            // Мы передали newRowIndex = 9
+            // Тут newROwIndex -1, потому что мы обращаемся к 9 строчке, которая восьмая по нумерации
             coordinatesTable.Rows[newRowIndex - 1].Cells[0].Value = maxEpochName;
             //AddNewRowQuery(Convert.ToDouble(maxEpoch + 1));
             // Цикл начинается с 1, чтобы пропустить колонку, содержащую номер эпохи
@@ -199,17 +200,20 @@ namespace CourseWorkFinal
                     delta = 0;
                 }
 
+
+                // newRowIndex = 9
                 averageDelta /= coordinatesTable.Rows.Count;
                 newCellValue = random.NextDouble() * (averageDelta - (-averageDelta)) + averageDelta;
+                // Обращаемся к восьмой строке, это наша созданная строчка
                 coordinatesTable.Rows[newRowIndex - 1].Cells[cols].Value = Math.Round(newCellValue + Convert.ToDouble(coordinatesTable.Rows[newRowIndex - 2].Cells[cols].Value), 4);
-                AddValuesInNewRowQuery(cols, newRowIndex - 1, Convert.ToDouble(coordinatesTable.Rows[newRowIndex - 1].Cells[cols].Value));
+                AddValuesInNewRowQuery(cols, maxEpochName, Convert.ToDouble(coordinatesTable.Rows[newRowIndex - 1].Cells[cols].Value));
                 averageDelta = 0;
             }
         }
 
-        public void AddValuesInNewRowQuery(int column, int row, double value)
+        public void AddValuesInNewRowQuery(int column, int maxEpoch, double value)
         {
-            string SQLQuery = "UPDATE [" + tableName + "] SET \"" + column + "\" = \"" + value + "\" WHERE Эпоха = \'" + row + "\'";
+            string SQLQuery = "UPDATE [" + tableName + "] SET \"" + column + "\" = \"" + value + "\" WHERE Эпоха = \'" + maxEpoch + "\'";
             DoSQLQuery(SQLQuery);
         }
         /// <summary>
