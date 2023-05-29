@@ -48,12 +48,11 @@
             this.ToolStripMenuItemOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemSave = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripButtonAboutAuthor = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabelSaveStatus = new System.Windows.Forms.ToolStripLabel();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.splitContainerFourthLevel = new System.Windows.Forms.SplitContainer();
-            this.buttonFourthLevelSelectAll = new System.Windows.Forms.Button();
-            this.buttonFourthLevelReset = new System.Windows.Forms.Button();
             this.checkedListBoxFourthLevelAvailablePoints = new System.Windows.Forms.CheckedListBox();
             this.label18 = new System.Windows.Forms.Label();
             this.comboBoxFourthLevelChooseBlock = new System.Windows.Forms.ComboBox();
@@ -83,7 +82,7 @@
             this.checkBoxSecondLevelResponseFunctionTop = new System.Windows.Forms.CheckBox();
             this.checkBoxSecondLevelResponseFunctionOriginal = new System.Windows.Forms.CheckBox();
             this.checkBoxSecondLevelResponseFunctionBottom = new System.Windows.Forms.CheckBox();
-            this.buttonSecondLevelRemoveAllAlpha = new System.Windows.Forms.Button();
+            this.buttonSecondLevelRemoveAllResponseFunction = new System.Windows.Forms.Button();
             this.tabPage11 = new System.Windows.Forms.TabPage();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
             this.buttonSecondLevelRemoveAllM = new System.Windows.Forms.Button();
@@ -93,7 +92,7 @@
             this.chartSecondLevelM = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.buttonSecondLevelRemoveAllAlpha = new System.Windows.Forms.Button();
             this.checkBoxSecondLevelATop = new System.Windows.Forms.CheckBox();
             this.checkBoxSecondLevelAOriginal = new System.Windows.Forms.CheckBox();
             this.checkBoxSecondLevelABottom = new System.Windows.Forms.CheckBox();
@@ -107,7 +106,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.buttonFirstLevelRemoveAllAlpha = new System.Windows.Forms.Button();
+            this.buttonFirstLevelRemoveAllResponseFunctions = new System.Windows.Forms.Button();
             this.checkBoxFirstLevelResponseFunctionTop = new System.Windows.Forms.CheckBox();
             this.checkBoxFirstLevelResponseFunctionOriginal = new System.Windows.Forms.CheckBox();
             this.checkBoxFirstLevelResponseFunctionBottom = new System.Windows.Forms.CheckBox();
@@ -121,7 +120,7 @@
             this.chartFirstLevelM = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabPage14 = new System.Windows.Forms.TabPage();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonFirstLevelRemoveAllAlpha = new System.Windows.Forms.Button();
             this.checkBoxFirstLevelATop = new System.Windows.Forms.CheckBox();
             this.checkBoxFirstLevelAOriginal = new System.Windows.Forms.CheckBox();
             this.checkBoxFirstLevelABottom = new System.Windows.Forms.CheckBox();
@@ -220,6 +219,7 @@
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripDropDownFile,
             this.toolStripButtonAboutAuthor,
+            this.toolStripButton1,
             this.toolStripSeparator,
             this.toolStripLabelSaveStatus});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
@@ -265,6 +265,15 @@
             this.toolStripButtonAboutAuthor.Size = new System.Drawing.Size(85, 24);
             this.toolStripButtonAboutAuthor.Text = "Об авторе";
             // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(159, 24);
+            this.toolStripButton1.Text = "Инструкция к работе";
+            // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
@@ -295,8 +304,6 @@
             // 
             // splitContainerFourthLevel.Panel1
             // 
-            this.splitContainerFourthLevel.Panel1.Controls.Add(this.buttonFourthLevelSelectAll);
-            this.splitContainerFourthLevel.Panel1.Controls.Add(this.buttonFourthLevelReset);
             this.splitContainerFourthLevel.Panel1.Controls.Add(this.checkedListBoxFourthLevelAvailablePoints);
             this.splitContainerFourthLevel.Panel1.Controls.Add(this.label18);
             this.splitContainerFourthLevel.Panel1.Controls.Add(this.comboBoxFourthLevelChooseBlock);
@@ -309,33 +316,13 @@
             this.splitContainerFourthLevel.SplitterDistance = 200;
             this.splitContainerFourthLevel.TabIndex = 0;
             // 
-            // buttonFourthLevelSelectAll
-            // 
-            this.buttonFourthLevelSelectAll.Location = new System.Drawing.Point(18, 462);
-            this.buttonFourthLevelSelectAll.Name = "buttonFourthLevelSelectAll";
-            this.buttonFourthLevelSelectAll.Size = new System.Drawing.Size(156, 51);
-            this.buttonFourthLevelSelectAll.TabIndex = 6;
-            this.buttonFourthLevelSelectAll.Text = "Выбрать все точки";
-            this.buttonFourthLevelSelectAll.UseVisualStyleBackColor = true;
-            this.buttonFourthLevelSelectAll.Click += new System.EventHandler(this.buttonFourthLevelSelectAll_Click);
-            // 
-            // buttonFourthLevelReset
-            // 
-            this.buttonFourthLevelReset.Location = new System.Drawing.Point(18, 535);
-            this.buttonFourthLevelReset.Name = "buttonFourthLevelReset";
-            this.buttonFourthLevelReset.Size = new System.Drawing.Size(156, 51);
-            this.buttonFourthLevelReset.TabIndex = 5;
-            this.buttonFourthLevelReset.Text = "Сбросить выбранные точки";
-            this.buttonFourthLevelReset.UseVisualStyleBackColor = true;
-            this.buttonFourthLevelReset.Click += new System.EventHandler(this.buttonFourthLevelReset_Click);
-            // 
             // checkedListBoxFourthLevelAvailablePoints
             // 
             this.checkedListBoxFourthLevelAvailablePoints.CheckOnClick = true;
             this.checkedListBoxFourthLevelAvailablePoints.FormattingEnabled = true;
             this.checkedListBoxFourthLevelAvailablePoints.Location = new System.Drawing.Point(18, 95);
             this.checkedListBoxFourthLevelAvailablePoints.Name = "checkedListBoxFourthLevelAvailablePoints";
-            this.checkedListBoxFourthLevelAvailablePoints.Size = new System.Drawing.Size(167, 361);
+            this.checkedListBoxFourthLevelAvailablePoints.Size = new System.Drawing.Size(167, 497);
             this.checkedListBoxFourthLevelAvailablePoints.TabIndex = 3;
             this.checkedListBoxFourthLevelAvailablePoints.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxFourthLevelAvailablePoints_ItemCheck);
             // 
@@ -605,7 +592,7 @@
             this.groupBox9.Controls.Add(this.checkBoxSecondLevelResponseFunctionTop);
             this.groupBox9.Controls.Add(this.checkBoxSecondLevelResponseFunctionOriginal);
             this.groupBox9.Controls.Add(this.checkBoxSecondLevelResponseFunctionBottom);
-            this.groupBox9.Controls.Add(this.buttonSecondLevelRemoveAllAlpha);
+            this.groupBox9.Controls.Add(this.buttonSecondLevelRemoveAllResponseFunction);
             this.groupBox9.Location = new System.Drawing.Point(9, 421);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(771, 98);
@@ -646,14 +633,15 @@
             this.checkBoxSecondLevelResponseFunctionBottom.UseVisualStyleBackColor = true;
             this.checkBoxSecondLevelResponseFunctionBottom.CheckedChanged += new System.EventHandler(this.checkBoxSecondLevelResponseFunctionBottom_CheckedChanged);
             // 
-            // buttonSecondLevelRemoveAllAlpha
+            // buttonSecondLevelRemoveAllResponseFunction
             // 
-            this.buttonSecondLevelRemoveAllAlpha.Location = new System.Drawing.Point(516, 21);
-            this.buttonSecondLevelRemoveAllAlpha.Name = "buttonSecondLevelRemoveAllAlpha";
-            this.buttonSecondLevelRemoveAllAlpha.Size = new System.Drawing.Size(237, 53);
-            this.buttonSecondLevelRemoveAllAlpha.TabIndex = 6;
-            this.buttonSecondLevelRemoveAllAlpha.Text = "Убрать все";
-            this.buttonSecondLevelRemoveAllAlpha.UseVisualStyleBackColor = true;
+            this.buttonSecondLevelRemoveAllResponseFunction.Location = new System.Drawing.Point(433, 30);
+            this.buttonSecondLevelRemoveAllResponseFunction.Name = "buttonSecondLevelRemoveAllResponseFunction";
+            this.buttonSecondLevelRemoveAllResponseFunction.Size = new System.Drawing.Size(237, 53);
+            this.buttonSecondLevelRemoveAllResponseFunction.TabIndex = 6;
+            this.buttonSecondLevelRemoveAllResponseFunction.Text = "Убрать все";
+            this.buttonSecondLevelRemoveAllResponseFunction.UseVisualStyleBackColor = true;
+            this.buttonSecondLevelRemoveAllResponseFunction.Click += new System.EventHandler(this.buttonSecondLevelRemoveAllAlpha_Click);
             // 
             // tabPage11
             // 
@@ -688,6 +676,7 @@
             this.buttonSecondLevelRemoveAllM.TabIndex = 6;
             this.buttonSecondLevelRemoveAllM.Text = "Убрать все";
             this.buttonSecondLevelRemoveAllM.UseVisualStyleBackColor = true;
+            this.buttonSecondLevelRemoveAllM.Click += new System.EventHandler(this.buttonSecondLevelRemoveAllM_Click);
             // 
             // checkBoxSecondLevelMTop
             // 
@@ -749,7 +738,7 @@
             // 
             // groupBox16
             // 
-            this.groupBox16.Controls.Add(this.button2);
+            this.groupBox16.Controls.Add(this.buttonSecondLevelRemoveAllAlpha);
             this.groupBox16.Controls.Add(this.checkBoxSecondLevelATop);
             this.groupBox16.Controls.Add(this.checkBoxSecondLevelAOriginal);
             this.groupBox16.Controls.Add(this.checkBoxSecondLevelABottom);
@@ -760,14 +749,15 @@
             this.groupBox16.TabStop = false;
             this.groupBox16.Text = "Параметры графиков";
             // 
-            // button2
+            // buttonSecondLevelRemoveAllAlpha
             // 
-            this.button2.Location = new System.Drawing.Point(422, 32);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(237, 53);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "Убрать все";
-            this.button2.UseVisualStyleBackColor = true;
+            this.buttonSecondLevelRemoveAllAlpha.Location = new System.Drawing.Point(422, 32);
+            this.buttonSecondLevelRemoveAllAlpha.Name = "buttonSecondLevelRemoveAllAlpha";
+            this.buttonSecondLevelRemoveAllAlpha.Size = new System.Drawing.Size(237, 53);
+            this.buttonSecondLevelRemoveAllAlpha.TabIndex = 6;
+            this.buttonSecondLevelRemoveAllAlpha.Text = "Убрать все";
+            this.buttonSecondLevelRemoveAllAlpha.UseVisualStyleBackColor = true;
+            this.buttonSecondLevelRemoveAllAlpha.Click += new System.EventHandler(this.buttonSecondLevelRemoveAllAlpha_Click_1);
             // 
             // checkBoxSecondLevelATop
             // 
@@ -909,7 +899,7 @@
             // 
             // groupBox8
             // 
-            this.groupBox8.Controls.Add(this.buttonFirstLevelRemoveAllAlpha);
+            this.groupBox8.Controls.Add(this.buttonFirstLevelRemoveAllResponseFunctions);
             this.groupBox8.Controls.Add(this.checkBoxFirstLevelResponseFunctionTop);
             this.groupBox8.Controls.Add(this.checkBoxFirstLevelResponseFunctionOriginal);
             this.groupBox8.Controls.Add(this.checkBoxFirstLevelResponseFunctionBottom);
@@ -920,14 +910,15 @@
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Параметры графиков";
             // 
-            // buttonFirstLevelRemoveAllAlpha
+            // buttonFirstLevelRemoveAllResponseFunctions
             // 
-            this.buttonFirstLevelRemoveAllAlpha.Location = new System.Drawing.Point(438, 31);
-            this.buttonFirstLevelRemoveAllAlpha.Name = "buttonFirstLevelRemoveAllAlpha";
-            this.buttonFirstLevelRemoveAllAlpha.Size = new System.Drawing.Size(237, 53);
-            this.buttonFirstLevelRemoveAllAlpha.TabIndex = 6;
-            this.buttonFirstLevelRemoveAllAlpha.Text = "Убрать все";
-            this.buttonFirstLevelRemoveAllAlpha.UseVisualStyleBackColor = true;
+            this.buttonFirstLevelRemoveAllResponseFunctions.Location = new System.Drawing.Point(438, 31);
+            this.buttonFirstLevelRemoveAllResponseFunctions.Name = "buttonFirstLevelRemoveAllResponseFunctions";
+            this.buttonFirstLevelRemoveAllResponseFunctions.Size = new System.Drawing.Size(237, 53);
+            this.buttonFirstLevelRemoveAllResponseFunctions.TabIndex = 6;
+            this.buttonFirstLevelRemoveAllResponseFunctions.Text = "Убрать все";
+            this.buttonFirstLevelRemoveAllResponseFunctions.UseVisualStyleBackColor = true;
+            this.buttonFirstLevelRemoveAllResponseFunctions.Click += new System.EventHandler(this.buttonFirstLevelRemoveAllAlpha_Click);
             // 
             // checkBoxFirstLevelResponseFunctionTop
             // 
@@ -1008,6 +999,7 @@
             this.buttonFirstLevelRemoveAllM.TabIndex = 6;
             this.buttonFirstLevelRemoveAllM.Text = "Убрать все";
             this.buttonFirstLevelRemoveAllM.UseVisualStyleBackColor = true;
+            this.buttonFirstLevelRemoveAllM.Click += new System.EventHandler(this.buttonFirstLevelRemoveAllM_Click);
             // 
             // checkBoxFirstLevelMTop
             // 
@@ -1069,7 +1061,7 @@
             // 
             // groupBox15
             // 
-            this.groupBox15.Controls.Add(this.button1);
+            this.groupBox15.Controls.Add(this.buttonFirstLevelRemoveAllAlpha);
             this.groupBox15.Controls.Add(this.checkBoxFirstLevelATop);
             this.groupBox15.Controls.Add(this.checkBoxFirstLevelAOriginal);
             this.groupBox15.Controls.Add(this.checkBoxFirstLevelABottom);
@@ -1080,14 +1072,15 @@
             this.groupBox15.TabStop = false;
             this.groupBox15.Text = "Параметры графиков";
             // 
-            // button1
+            // buttonFirstLevelRemoveAllAlpha
             // 
-            this.button1.Location = new System.Drawing.Point(433, 30);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(237, 53);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Убрать все";
-            this.button1.UseVisualStyleBackColor = true;
+            this.buttonFirstLevelRemoveAllAlpha.Location = new System.Drawing.Point(433, 30);
+            this.buttonFirstLevelRemoveAllAlpha.Name = "buttonFirstLevelRemoveAllAlpha";
+            this.buttonFirstLevelRemoveAllAlpha.Size = new System.Drawing.Size(237, 53);
+            this.buttonFirstLevelRemoveAllAlpha.TabIndex = 7;
+            this.buttonFirstLevelRemoveAllAlpha.Text = "Убрать все";
+            this.buttonFirstLevelRemoveAllAlpha.UseVisualStyleBackColor = true;
+            this.buttonFirstLevelRemoveAllAlpha.Click += new System.EventHandler(this.buttonFirstLevelRemoveAllAlpha_Click_1);
             // 
             // checkBoxFirstLevelATop
             // 
@@ -1203,6 +1196,7 @@
             0,
             65536});
             this.numericUpDownSmoothingFactor.Name = "numericUpDownSmoothingFactor";
+            this.numericUpDownSmoothingFactor.ReadOnly = true;
             this.numericUpDownSmoothingFactor.Size = new System.Drawing.Size(120, 22);
             this.numericUpDownSmoothingFactor.TabIndex = 7;
             this.numericUpDownSmoothingFactor.Value = new decimal(new int[] {
@@ -1222,6 +1216,7 @@
             262144});
             this.numericUpDownMeasurementError.Location = new System.Drawing.Point(164, 99);
             this.numericUpDownMeasurementError.Name = "numericUpDownMeasurementError";
+            this.numericUpDownMeasurementError.ReadOnly = true;
             this.numericUpDownMeasurementError.Size = new System.Drawing.Size(120, 22);
             this.numericUpDownMeasurementError.TabIndex = 6;
             this.numericUpDownMeasurementError.ValueChanged += new System.EventHandler(this.numericUpDownMeasurementError_ValueChanged);
@@ -1498,7 +1493,6 @@
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemOpen;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.SplitContainer splitContainerFourthLevel;
-        private System.Windows.Forms.Button buttonFourthLevelReset;
         private System.Windows.Forms.CheckedListBox checkedListBoxFourthLevelAvailablePoints;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.ComboBox comboBoxFourthLevelChooseBlock;
@@ -1524,7 +1518,7 @@
         private System.Windows.Forms.TabControl tabControlSecondLevel;
         private System.Windows.Forms.TabPage tabPage10;
         private System.Windows.Forms.GroupBox groupBox9;
-        private System.Windows.Forms.Button buttonSecondLevelRemoveAllAlpha;
+        private System.Windows.Forms.Button buttonSecondLevelRemoveAllResponseFunction;
         private System.Windows.Forms.TabPage tabPage11;
         private System.Windows.Forms.GroupBox groupBox14;
         private System.Windows.Forms.Button buttonSecondLevelRemoveAllM;
@@ -1541,7 +1535,7 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.GroupBox groupBox8;
-        private System.Windows.Forms.Button buttonFirstLevelRemoveAllAlpha;
+        private System.Windows.Forms.Button buttonFirstLevelRemoveAllResponseFunctions;
         private System.Windows.Forms.CheckBox checkBoxFirstLevelResponseFunctionTop;
         private System.Windows.Forms.CheckBox checkBoxFirstLevelResponseFunctionOriginal;
         private System.Windows.Forms.CheckBox checkBoxFirstLevelResponseFunctionBottom;
@@ -1555,7 +1549,7 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart chartFirstLevelM;
         private System.Windows.Forms.TabPage tabPage14;
         private System.Windows.Forms.GroupBox groupBox15;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonFirstLevelRemoveAllAlpha;
         private System.Windows.Forms.CheckBox checkBoxFirstLevelATop;
         private System.Windows.Forms.CheckBox checkBoxFirstLevelAOriginal;
         private System.Windows.Forms.CheckBox checkBoxFirstLevelABottom;
@@ -1588,11 +1582,11 @@
         private System.Windows.Forms.CheckBox checkBoxSecondLevelResponseFunctionOriginal;
         private System.Windows.Forms.CheckBox checkBoxSecondLevelResponseFunctionTop;
         private System.Windows.Forms.GroupBox groupBox16;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button buttonSecondLevelRemoveAllAlpha;
         private System.Windows.Forms.CheckBox checkBoxSecondLevelATop;
         private System.Windows.Forms.CheckBox checkBoxSecondLevelAOriginal;
         private System.Windows.Forms.CheckBox checkBoxSecondLevelABottom;
-        private System.Windows.Forms.Button buttonFourthLevelSelectAll;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
     }
 }
 

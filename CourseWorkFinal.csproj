@@ -99,6 +99,12 @@
     <Compile Include="ExternalData\FileManager.cs" />
     <Compile Include="ExternalData\Database.cs" />
     <Compile Include="Decomposition\FirstLevelDecomposition.cs" />
+    <Compile Include="FormAboutAuthor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAboutAuthor.Designer.cs">
+      <DependentUpon>FormAboutAuthor.cs</DependentUpon>
+    </Compile>
     <Compile Include="fullScreenChart.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,6 +121,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="chooseTable.resx">
       <DependentUpon>chooseTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAboutAuthor.resx">
+      <DependentUpon>FormAboutAuthor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fullScreenChart.resx">
       <DependentUpon>fullScreenChart.cs</DependentUpon>

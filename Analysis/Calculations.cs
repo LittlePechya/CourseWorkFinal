@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -285,6 +286,23 @@ namespace CourseWorkFinal.Analysis
                 newTable.Rows.Add(dataTable.Rows[row].ItemArray);
             }
             return newTable;
+        }
+
+        /// <summary>
+        /// Метод запускается в конце расчетов уровня декомпозиции, выделяет опасные строчки красным цветом
+        /// </summary>
+        /// <param name="statusTable"> Таблица состояния объекта </param>
+        public static void HighligteDangerRows(DataGridView statusTable)
+        {
+            foreach (DataGridViewRow row in statusTable.Rows)
+            {
+                DataGridViewCell lastCell = row.Cells[row.Cells.Count - 1];
+                if (lastCell.Value != null && lastCell.Value == "Выход за границу")
+                {
+                    Color customRed = Color.FromArgb(255, 200, 200); // использую более мягкий красный цвет, а не стандартный
+                    row.DefaultCellStyle.BackColor = customRed;
+                }
+            }
         }
     }
 }

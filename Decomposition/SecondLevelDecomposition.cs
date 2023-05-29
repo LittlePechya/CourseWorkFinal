@@ -86,6 +86,7 @@ namespace CourseWorkFinal.Decomposition
             };
 
             SecondLevelDecompositionLoad();
+
         }
 
         private void SecondLevelDecompositionLoad()
@@ -230,6 +231,8 @@ namespace CourseWorkFinal.Decomposition
 
             // Добавление прогнозной эпохи
             _epochList.Add(_epochList.Last() +1);
+
+            Calculations.HighligteDangerRows(_dataGridViewSecondLevelObjectStatus);
         }
 
         public void ResetSecondLevel()

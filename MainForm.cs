@@ -179,7 +179,7 @@ namespace CourseWorkFinal
         public void FourthLevel()
         {
             decompositionFourth = new FourthLevelDecomposition(_smoothingFactor, _measurmentError, dataGridViewZCoordinate, blockCount, _points, comboBoxFourthLevelChooseBlock,
-                checkedListBoxFourthLevelAvailablePoints, buttonFourthLevelSelectAll, buttonFourthLevelReset, chartFourthLevel);
+                checkedListBoxFourthLevelAvailablePoints, chartFourthLevel);
         }
 
         /// <summary>
@@ -288,6 +288,7 @@ namespace CourseWorkFinal
         private void ToolStripMenuItemOpen_Click(object sender, EventArgs e)
         {
             OpenProjectButton_Click(sender, e);
+            ResetFormAfterSmoothingFactorChanged();
         }
 
         private void buttonAddLoop_Click(object sender, EventArgs e)
@@ -309,7 +310,9 @@ namespace CourseWorkFinal
             // Это нам надо, чтобы числа в табличку выводились в правильном виде double
             db.ChangeCommasToDots(dt, tableName);
             UpdateDataBaseTable();
-            // Открывает БД для обновления таблицы
+            // Заново считаем декомпозицию
+            ResetFormAfterSmoothingFactorChanged();
+
         }
 
         private int findMaxEpochInTable()
@@ -335,6 +338,7 @@ namespace CourseWorkFinal
             }
             
             UpdateDataBaseTable();
+            ResetFormAfterSmoothingFactorChanged();
         }
 
         private bool areTableValuesSelected()
@@ -416,6 +420,8 @@ namespace CourseWorkFinal
             // Табпейджи тоже обязательно выключать в самом конце, иначе невозможно отключить элементы формы
             tabPage5.Enabled = false;
             tabPage9.Enabled = false;
+            listBoxAllPointsOfTheObject.Enabled = true;
+            listBoxPointsOnTheBlock.Enabled = true;
             StartDecomposition();
         }
 
@@ -529,15 +535,6 @@ namespace CourseWorkFinal
             decompositionFourth.CheckedListBoxFourthLevelAvailablePoints_ItemCheck();
         }
 
-        private void buttonFourthLevelSelectAll_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void buttonFourthLevelReset_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void chartFirstLevelResponseFunction_Click(object sender, EventArgs e)
         {
@@ -600,14 +597,55 @@ namespace CourseWorkFinal
         {
             if (_flagFirstOpen)
             {
+                _flagFirstOpen = false;
                 return;
             }
             else
             {
-                _flagFirstOpen = false;
                 showSaveStatus(false);
                 ResetFormAfterSmoothingFactorChanged();
             }
+        }
+
+        private void ButtonToCancelAllCheckboxes(params CheckBox[] checkBoxes)
+        {
+            foreach (CheckBox checkBox in  checkBoxes)
+            {
+                if (checkBox.Checked == true)
+                {
+                    checkBox.Checked = false;
+                }
+            }
+        }
+
+        private void buttonFirstLevelRemoveAllAlpha_Click(object sender, EventArgs e)
+        {
+            ButtonToCancelAllCheckboxes(checkBoxFirstLevelResponseFunctionBottom, checkBoxFirstLevelResponseFunctionOriginal, checkBoxFirstLevelResponseFunctionTop);
+        }
+
+        private void buttonFirstLevelRemoveAllM_Click(object sender, EventArgs e)
+        {
+            ButtonToCancelAllCheckboxes(checkBoxFirstLevelMBottom, checkBoxFirstLevelMOriginal, checkBoxFirstLevelMTop);
+        }
+
+        private void buttonFirstLevelRemoveAllAlpha_Click_1(object sender, EventArgs e)
+        {
+            ButtonToCancelAllCheckboxes(checkBoxFirstLevelABottom, checkBoxFirstLevelAOriginal, checkBoxFirstLevelATop);
+        }
+
+        private void buttonSecondLevelRemoveAllAlpha_Click(object sender, EventArgs e)
+        {
+            ButtonToCancelAllCheckboxes(checkBoxSecondLevelResponseFunctionBottom, checkBoxSecondLevelResponseFunctionOriginal, checkBoxSecondLevelResponseFunctionTop);
+        }
+
+        private void buttonSecondLevelRemoveAllM_Click(object sender, EventArgs e)
+        {
+            ButtonToCancelAllCheckboxes(checkBoxSecondLevelMBottom, checkBoxSecondLevelMOriginal, checkBoxSecondLevelMBottom);
+        }
+
+        private void buttonSecondLevelRemoveAllAlpha_Click_1(object sender, EventArgs e)
+        {
+            ButtonToCancelAllCheckboxes(checkBoxSecondLevelABottom, checkBoxSecondLevelAOriginal, checkBoxSecondLevelATop);
         }
     }
 

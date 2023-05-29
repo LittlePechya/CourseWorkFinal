@@ -32,7 +32,7 @@ namespace CourseWorkFinal.Decomposition
         //Объекты для расчетов
 
         public FourthLevelDecomposition(double smoothingFactor, double measurementError, DataGridView CoordinatesTableZ, int blockCount, List<List<string>> points,
-            ComboBox comboBoxFourthLevelChooseBlock, CheckedListBox checkedListBoxFourthLevelAvailablePoints, Button buttonFourthLevelSelectAll, Button buttonFourthLevelReset, ChartControl chartFourthLevel)
+            ComboBox comboBoxFourthLevelChooseBlock, CheckedListBox checkedListBoxFourthLevelAvailablePoints, ChartControl chartFourthLevel)
         {
             _smoothingFactor = smoothingFactor;
             _measurementErorr = measurementError;
@@ -41,8 +41,6 @@ namespace CourseWorkFinal.Decomposition
             _points = points;
             _comboBoxFourthLevelChooseBlock = comboBoxFourthLevelChooseBlock;
             _checkedListBoxFourthLevelAvailablePoints = checkedListBoxFourthLevelAvailablePoints;
-            _buttonFourthLevelReset = buttonFourthLevelSelectAll;
-            _buttonFourthLevelReset = buttonFourthLevelReset;
             _chartFourthLevel = chartFourthLevel;
 
             _blocksName = new Dictionary<Int32, string>
