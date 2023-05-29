@@ -86,12 +86,12 @@ namespace CourseWorkFinal
         /// <param name="dt"></param>
         /// <param name="coordinatesTable"></param>
         /// <returns></returns>
-        public DataGridView FillTable(DataTable dt, DataGridView coordinatesTable)
+        public string FillTable(DataTable dt, DataGridView coordinatesTable)
         {
             tableNames = GetTableNames(pathToDataBase);
             if (tableNames.Count > 1)
             {
-                // Если больше одной таблицы, то надо открыть форму для выбора
+
                 chooseTable chooseTable = new chooseTable(tableNames);
                 chooseTable.ShowDialog();
                 tableName = chooseTable.SelectedTableName;
@@ -106,21 +106,21 @@ namespace CourseWorkFinal
             SQLiteCommand command = new SQLiteCommand(sqlConnection);
             SQLiteDataAdapter adapter = new SQLiteDataAdapter(SQLQuerySelectAll, sqlConnection);
             adapter.Fill(dt);
-            ChangeCommasToDots(dt);
+            ChangeCommasToDots(dt, tableName);
             adapter = new SQLiteDataAdapter(SQLQuerySelectAll, sqlConnection);
             DataGridViewClear(coordinatesTable);
             coordinatesTable = FillRowsAndCols(dt, coordinatesTable);
-            return coordinatesTable;
+            return tableName;
         }
 
-        public DataGridView RedrawFillTable(DataTable dt, DataGridView coordinatesTable)
+        public DataGridView UpdateFillTable(DataTable dt, DataGridView coordinatesTable, string tableName)
         {
             string SQLQuerySelectAll = "SELECT * FROM [" + tableName + "]";
             ClearDataTable(dt);
             SQLiteCommand command = new SQLiteCommand(sqlConnection);
             SQLiteDataAdapter adapter = new SQLiteDataAdapter(SQLQuerySelectAll, sqlConnection);
             adapter.Fill(dt);
-            ChangeCommasToDots(dt);
+            ChangeCommasToDots(dt, tableName);
             adapter = new SQLiteDataAdapter(SQLQuerySelectAll, sqlConnection);
             DataGridViewClear(coordinatesTable);
             coordinatesTable = FillRowsAndCols(dt, coordinatesTable);
@@ -130,7 +130,7 @@ namespace CourseWorkFinal
         /// Отправление запроса на замену запятых на точки
         /// </summary>
         /// <param name="dt"> Таблица DataTable, получившая данные из базы данных</param>
-        public void ChangeCommasToDots(DataTable dt)
+        public void ChangeCommasToDots(DataTable dt, string tableName)
         {
             for (int i = 1; i < dt.Columns.Count; i++)
             {
@@ -190,7 +190,7 @@ namespace CourseWorkFinal
         /// <param name="db"></param>
         /// <param name="epochCount"></param>
         /// <returns></returns>
-        public void CalculateNewRowValues(DataGridView coordinatesTable, Database db, int newRowIndex, int maxEpochName)
+        public void CalculateNewRowValues(DataGridView coordinatesTable, Database db, int newRowIndex, int maxEpochName, string tableName)
         {
             double delta = 0, averageDelta = 0, newCellValue = 0;
             Random random = new Random();
@@ -219,12 +219,12 @@ namespace CourseWorkFinal
                 newCellValue = random.NextDouble() * (averageDelta - (-averageDelta)) + averageDelta;
                 // Обращаемся к восьмой строке, это наша созданная строчка
                 coordinatesTable.Rows[newRowIndex - 1].Cells[cols].Value = Math.Round(newCellValue + Convert.ToDouble(coordinatesTable.Rows[newRowIndex - 2].Cells[cols].Value), 4);
-                AddValuesInNewRowQuery(cols, maxEpochName, Convert.ToDouble(coordinatesTable.Rows[newRowIndex - 1].Cells[cols].Value));
+                AddValuesInNewRowQuery(cols, maxEpochName, Convert.ToDouble(coordinatesTable.Rows[newRowIndex - 1].Cells[cols].Value), tableName);
                 averageDelta = 0;
             }
         }
 
-        public void AddValuesInNewRowQuery(int column, int maxEpoch, double value)
+        public void AddValuesInNewRowQuery(int column, int maxEpoch, double value, string tableName)
         {
             string SQLQuery = "UPDATE [" + tableName + "] SET \"" + column + "\" = \"" + value + "\" WHERE Эпоха = \'" + maxEpoch + "\'";
             DoSQLQuery(SQLQuery);
@@ -233,13 +233,13 @@ namespace CourseWorkFinal
         /// Добавление новой строки в БД с помощью INSERT
         /// </summary>
         /// <param name="index"></param>
-        public void AddNewRowQuery(double index)
+        public void AddNewRowQuery(double index, string tableName)
         {
             string SQLQuery = "INSERT INTO [" + tableName + "] (Эпоха) VALUES (\"" + index + "\")";
             DoSQLQuery(SQLQuery);
         }
 
-        public void DeleteRowQuery(string index)
+        public void DeleteRowQuery(string index, string tableName)
         {
             string SQLQuery = "DELETE FROM [" + tableName + "] WHERE Эпоха = \'" + index + "\'";
             DoSQLQuery(SQLQuery);

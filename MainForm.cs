@@ -36,6 +36,7 @@ namespace CourseWorkFinal
         SecondLevelDecomposition decompositionSecond;
         FourthLevelDecomposition decompositionFourth;
 
+        string tableName;
         /// <summary>
         /// Конструктор основной формы проекта MainForm
         /// Здесь иницализируются все компоненты
@@ -129,7 +130,7 @@ namespace CourseWorkFinal
                 
                 // Здесь используется немного другой метод openDataBase, потому что нужно получить ссылку на dataTable
                 dt = openDataBaseTableDt();
-                db.ChangeCommasToDots(dt);
+                db.ChangeCommasToDots(dt, tableName);
                 SetStatusToFormComponents(true);
                 showSaveStatus(true);
 
@@ -213,6 +214,22 @@ namespace CourseWorkFinal
             setConnectionStatus(true);
         }
 
+        private void UpdateDataBaseTable()
+        {
+            //Если пользователь не указал путь к БД, то происходит выход из метода
+            if (fileManager.pathToDataBaseTable == null || fileManager.pathToDataBaseTable.Equals(""))
+            {
+                return;
+            }
+
+            clearDataGridViewZCoordinate();
+            db = new Database(fileManager.pathToDataBaseTable);
+            // Установка соединения с БД
+            db.GetDataBaseConnection();
+            // Заполнение таблиц
+            UpdateAllTables(dataGridViewList, dt, db);
+            setConnectionStatus(true);
+        }
         private DataTable openDataBaseTableDt()
         {
             //Если пользователь не указал путь к БД, то происходит выход из метода
@@ -242,10 +259,17 @@ namespace CourseWorkFinal
         {
             foreach (DataGridView dgw in dataGridViewList)
             {
-                db.FillTable(dt, dgw);
+                tableName = db.FillTable(dt, dgw);
             }
         }
 
+        private void UpdateAllTables(List<DataGridView> dataGridViewList, DataTable dt, Database db)
+        {
+            foreach (DataGridView dgw in dataGridViewList)
+            {
+                db.UpdateFillTable(dt, dgw, tableName);
+            }
+        }
         private void clearDataGridViewZCoordinate()
         {
             dataGridViewZCoordinate.Rows.Clear();
@@ -279,17 +303,13 @@ namespace CourseWorkFinal
             // Определеяем имя максимальной эпохи, чтобы записать его в новой строчке
             int maxEpoch = findMaxEpochInTable();
             // Индекс в БД определяется сам, а нам нужно только указать имя для эпохи
-            db.AddNewRowQuery(maxEpoch + 1);
+            db.AddNewRowQuery(maxEpoch + 1, tableName);
             // Добавлением значения в новую строку с индексом 9
-            db.CalculateNewRowValues(dataGridViewZCoordinate, db, newRowIndex, maxEpoch + 1);
+            db.CalculateNewRowValues(dataGridViewZCoordinate, db, newRowIndex, maxEpoch + 1, tableName);
             // Это нам надо, чтобы числа в табличку выводились в правильном виде double
-            db.ChangeCommasToDots(dt);
+            db.ChangeCommasToDots(dt, tableName);
+            UpdateDataBaseTable();
             // Открывает БД для обновления таблицы
-        }
-
-        private int checkNewRowIndex()
-        {
-            return dataGridViewZCoordinate.RowCount - 1;
         }
 
         private int findMaxEpochInTable()
@@ -310,9 +330,11 @@ namespace CourseWorkFinal
             {
                 for (int i = 0; i < dataGridViewZCoordinate.SelectedRows.Count; i++)
                 {
-                  db.DeleteRowQuery(dataGridViewZCoordinate.Rows[dataGridViewZCoordinate.SelectedRows[i].Index].Cells[0].Value.ToString());
+                  db.DeleteRowQuery(dataGridViewZCoordinate.Rows[dataGridViewZCoordinate.SelectedRows[i].Index].Cells[0].Value.ToString(), tableName);
                 }
             }
+            
+            UpdateDataBaseTable();
         }
 
         private bool areTableValuesSelected()
