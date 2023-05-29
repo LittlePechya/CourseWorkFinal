@@ -126,10 +126,10 @@ namespace CourseWorkFinal
                 objectData[3] = _smoothingFactor.ToString();
 
                 placeTextDataToFormElements(objectData);
-                openDataBaseTable();
+                
+                // Здесь используется немного другой метод openDataBase, потому что нужно получить ссылку на dataTable
+                dt = openDataBaseTableDt();
                 db.ChangeCommasToDots(dt);
-                // Здесь база данных открывается второй раз, чтобы вывести все числа в правильном виде double
-                openDataBaseTable();
                 SetStatusToFormComponents(true);
                 showSaveStatus(true);
 
@@ -211,7 +211,25 @@ namespace CourseWorkFinal
             // Заполнение таблиц
             FillAllTables(dataGridViewList, dt, db);
             setConnectionStatus(true);
+        }
 
+        private DataTable openDataBaseTableDt()
+        {
+            //Если пользователь не указал путь к БД, то происходит выход из метода
+            if (fileManager.pathToDataBaseTable == null || fileManager.pathToDataBaseTable.Equals(""))
+            {
+                return null;
+            }
+
+            clearDataGridViewZCoordinate();
+            db = new Database(fileManager.pathToDataBaseTable);
+            // Установка соединения с БД
+            db.GetDataBaseConnection();
+            // Заполнение таблиц
+            FillAllTables(dataGridViewList, dt, db);
+            setConnectionStatus(true);
+
+            return dt;
         }
 
         /// <summary>
@@ -227,6 +245,7 @@ namespace CourseWorkFinal
                 db.FillTable(dt, dgw);
             }
         }
+
         private void clearDataGridViewZCoordinate()
         {
             dataGridViewZCoordinate.Rows.Clear();
@@ -266,7 +285,6 @@ namespace CourseWorkFinal
             // Это нам надо, чтобы числа в табличку выводились в правильном виде double
             db.ChangeCommasToDots(dt);
             // Открывает БД для обновления таблицы
-            openDataBaseTable();
         }
 
         private int checkNewRowIndex()
@@ -295,8 +313,6 @@ namespace CourseWorkFinal
                   db.DeleteRowQuery(dataGridViewZCoordinate.Rows[dataGridViewZCoordinate.SelectedRows[i].Index].Cells[0].Value.ToString());
                 }
             }
-
-            openDataBaseTable();
         }
 
         private bool areTableValuesSelected()

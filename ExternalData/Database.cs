@@ -113,6 +113,19 @@ namespace CourseWorkFinal
             return coordinatesTable;
         }
 
+        public DataGridView RedrawFillTable(DataTable dt, DataGridView coordinatesTable)
+        {
+            string SQLQuerySelectAll = "SELECT * FROM [" + tableName + "]";
+            ClearDataTable(dt);
+            SQLiteCommand command = new SQLiteCommand(sqlConnection);
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter(SQLQuerySelectAll, sqlConnection);
+            adapter.Fill(dt);
+            ChangeCommasToDots(dt);
+            adapter = new SQLiteDataAdapter(SQLQuerySelectAll, sqlConnection);
+            DataGridViewClear(coordinatesTable);
+            coordinatesTable = FillRowsAndCols(dt, coordinatesTable);
+            return coordinatesTable;
+        }
         /// <summary>
         /// Отправление запроса на замену запятых на точки
         /// </summary>
