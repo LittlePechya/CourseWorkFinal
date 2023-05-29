@@ -177,14 +177,13 @@ namespace CourseWorkFinal
         /// <param name="db"></param>
         /// <param name="epochCount"></param>
         /// <returns></returns>
-        public void CalculateNewRowValues(DataGridView coordinatesTable, Database db)
+        public void CalculateNewRowValues(DataGridView coordinatesTable, Database db, int newRowIndex, int maxEpochName)
         {
             double delta = 0, averageDelta = 0, newCellValue = 0;
             Random random = new Random();
-            int newRow = coordinatesTable.Rows.Count;
 
-            coordinatesTable.Rows[newRow - 1].Cells[0].Value = Convert.ToInt32(coordinatesTable.Rows[newRow - 2].Cells[0].Value) + 1;
-            AddNewRowQuery(Convert.ToDouble(coordinatesTable.Rows[newRow - 1].Cells[0].Value));
+            coordinatesTable.Rows[newRowIndex - 1].Cells[0].Value = maxEpochName;
+            //AddNewRowQuery(Convert.ToDouble(maxEpoch + 1));
             // Цикл начинается с 1, чтобы пропустить колонку, содержащую номер эпохи
             for (int cols = 1; cols < coordinatesTable.Columns.Count; cols++)
             {
@@ -202,8 +201,8 @@ namespace CourseWorkFinal
 
                 averageDelta /= coordinatesTable.Rows.Count;
                 newCellValue = random.NextDouble() * (averageDelta - (-averageDelta)) + averageDelta;
-                coordinatesTable.Rows[newRow - 1].Cells[cols].Value = Math.Round(newCellValue + Convert.ToDouble(coordinatesTable.Rows[newRow - 2].Cells[cols].Value), 4);
-                AddValuesInNewRowQuery(cols, newRow - 1, Convert.ToDouble(coordinatesTable.Rows[newRow - 1].Cells[cols].Value));
+                coordinatesTable.Rows[newRowIndex - 1].Cells[cols].Value = Math.Round(newCellValue + Convert.ToDouble(coordinatesTable.Rows[newRowIndex - 2].Cells[cols].Value), 4);
+                AddValuesInNewRowQuery(cols, newRowIndex - 1, Convert.ToDouble(coordinatesTable.Rows[newRowIndex - 1].Cells[cols].Value));
                 averageDelta = 0;
             }
         }
@@ -217,9 +216,9 @@ namespace CourseWorkFinal
         /// Добавление новой строки в БД с помощью INSERT
         /// </summary>
         /// <param name="index"></param>
-        public void AddNewRowQuery(double value)
+        public void AddNewRowQuery(double index)
         {
-            string SQLQuery = "INSERT INTO [" + tableName + "] (Эпоха) VALUES (\"" + value + "\")";
+            string SQLQuery = "INSERT INTO [" + tableName + "] (Эпоха) VALUES (\"" + index + "\")";
             DoSQLQuery(SQLQuery);
         }
 

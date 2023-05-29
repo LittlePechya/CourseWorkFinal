@@ -247,10 +247,20 @@ namespace CourseWorkFinal
 
         private void buttonAddLoop_Click(object sender, EventArgs e)
         {
-            dataGridViewZCoordinate.Rows.Add();
-            db.CalculateNewRowValues(dataGridViewZCoordinate, db);
+            // Определяем индекс новой строки как количество строк в таблице - 1
+            // RowsCount = 9 (потому что учитывается последняя пустая строчка), индекс последнего элемента 8
+            // Этот индекс используется, для добавления строки в таблицу dataGridView
+            // Тогда индекс нового элемента = 9, то есть ровс каунт
+            int newRowIndex = dataGridViewZCoordinate.RowCount;
+            // Добавляем новую строку в саму БД
+            // В базе данных он должен быть записан под индексом 9
+            db.AddNewRowQuery(newRowIndex);
+            // Определеяем имя максимальной эпохи, чтобы записать его в новой строчке
+            int maxEpoch = findMaxEpochInTable();
+            // Добавлением значения в новую строку
+            db.CalculateNewRowValues(dataGridViewZCoordinate, db, newRowIndex, maxEpoch);
+            // Открывает БД для обновления таблицы
             openDataBaseTable();
-
         }
 
         private int checkNewRowIndex()
@@ -267,7 +277,7 @@ namespace CourseWorkFinal
                 if (number > max)
                     max = number;
             }
-            return max+1;
+            return max;
         }
 
         private void buttonDeleteSelectedLoops_Click(object sender, EventArgs e)
