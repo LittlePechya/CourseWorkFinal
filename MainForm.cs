@@ -315,6 +315,10 @@ namespace CourseWorkFinal
 
         }
 
+        /// <summary>
+        /// Метод проходится по всем ячейкам, содержащим эпоху, и возвращает значение максимальной эпохи
+        /// </summary>
+        /// <returns></returns>
         private int findMaxEpochInTable()
         {
             int max = Convert.ToInt32(dataGridViewZCoordinate.Rows[0].Cells[0].Value);
@@ -329,16 +333,26 @@ namespace CourseWorkFinal
 
         private void buttonDeleteSelectedLoops_Click(object sender, EventArgs e)
         {
-            if(areTableValuesSelected())
+            // Здесь используется 3, так как помним про пустую строчку
+            if (dataGridViewZCoordinate.Rows.Count > 3)
             {
-                for (int i = 0; i < dataGridViewZCoordinate.SelectedRows.Count; i++)
+                if(areTableValuesSelected())
                 {
-                  db.DeleteRowQuery(dataGridViewZCoordinate.Rows[dataGridViewZCoordinate.SelectedRows[i].Index].Cells[0].Value.ToString(), tableName);
+                    for (int i = 0; i < dataGridViewZCoordinate.SelectedRows.Count; i++)
+                    {
+                      db.DeleteRowQuery(dataGridViewZCoordinate.Rows[dataGridViewZCoordinate.SelectedRows[i].Index].Cells[0].Value.ToString(), tableName);
+                    }
+
+                    // Обновляем строки в БД после удаления
+                    UpdateDataBaseTable();
+                    // Заново считаем декомпозицию, так как изменилось количество строк
+                    ResetFormAfterSmoothingFactorChanged();
                 }
             }
-            
-            UpdateDataBaseTable();
-            ResetFormAfterSmoothingFactorChanged();
+            else
+            {
+                MessageBox.Show("Невозможно выполнить удаление, для работы таблица должна содержать хотя бы 2 строки");
+            }
         }
 
         private bool areTableValuesSelected()
