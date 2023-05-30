@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GuideForm));
             this.header = new System.Windows.Forms.Label();
             this.infoText = new System.Windows.Forms.Label();
             this.pictureBoxGuide = new System.Windows.Forms.PictureBox();
@@ -51,11 +52,9 @@
             this.infoText.AutoSize = true;
             this.infoText.Location = new System.Drawing.Point(899, 65);
             this.infoText.Name = "infoText";
-            this.infoText.Size = new System.Drawing.Size(253, 96);
+            this.infoText.Size = new System.Drawing.Size(239, 144);
             this.infoText.TabIndex = 1;
-            this.infoText.Text = "Чтобы сохранить новое значение\r\nпогрешности измерений необходимо \r\nнажать Файл --" +
-    "> Сохранить.\r\nТогда новое значение запишется в\r\nтекстовый файл и программа укаже" +
-    "т\r\nстатус Сохранено.";
+            this.infoText.Text = resources.GetString("infoText.Text");
             // 
             // pictureBoxGuide
             // 
