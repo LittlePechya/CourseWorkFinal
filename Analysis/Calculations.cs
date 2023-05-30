@@ -159,8 +159,8 @@ namespace CourseWorkFinal.Analysis
                 summPr /= Convert.ToDecimal(listOfMValues[0]);
                 summPr /= Convert.ToDecimal(listOfMValues[i + 1]);
 
-                //ОЧЕНЬ ВАЖНАЯ СТРОКА (тут округляем до 14 знаков после запятой, но в разных вариантах нужно пробовать разные значения, чтобы избежать
-                //шумов 
+                //ОЧЕНЬ ВАЖНАЯ СТРОКА (тут округляем до 14 знаков после запятой, 
+                //но в разных вариантах нужно пробовать разные значения, чтобы избежать шумов
                 summPr = Math.Round(summPr, 14);
                 //Считаем аркосинус
                 calculateAcos = Math.Acos(Convert.ToDouble(summPr));

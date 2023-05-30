@@ -216,9 +216,23 @@ namespace CourseWorkFinal
 
                 // newRowIndex = 9
                 averageDelta /= coordinatesTable.Rows.Count;
+                // Считаем значение, которое будем прибавлять или вычитать
                 newCellValue = random.NextDouble() * (averageDelta - (-averageDelta)) + averageDelta;
                 // Обращаемся к восьмой строке, это наша созданная строчка
-                coordinatesTable.Rows[newRowIndex - 1].Cells[cols].Value = Math.Round(newCellValue + Convert.ToDouble(coordinatesTable.Rows[newRowIndex - 2].Cells[cols].Value), 4);
+                
+                // Тут считаем с шансом 50% прибавится значение или убавится
+                Random randomFiftyPercent = new Random();
+                bool option1 = (randomFiftyPercent.NextDouble() < 0.5);
+
+                if (option1)
+                {
+                    coordinatesTable.Rows[newRowIndex - 1].Cells[cols].Value = Math.Round(Convert.ToDouble(coordinatesTable.Rows[newRowIndex - 2].Cells[cols].Value) + newCellValue, 4);
+                }
+                else
+                {
+                    coordinatesTable.Rows[newRowIndex - 1].Cells[cols].Value = Math.Round(Convert.ToDouble(coordinatesTable.Rows[newRowIndex - 2].Cells[cols].Value) - newCellValue, 4);
+                }
+
                 AddValuesInNewRowQuery(cols, maxEpochName, Convert.ToDouble(coordinatesTable.Rows[newRowIndex - 1].Cells[cols].Value), tableName);
                 averageDelta = 0;
             }
