@@ -88,6 +88,10 @@ namespace CourseWorkFinal
             showSaveStatus(false);
         }
 
+        /// <summary>
+        /// Метод отображает статус сохранения
+        /// </summary>
+        /// <param name="saveStatus"> true, если сохранено, false, если не сохранено </param>
         private void showSaveStatus(bool saveStatus)
         {
             if (saveStatus) { toolStripLabelSaveStatus.ForeColor = System.Drawing.Color.LimeGreen; toolStripLabelSaveStatus.Text = "Статус: сохранено"; }
