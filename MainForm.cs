@@ -36,7 +36,11 @@ namespace CourseWorkFinal
         private SecondLevelDecomposition _decompositionSecond;
         private FourthLevelDecomposition _decompositionFourth;
 
+        // Имя таблицы, с которой мы работаем в БД
         private string _tableName;
+
+        // Список всех чекбоксов на втором уровне
+        private List <CheckBox> _checkBoxSecondLevelList = new List<CheckBox>();
         /// <summary>
         /// Конструктор основной формы проекта MainForm
         /// Здесь иницализируются все компоненты
@@ -44,6 +48,16 @@ namespace CourseWorkFinal
         public MainForm()
         {
             InitializeComponent();
+            // Добавляем чекбоксы со второго уровня в список
+            _checkBoxSecondLevelList.Add(checkBoxSecondLevelMBottom);
+            _checkBoxSecondLevelList.Add(checkBoxSecondLevelMOriginal);
+            _checkBoxSecondLevelList.Add(checkBoxSecondLevelMTop);
+            _checkBoxSecondLevelList.Add(checkBoxSecondLevelABottom);
+            _checkBoxSecondLevelList.Add(checkBoxSecondLevelAOriginal);
+            _checkBoxSecondLevelList.Add(checkBoxSecondLevelATop);
+            _checkBoxSecondLevelList.Add(checkBoxSecondLevelResponseFunctionBottom);
+            _checkBoxSecondLevelList.Add(checkBoxSecondLevelResponseFunctionOriginal);
+            _checkBoxSecondLevelList.Add(checkBoxSecondLevelResponseFunctionTop);
             SetStatusToFormComponents(false); // Отключает элементы формы, пока пользователь не начнет работу с проектом
             // tabPage1
 
@@ -70,7 +84,7 @@ namespace CourseWorkFinal
             tabPage9.Enabled = false;
             tabPage5.Enabled = false;
 
-            //
+            // Выставляем статус "Не сохранено"
             showSaveStatus(false);
         }
 
@@ -103,6 +117,13 @@ namespace CourseWorkFinal
             {
                 PathToFile = selectedFolder.SelectedPath;
             }
+
+            // Если пользователь закрыл окно, то выходим из метода, ничего не происходит
+            else
+            {
+                return;
+            }
+           
             try
             {
                 if (PathToFile != null || !PathToFile.Equals(""))
@@ -144,7 +165,6 @@ namespace CourseWorkFinal
             {
                 MessageBox.Show(ex.Message, "Ошибка");
                 MessageBox.Show(ex.StackTrace, "Путь к ошибке");
-
             }
         }
 
@@ -155,7 +175,9 @@ namespace CourseWorkFinal
             FourthLevel();
         }
 
-        // Первый уровень декомпозиции
+        /// <summary>
+        /// Первый уровень декомпозиции
+        /// </summary>
         public void FirstLevel()
         {
             _decompositionFirst = new FirstLevelDecomposition(_smoothingFactor, _measurmentError,
@@ -163,8 +185,16 @@ namespace CourseWorkFinal
                 chartFirstLevelM, chartFirstLevelA, chartFirstLevelResponseFunction, _dt);
         }
 
+        /// <summary>
+        /// Второй уровень декомпозиции
+        /// </summary>
         public void SecondLevel()
         {
+
+
+            // Блокируем чекбоксы для отображения графиков, чтобы не словить эксепшены
+            EnableSecondLevelCheckBoxes(false);
+
             string str = labelBlockCount.Text;
             _blockCount = Int32.Parse(new String(str.Where(Char.IsDigit).ToArray()));
             str = labelPointCount.Text;
@@ -176,6 +206,25 @@ namespace CourseWorkFinal
             {
                 _points = _decompositionSecond.GetPoints();
             }
+        }
+
+        /// <summary>
+        /// Включает или выключает чекбоксы на втором уровне
+        /// </summary>
+        /// <param name="enabled"></param>
+        private void EnableSecondLevelCheckBoxes(bool enabled)
+        {
+            checkBoxSecondLevelABottom.Enabled = enabled;
+            checkBoxSecondLevelAOriginal.Enabled = enabled;
+            checkBoxSecondLevelATop.Enabled = enabled;
+
+            checkBoxSecondLevelMBottom.Enabled = enabled;
+            checkBoxSecondLevelMOriginal.Enabled = enabled;
+            checkBoxSecondLevelMTop.Enabled = enabled;
+
+            checkBoxSecondLevelResponseFunctionBottom.Enabled = enabled;
+            checkBoxSecondLevelResponseFunctionOriginal.Enabled = enabled;
+            checkBoxSecondLevelResponseFunctionTop.Enabled = enabled;
         }
 
         public void FourthLevel()
@@ -314,7 +363,6 @@ namespace CourseWorkFinal
             UpdateDataBaseTable();
             // Заново считаем декомпозицию
             ResetFormAfterSmoothingFactorChanged();
-
         }
 
         /// <summary>
@@ -401,12 +449,7 @@ namespace CourseWorkFinal
         public void ResetFormAfterSmoothingFactorChanged()
         {
             // Важно! Сначала отключаем чекбоксы, потом используем метод ResetLevel
-            checkBoxFirstLevelResponseFunctionBottom.Checked = false;
-            checkBoxSecondLevelResponseFunctionBottom.Checked = false;
-            checkBoxFirstLevelResponseFunctionOriginal.Checked = false;
-            checkBoxSecondLevelResponseFunctionOriginal.Checked = false;
-            checkBoxFirstLevelResponseFunctionTop.Checked = false;
-            checkBoxSecondLevelResponseFunctionTop.Checked = false;
+            RemoveCheckFromCheckBoxes(_checkBoxSecondLevelList);
 
             checkBoxFirstLevelABottom.Checked = false;
             checkBoxFirstLevelAOriginal.Checked = false;
@@ -485,6 +528,25 @@ namespace CourseWorkFinal
         private void comboBoxSecondLevelChooseBlock_SelectedIndexChanged(object sender, EventArgs e)
         {
             _decompositionSecond.ComboBoxSecondLevelChooseBlock_SelectedIndexChanged();
+            // Включаем чекбоксы
+            EnableSecondLevelCheckBoxes(true);
+            // Убираем чеки
+            RemoveCheckFromCheckBoxes(_checkBoxSecondLevelList);
+        }
+
+        /// <summary>
+        /// Убирает check для чекбоксов
+        /// </summary>
+        /// <param name="checkBoxes"> Список чекбоксов</param>
+        private void RemoveCheckFromCheckBoxes(List<CheckBox> checkBoxes)
+        {
+            foreach (CheckBox checkBox in checkBoxes)
+            {
+                if (checkBox.Checked == true)
+                {
+                    checkBox.Checked = false;
+                }
+            }
         }
 
         private void checkBoxSecondLevelResponseFunctionBottom_CheckedChanged(object sender, EventArgs e)

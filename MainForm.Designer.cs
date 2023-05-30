@@ -224,7 +224,7 @@
             this.toolStripLabelSaveStatus});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(1232, 27);
+            this.toolStrip.Size = new System.Drawing.Size(1232, 31);
             this.toolStrip.TabIndex = 0;
             this.toolStrip.Text = "toolStrip1";
             // 
@@ -238,20 +238,20 @@
             this.toolStripDropDownFile.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownFile.Image")));
             this.toolStripDropDownFile.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownFile.Name = "toolStripDropDownFile";
-            this.toolStripDropDownFile.Size = new System.Drawing.Size(59, 24);
+            this.toolStripDropDownFile.Size = new System.Drawing.Size(59, 28);
             this.toolStripDropDownFile.Text = "Файл";
             // 
             // ToolStripMenuItemOpen
             // 
             this.ToolStripMenuItemOpen.Name = "ToolStripMenuItemOpen";
-            this.ToolStripMenuItemOpen.Size = new System.Drawing.Size(224, 26);
+            this.ToolStripMenuItemOpen.Size = new System.Drawing.Size(166, 26);
             this.ToolStripMenuItemOpen.Text = "Открыть";
             this.ToolStripMenuItemOpen.Click += new System.EventHandler(this.ToolStripMenuItemOpen_Click);
             // 
             // ToolStripMenuItemSave
             // 
             this.ToolStripMenuItemSave.Name = "ToolStripMenuItemSave";
-            this.ToolStripMenuItemSave.Size = new System.Drawing.Size(224, 26);
+            this.ToolStripMenuItemSave.Size = new System.Drawing.Size(166, 26);
             this.ToolStripMenuItemSave.Text = "Сохранить";
             this.ToolStripMenuItemSave.Click += new System.EventHandler(this.ToolStripMenuItemSave_Click);
             // 
@@ -262,7 +262,7 @@
             this.toolStripButtonAboutAuthor.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonAboutAuthor.Image")));
             this.toolStripButtonAboutAuthor.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonAboutAuthor.Name = "toolStripButtonAboutAuthor";
-            this.toolStripButtonAboutAuthor.Size = new System.Drawing.Size(85, 24);
+            this.toolStripButtonAboutAuthor.Size = new System.Drawing.Size(85, 28);
             this.toolStripButtonAboutAuthor.Text = "Об авторе";
             this.toolStripButtonAboutAuthor.Click += new System.EventHandler(this.toolStripButtonAboutAuthor_Click);
             // 
@@ -272,20 +272,20 @@
             this.toolStripButtonGuideForm.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonGuideForm.Image")));
             this.toolStripButtonGuideForm.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonGuideForm.Name = "toolStripButtonGuideForm";
-            this.toolStripButtonGuideForm.Size = new System.Drawing.Size(159, 24);
+            this.toolStripButtonGuideForm.Size = new System.Drawing.Size(159, 28);
             this.toolStripButtonGuideForm.Text = "Инструкция к работе";
             this.toolStripButtonGuideForm.Click += new System.EventHandler(this.toolStripButtonGuideForm_Click);
             // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator.Size = new System.Drawing.Size(6, 31);
             // 
             // toolStripLabelSaveStatus
             // 
             this.toolStripLabelSaveStatus.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.toolStripLabelSaveStatus.Name = "toolStripLabelSaveStatus";
-            this.toolStripLabelSaveStatus.Size = new System.Drawing.Size(155, 24);
+            this.toolStripLabelSaveStatus.Size = new System.Drawing.Size(155, 28);
             this.toolStripLabelSaveStatus.Text = "Статус: не сохранено";
             // 
             // tabPage5
