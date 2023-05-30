@@ -168,6 +168,9 @@ namespace CourseWorkFinal
             }
         }
 
+        /// <summary>
+        /// Метод производит необходимые для декомпозиции вычисления на 1, 2 и 4 уровнях
+        /// </summary>
         private void StartDecomposition()
         {
             FirstLevel();
