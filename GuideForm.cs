@@ -34,7 +34,15 @@ namespace CourseWorkFinal
 
         public void setText()
         {
-            _textBlock[0] = "Для начала работы в программе необходимо \r\nнажать на кнопку \"Открыть проект\".\r\nДалее в открывшемся окне необходимо \r\nвыбрать папку с вариантом, \r\nкоторая была сгенерирована в \r\nпрограмме VargenMM.\r\nПапка должна содержать картинку .png, \r\nтекстовый файл с информацией \r\nи файл базы данных \r\n.sqlite.\r\n\r\n";
+            _textBlock[0] = "Дла сгенерирована в \r\nпрограмме VargenMM.\r\nПапка должна содержать картинку .png, \r\nтекстовый файл с информацией \r\nи файл базы данных \r\n.sqlite.\r\n\r\n";
+            _textBlock[1] = "На вкладке Первый уровень декомпозиции\r\nпользователь может таблицы фазовых \r\nкоординат, мониторинга состояния объекта,\r\nа также просмотреть графики.";
+            _textBlock[2] = "При нажатии по любому из графиков \r\nможно включить режим отображения\r\nна весь экран";
+            _textBlock[3] = "Для начала работы на втором\r\nуровне декомпозиции необходимо\r\nраспределить точки по блокам объекта.\r\nТочки можно перемещать между двумя\r\nсписками, нажимая по ним.\r\n";
+            _textBlock[4] = "После этого во вкладке Расчеты и графики\r\nможно просмотреть таблицы с вычислениями,\r\nа также графики для выбранного блока.\r\n";
+            _textBlock[5] = "Для работы на вкладке \r\nЧетвертый уровень декомпозиции\r\nсначала нужно выполнить распределение\r\nточек на втором уровне.\r\nНа этой вкладке нужно выбрать блок и\r\nможно отметить точки для отображения\r\nна графике\r\n";
+            _textBlock[6] = "Изменяя коэффиент экспоненциального сглаживания\r\nили погрешность измеререния, а также после \r\nизменения количества строчек программа\r\nзаново проводит все вычисления.\r\nПри изменении погрешности измерений\r\nна вкладке программа сообщает\r\nо том, что статус изменился на Не сохранено.\r\n";
+            _textBlock[7] = "Чтобы сохранить новое значение\r\nпогрешности измерений необходимо \r\nнажать Файл --> Сохранить.\r\nТогда новое значение запишется в\r\nтекстовый файл и программа укажет\r\nстатус Сохранено.\r\n";
+
         }
 
         public void setImages()
@@ -52,9 +60,16 @@ namespace CourseWorkFinal
         private void buttonForward_Click(object sender, EventArgs e)
         {
             _userLocation++;
+
             if (_userLocation == _headersArray.Count() - 1) 
             { 
-                buttonForward.Enabled = false; 
+                buttonForward.Enabled = false;
+                buttonBack.Enabled = true;
+            }
+
+            if (_userLocation < (_headersArray.Count() - 1))
+            {
+                buttonForward.Enabled = true;
             }
 
             if (_userLocation > 0)
@@ -66,7 +81,19 @@ namespace CourseWorkFinal
 
         private void buttonBack_Click(object sender, EventArgs e)
         {
+            _userLocation--;
+            
+            if (_userLocation == 0)
+            {
+                buttonBack.Enabled=false;
+                buttonForward.Enabled=true;
+            }
 
+            if (_userLocation < (_headersArray.Count() - 1))
+            {
+                buttonForward.Enabled = true;
+            }
+            updateForm();
         }
     }
 }

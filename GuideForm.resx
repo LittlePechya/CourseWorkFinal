@@ -117,17 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="infoText.Text" xml:space="preserve">
-    <value>Для начала работы в программе необходимо 
-нажать на кнопку "Открыть проект".
-Далее в открывшемся окне необходимо 
-выбрать папку с вариантом, 
-которая была сгенерирована в 
-программе VargenMM.
-Папка должна содержать картинку .png, 
-текстовый файл с информацией 
-и файл базы данных 
-.sqlite.
-</value>
-  </data>
 </root>
