@@ -98,9 +98,10 @@
             this.Controls.Add(this.header1);
             this.Controls.Add(this.logoPictureBox);
             this.Controls.Add(this.textAboutAuthor);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormAboutAuthor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FormAboutAuthorcs";
+            this.Text = "Об авторе";
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

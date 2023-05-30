@@ -96,8 +96,9 @@
             this.Controls.Add(this.pictureBoxGuide);
             this.Controls.Add(this.infoText);
             this.Controls.Add(this.header);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "GuideForm";
-            this.Text = "GuideForm";
+            this.Text = "Инструкция к работе";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGuide)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

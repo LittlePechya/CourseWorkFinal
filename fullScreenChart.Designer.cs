@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fullScreenChart));
             this.SuspendLayout();
             // 
             // fullScreenChart
@@ -35,8 +36,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1529, 965);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "fullScreenChart";
-            this.Text = "fullScreenChart";
+            this.Text = "Режим просмотра графика";
             this.ResumeLayout(false);
 
         }
