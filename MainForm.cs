@@ -18,25 +18,25 @@ namespace CourseWorkFinal
 {
     public partial class MainForm : Form
     {
-        int epochCount;
-        int blockCount;
-        int pointsCount;
-        FileManager fileManager;
-        string[] objectData;
-        DataTable dt = new DataTable();
-        Database db;
-        List<DataGridView> dataGridViewList = new List<DataGridView>();
+        private int _epochCount;
+        private int _blockCount;
+        private int _pointsCount;
+        private FileManager _fileManager;
+        private string[] _objectData;
+        private DataTable _dt = new DataTable();
+        private Database _db;
+        private List<DataGridView> dataGridViewList = new List<DataGridView>();
         private double _smoothingFactor = 0.9;
         private double _measurmentError = 0;
         private List<List<string>> _points = new List<List<string>>();
 
         // Этот флаг снимается, после того как пользователь открывает проект, иначе вызывается метод valueChanged у numericUpDown
         private bool _flagFirstOpen = true;
-        FirstLevelDecomposition decompositionFirst;
-        SecondLevelDecomposition decompositionSecond;
-        FourthLevelDecomposition decompositionFourth;
+        private FirstLevelDecomposition _decompositionFirst;
+        private SecondLevelDecomposition _decompositionSecond;
+        private FourthLevelDecomposition _decompositionFourth;
 
-        string tableName;
+        private string _tableName;
         /// <summary>
         /// Конструктор основной формы проекта MainForm
         /// Здесь иницализируются все компоненты
@@ -95,7 +95,7 @@ namespace CourseWorkFinal
             //
             string PathToFile = "";
 
-            fileManager = new FileManager();
+            _fileManager = new FileManager();
             FolderBrowserDialog selectedFolder = new FolderBrowserDialog();
 
             // Указываем путь к папке с проектом
@@ -107,30 +107,32 @@ namespace CourseWorkFinal
             {
                 if (PathToFile != null || !PathToFile.Equals(""))
                 {
-                    fileManager.GetFilesPath(PathToFile);
+                    _fileManager.GetFilesPath(PathToFile);
                 }
 
-                if (fileManager.pathToObjectPicture != null || !fileManager.pathToObjectPicture.Equals(""))
+                if (_fileManager.pathToObjectPicture != null || !_fileManager.pathToObjectPicture.Equals(""))
                 {
-                    pictureBoxObject.Load(fileManager.pathToObjectPicture);
+                    pictureBoxObject.Load(_fileManager.pathToObjectPicture);
                     pictureBoxObject.SizeMode = PictureBoxSizeMode.StretchImage;
-                    pictureBoxSecondLevelDecomposition.Load(fileManager.pathToObjectPicture);
+                    pictureBoxSecondLevelDecomposition.Load(_fileManager.pathToObjectPicture);
                     pictureBoxSecondLevelDecomposition.SizeMode = PictureBoxSizeMode.StretchImage;
                 }
 
-                objectData = new string[4];
-                if (fileManager.pathToTextFile != null || !fileManager.pathToTextFile.Equals(""))
+                _objectData = new string[4];
+                if (_fileManager.pathToTextFile != null || !_fileManager.pathToTextFile.Equals(""))
                 {
-                    objectData = fileManager.GetDataFromTextFile();
+                    _objectData = _fileManager.GetDataFromTextFile();
                 }
 
-                objectData[3] = _smoothingFactor.ToString();
+                _objectData[3] = _smoothingFactor.ToString();
 
-                placeTextDataToFormElements(objectData);
+                placeTextDataToFormElements(_objectData);
                 
                 // Здесь используется немного другой метод openDataBase, потому что нужно получить ссылку на dataTable
-                dt = openDataBaseTableDt();
-                db.ChangeCommasToDots(dt, tableName);
+                _dt = openDataBaseTableDt();
+                _db.ChangeCommasToDots(_dt, _tableName);
+                _db.UpdateFillTable(_dt, dataGridViewZCoordinate, _tableName);
+               
                 SetStatusToFormComponents(true);
                 showSaveStatus(true);
 
@@ -156,29 +158,29 @@ namespace CourseWorkFinal
         // Первый уровень декомпозиции
         public void FirstLevel()
         {
-            decompositionFirst = new FirstLevelDecomposition(_smoothingFactor, _measurmentError,
+            _decompositionFirst = new FirstLevelDecomposition(_smoothingFactor, _measurmentError,
                 dataGridViewZCoordinate, dataGridViewFirstLevelPhaseCoordinates, dataGridViewFirstLevelObjectStatus,
-                chartFirstLevelM, chartFirstLevelA, chartFirstLevelResponseFunction, dt);
+                chartFirstLevelM, chartFirstLevelA, chartFirstLevelResponseFunction, _dt);
         }
 
         public void SecondLevel()
         {
             string str = labelBlockCount.Text;
-            blockCount = Int32.Parse(new String(str.Where(Char.IsDigit).ToArray()));
+            _blockCount = Int32.Parse(new String(str.Where(Char.IsDigit).ToArray()));
             str = labelPointCount.Text;
-            pointsCount = Int32.Parse(new String(str.Where(Char.IsDigit).ToArray()));
-            decompositionSecond = new SecondLevelDecomposition(_smoothingFactor, _measurmentError, dataGridViewZCoordinate, blockCount, pointsCount, listBoxAllPointsOfTheObject, listBoxPointsOnTheBlock, labelPointsOfTheSelectedBlock,
+            _pointsCount = Int32.Parse(new String(str.Where(Char.IsDigit).ToArray()));
+            _decompositionSecond = new SecondLevelDecomposition(_smoothingFactor, _measurmentError, dataGridViewZCoordinate, _blockCount, _pointsCount, listBoxAllPointsOfTheObject, listBoxPointsOnTheBlock, labelPointsOfTheSelectedBlock,
                 chartSecondLevelResponseFunction, chartSecondLevelM, chartSecondLevelA, comboBoxSecondLevelChooseBlock, dataGridViewSecondLevelObjectStatus, dataGridViewSecondLevelPhaseCoordinates);
 
-            if (decompositionSecond.GetPoints() != null)
+            if (_decompositionSecond.GetPoints() != null)
             {
-                _points = decompositionSecond.GetPoints();
+                _points = _decompositionSecond.GetPoints();
             }
         }
 
         public void FourthLevel()
         {
-            decompositionFourth = new FourthLevelDecomposition(_smoothingFactor, _measurmentError, dataGridViewZCoordinate, blockCount, _points, comboBoxFourthLevelChooseBlock,
+            _decompositionFourth = new FourthLevelDecomposition(_smoothingFactor, _measurmentError, dataGridViewZCoordinate, _blockCount, _points, comboBoxFourthLevelChooseBlock,
                 checkedListBoxFourthLevelAvailablePoints, chartFourthLevel);
         }
 
@@ -200,53 +202,53 @@ namespace CourseWorkFinal
         private void openDataBaseTable()
         {
             //Если пользователь не указал путь к БД, то происходит выход из метода
-            if (fileManager.pathToDataBaseTable == null || fileManager.pathToDataBaseTable.Equals(""))
+            if (_fileManager.pathToDataBaseTable == null || _fileManager.pathToDataBaseTable.Equals(""))
             {
                 return;
             }
 
             clearDataGridViewZCoordinate();
-            db = new Database(fileManager.pathToDataBaseTable);
+            _db = new Database(_fileManager.pathToDataBaseTable);
             // Установка соединения с БД
-            db.GetDataBaseConnection();
+            _db.GetDataBaseConnection();
             // Заполнение таблиц
-            FillAllTables(dataGridViewList, dt, db);
+            FillAllTables(dataGridViewList, _dt, _db);
             setConnectionStatus(true);
         }
 
         private void UpdateDataBaseTable()
         {
             //Если пользователь не указал путь к БД, то происходит выход из метода
-            if (fileManager.pathToDataBaseTable == null || fileManager.pathToDataBaseTable.Equals(""))
+            if (_fileManager.pathToDataBaseTable == null || _fileManager.pathToDataBaseTable.Equals(""))
             {
                 return;
             }
 
             clearDataGridViewZCoordinate();
-            db = new Database(fileManager.pathToDataBaseTable);
+            _db = new Database(_fileManager.pathToDataBaseTable);
             // Установка соединения с БД
-            db.GetDataBaseConnection();
+            _db.GetDataBaseConnection();
             // Заполнение таблиц
-            UpdateAllTables(dataGridViewList, dt, db);
+            UpdateAllTables(dataGridViewList, _dt, _db);
             setConnectionStatus(true);
         }
         private DataTable openDataBaseTableDt()
         {
             //Если пользователь не указал путь к БД, то происходит выход из метода
-            if (fileManager.pathToDataBaseTable == null || fileManager.pathToDataBaseTable.Equals(""))
+            if (_fileManager.pathToDataBaseTable == null || _fileManager.pathToDataBaseTable.Equals(""))
             {
                 return null;
             }
 
             clearDataGridViewZCoordinate();
-            db = new Database(fileManager.pathToDataBaseTable);
+            _db = new Database(_fileManager.pathToDataBaseTable);
             // Установка соединения с БД
-            db.GetDataBaseConnection();
+            _db.GetDataBaseConnection();
             // Заполнение таблиц
-            FillAllTables(dataGridViewList, dt, db);
+            FillAllTables(dataGridViewList, _dt, _db);
             setConnectionStatus(true);
 
-            return dt;
+            return _dt;
         }
 
         /// <summary>
@@ -259,7 +261,7 @@ namespace CourseWorkFinal
         {
             foreach (DataGridView dgw in dataGridViewList)
             {
-                tableName = db.FillTable(dt, dgw);
+                _tableName = db.FillTable(dt, dgw);
             }
         }
 
@@ -267,7 +269,7 @@ namespace CourseWorkFinal
         {
             foreach (DataGridView dgw in dataGridViewList)
             {
-                db.UpdateFillTable(dt, dgw, tableName);
+                db.UpdateFillTable(dt, dgw, _tableName);
             }
         }
         private void clearDataGridViewZCoordinate()
@@ -304,11 +306,11 @@ namespace CourseWorkFinal
             // Определеяем имя максимальной эпохи, чтобы записать его в новой строчке
             int maxEpoch = findMaxEpochInTable();
             // Индекс в БД определяется сам, а нам нужно только указать имя для эпохи
-            db.AddNewRowQuery(maxEpoch + 1, tableName);
+            _db.AddNewRowQuery(maxEpoch + 1, _tableName);
             // Добавлением значения в новую строку с индексом 9
-            db.CalculateNewRowValues(dataGridViewZCoordinate, db, newRowIndex, maxEpoch + 1, tableName);
+            _db.CalculateNewRowValues(dataGridViewZCoordinate, _db, newRowIndex, maxEpoch + 1, _tableName);
             // Это нам надо, чтобы числа в табличку выводились в правильном виде double
-            db.ChangeCommasToDots(dt, tableName);
+            _db.ChangeCommasToDots(_dt, _tableName);
             UpdateDataBaseTable();
             // Заново считаем декомпозицию
             ResetFormAfterSmoothingFactorChanged();
@@ -340,7 +342,7 @@ namespace CourseWorkFinal
                 {
                     for (int i = 0; i < dataGridViewZCoordinate.SelectedRows.Count; i++)
                     {
-                      db.DeleteRowQuery(dataGridViewZCoordinate.Rows[dataGridViewZCoordinate.SelectedRows[i].Index].Cells[0].Value.ToString(), tableName);
+                      _db.DeleteRowQuery(dataGridViewZCoordinate.Rows[dataGridViewZCoordinate.SelectedRows[i].Index].Cells[0].Value.ToString(), _tableName);
                     }
 
                     // Обновляем строки в БД после удаления
@@ -365,22 +367,22 @@ namespace CourseWorkFinal
 
         private void checkBoxResponseFunctionBottom_CheckedChanged(object sender, EventArgs e)
         {
-            decompositionFirst.CheckBoxResponseFunctionChange(checkBoxFirstLevelResponseFunctionBottom, chartFirstLevelResponseFunction, "нижняя");
+            _decompositionFirst.CheckBoxResponseFunctionChange(checkBoxFirstLevelResponseFunctionBottom, chartFirstLevelResponseFunction, "нижняя");
         }
 
         private void checkBoxResponseFunctionOriginal_CheckedChanged(object sender, EventArgs e)
         {
-            decompositionFirst.CheckBoxResponseFunctionChange(checkBoxFirstLevelResponseFunctionOriginal, chartFirstLevelResponseFunction, "исходное");
+            _decompositionFirst.CheckBoxResponseFunctionChange(checkBoxFirstLevelResponseFunctionOriginal, chartFirstLevelResponseFunction, "исходное");
         }
 
         private void checkBoxResponseFunctionTop_CheckedChanged(object sender, EventArgs e)
         {
-            decompositionFirst.CheckBoxResponseFunctionChange(checkBoxFirstLevelResponseFunctionOriginal, chartFirstLevelResponseFunction, "верхняя");
+            _decompositionFirst.CheckBoxResponseFunctionChange(checkBoxFirstLevelResponseFunctionOriginal, chartFirstLevelResponseFunction, "верхняя");
         }
 
         private void checkBoxFirstLevelMBottom_CheckedChanged(object sender, EventArgs e)
         {
-            decompositionFirst.CheckBoxMChange(chartFirstLevelM, "нижняя");
+            _decompositionFirst.CheckBoxMChange(chartFirstLevelM, "нижняя");
         }
 
         private void numericUpDownSmoothingFactor_ValueChanged(object sender, EventArgs e)
@@ -423,13 +425,13 @@ namespace CourseWorkFinal
             comboBoxSecondLevelChooseBlock.Items.Clear();
             dataGridViewSecondLevelPhaseCoordinates.Rows.Clear();
             dataGridViewSecondLevelObjectStatus.Rows.Clear();
-            decompositionFirst.ResetFirstLevel(chartFirstLevelM, chartFirstLevelM);
-            decompositionSecond.resetFlag = true;
+            _decompositionFirst.ResetFirstLevel(chartFirstLevelM, chartFirstLevelM);
+            _decompositionSecond.resetFlag = true;
           
             comboBoxFourthLevelChooseBlock.Items.Clear();
 
-            decompositionFourth.ResetFourthLevel(_points, chartFourthLevel, checkedListBoxFourthLevelAvailablePoints, comboBoxFourthLevelChooseBlock);
-            decompositionSecond.ResetSecondLevel();
+            _decompositionFourth.ResetFourthLevel(_points, chartFourthLevel, checkedListBoxFourthLevelAvailablePoints, comboBoxFourthLevelChooseBlock);
+            _decompositionSecond.ResetSecondLevel();
 
             // Табпейджи тоже обязательно выключать в самом конце, иначе невозможно отключить элементы формы
             tabPage5.Enabled = false;
@@ -441,34 +443,34 @@ namespace CourseWorkFinal
 
         private void checkBoxFirstLevelMBase_CheckedChanged(object sender, EventArgs e)
         {
-            decompositionFirst.CheckBoxMChange(chartFirstLevelM, "исходное");
+            _decompositionFirst.CheckBoxMChange(chartFirstLevelM, "исходное");
         }
 
         private void checkBoxFirstLevelMTop_CheckedChanged(object sender, EventArgs e)
         {
-            decompositionFirst.CheckBoxMChange(chartFirstLevelM, "верхняя");
+            _decompositionFirst.CheckBoxMChange(chartFirstLevelM, "верхняя");
         }
 
         private void checkBoxFirstLevelABottom_CheckedChanged(object sender, EventArgs e)
         {
-            decompositionFirst.CheckBoxAChange(chartFirstLevelA, "нижняя");
+            _decompositionFirst.CheckBoxAChange(chartFirstLevelA, "нижняя");
         }
 
         private void checkBoxFirstLevelAOriginal_CheckedChanged(object sender, EventArgs e)
         {
-            decompositionFirst.CheckBoxAChange(chartFirstLevelA, "исходное");
+            _decompositionFirst.CheckBoxAChange(chartFirstLevelA, "исходное");
         }
 
         private void checkBoxFirstLevelATop_CheckedChanged(object sender, EventArgs e)
         {
-            decompositionFirst.CheckBoxAChange(chartFirstLevelA, "верхняя");
+            _decompositionFirst.CheckBoxAChange(chartFirstLevelA, "верхняя");
         }
 
         private void listBoxAllPointsOfTheObject_DoubleClick(object sender, EventArgs e)
         {
-            decompositionSecond.AllPointsListBox_DoubleClick();
+            _decompositionSecond.AllPointsListBox_DoubleClick();
            
-            if (decompositionSecond.pointsAreDistributed == true)
+            if (_decompositionSecond.pointsAreDistributed == true)
             {
                 tabPage5.Enabled = true;
                 tabPage9.Enabled = true;
@@ -477,57 +479,57 @@ namespace CourseWorkFinal
 
         private void listBoxPointsOnTheBlock_DoubleClick(object sender, EventArgs e)
         {
-            decompositionSecond.ListBoxPointsOnTheBlock_DoubleClick();
+            _decompositionSecond.ListBoxPointsOnTheBlock_DoubleClick();
         }
 
         private void comboBoxSecondLevelChooseBlock_SelectedIndexChanged(object sender, EventArgs e)
         {
-            decompositionSecond.ComboBoxSecondLevelChooseBlock_SelectedIndexChanged();
+            _decompositionSecond.ComboBoxSecondLevelChooseBlock_SelectedIndexChanged();
         }
 
         private void checkBoxSecondLevelResponseFunctionBottom_CheckedChanged(object sender, EventArgs e)
         {
-            decompositionSecond.CheckBoxResponseFunctionChange(checkBoxSecondLevelResponseFunctionBottom, chartSecondLevelResponseFunction, "нижняя");
+            _decompositionSecond.CheckBoxResponseFunctionChange(checkBoxSecondLevelResponseFunctionBottom, chartSecondLevelResponseFunction, "нижняя");
         }
 
         private void checkBoxSecondLevelResponseFunctionOriginal_CheckedChanged(object sender, EventArgs e)
         {
-            decompositionSecond.CheckBoxResponseFunctionChange(checkBoxSecondLevelResponseFunctionOriginal, chartSecondLevelResponseFunction, "исходное");
+            _decompositionSecond.CheckBoxResponseFunctionChange(checkBoxSecondLevelResponseFunctionOriginal, chartSecondLevelResponseFunction, "исходное");
         }
 
         private void checkBoxSecondLevelResponseFunctionTop_CheckedChanged(object sender, EventArgs e)
         {
-            decompositionSecond.CheckBoxResponseFunctionChange(checkBoxSecondLevelResponseFunctionTop, chartSecondLevelResponseFunction, "верхняя");
+            _decompositionSecond.CheckBoxResponseFunctionChange(checkBoxSecondLevelResponseFunctionTop, chartSecondLevelResponseFunction, "верхняя");
         }
 
         private void checkBoxSecondMBottom_CheckedChanged(object sender, EventArgs e)
         {
-            decompositionSecond.CheckBoxMChange(chartSecondLevelM, "нижняя");
+            _decompositionSecond.CheckBoxMChange(chartSecondLevelM, "нижняя");
         }
 
         private void checkBoxSecondLevelMBase_CheckedChanged(object sender, EventArgs e)
         {
-            decompositionSecond.CheckBoxMChange(chartSecondLevelM, "исходное");
+            _decompositionSecond.CheckBoxMChange(chartSecondLevelM, "исходное");
         }
 
         private void checkBoxSecondLevelMTop_CheckedChanged(object sender, EventArgs e)
         {
-            decompositionSecond.CheckBoxMChange(chartSecondLevelM, "верхняя");
+            _decompositionSecond.CheckBoxMChange(chartSecondLevelM, "верхняя");
         }
 
         private void checkBoxSecondLevelABottom_CheckedChanged(object sender, EventArgs e)
         {
-            decompositionSecond.CheckBoxAChange(chartSecondLevelA, "нижняя");
+            _decompositionSecond.CheckBoxAChange(chartSecondLevelA, "нижняя");
         }
 
         private void checkBoxSecondLevelAOriginal_CheckedChanged(object sender, EventArgs e)
         {
-            decompositionSecond.CheckBoxAChange(chartSecondLevelA, "исходное");
+            _decompositionSecond.CheckBoxAChange(chartSecondLevelA, "исходное");
         }
 
         private void checkBoxSecondLevelATop_CheckedChanged(object sender, EventArgs e)
         {
-            decompositionSecond.CheckBoxAChange(chartSecondLevelA, "верхняя");
+            _decompositionSecond.CheckBoxAChange(chartSecondLevelA, "верхняя");
         }
 
         private void comboBoxFourthLevelChooseBlock_SelectedIndexChanged(object sender, EventArgs e)
@@ -540,13 +542,13 @@ namespace CourseWorkFinal
                 }
             }
 
-            decompositionFourth.ComboBoxFourthLevelChooseBlock_SelectedIndexChanged();
+            _decompositionFourth.ComboBoxFourthLevelChooseBlock_SelectedIndexChanged();
             chartFourthLevel.Series.Clear();
         }
 
         private void checkedListBoxFourthLevelAvailablePoints_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            decompositionFourth.CheckedListBoxFourthLevelAvailablePoints_ItemCheck();
+            _decompositionFourth.CheckedListBoxFourthLevelAvailablePoints_ItemCheck();
         }
 
 
@@ -603,7 +605,7 @@ namespace CourseWorkFinal
 
         private void ToolStripMenuItemSave_Click(object sender, EventArgs e)
         {
-            fileManager.ChangeDataInTextFile(numericUpDownMeasurementError.Value, numericUpDownSmoothingFactor.Value);
+            _fileManager.ChangeDataInTextFile(numericUpDownMeasurementError.Value, numericUpDownSmoothingFactor.Value);
             showSaveStatus(true);
         }
 
@@ -673,6 +675,7 @@ namespace CourseWorkFinal
             GuideForm guideForm = new GuideForm();
             guideForm.ShowDialog();
         }
+
     }
 
 }

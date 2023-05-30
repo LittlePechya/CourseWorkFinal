@@ -209,10 +209,17 @@ namespace CourseWorkFinal.Analysis
             return forecastValues;
         }
 
-        //Метод для расчета таблицы  нижней и верхней границы
-        public DataGridView BottomOrTopTable(DataTable dataTable, Double T, DataGridView elevatorTable, String arithmeticSign)
+        /// <summary>
+        /// Метод для расчета таблицы нижней и верхней границы на первом уровне
+        /// </summary>
+        /// <param name="dataTable"></param>
+        /// <param name="measurementError"></param>
+        /// <param name="elevatorTable"></param>
+        /// <param name="arithmeticSign"></param>
+        /// <returns></returns>
+        public DataGridView BottomOrTopTable(DataTable dataTable, Double measurementError, DataGridView elevatorTable, String arithmeticSign)
         {
-            //тут считаем нижнюю или верхнюю границу (тоесть пересчитываем всю таблицу)
+            //тут считаем нижнюю или верхнюю границу (то есть пересчитываем всю таблицу)
             //Добавляем необходимые колонки
             DataGridView Table = FillNewTable(dataTable);
 
@@ -224,12 +231,12 @@ namespace CourseWorkFinal.Analysis
                     //Если нужна нижняя граница то знак минус
                     if (arithmeticSign.Equals("-"))
                     {
-                        Table.Rows[i].Cells[j].Value = Convert.ToDouble(elevatorTable.Rows[i].Cells[j].Value) - T;
+                        Table.Rows[i].Cells[j].Value = Convert.ToDouble(elevatorTable.Rows[i].Cells[j].Value) - measurementError;
                     }
                     //Если верхняя то плюс
                     else if (arithmeticSign.Equals("+"))
                     {
-                        Table.Rows[i].Cells[j].Value = Convert.ToDouble(elevatorTable.Rows[i].Cells[j].Value) + T;
+                        Table.Rows[i].Cells[j].Value = Convert.ToDouble(elevatorTable.Rows[i].Cells[j].Value) + measurementError;
                     }
 
                 }
@@ -237,7 +244,7 @@ namespace CourseWorkFinal.Analysis
             return Table;
         }
 
-        public DataGridView BottomOrTopTableToSecondLevel(DataGridView elevatorTable, List<String> marks, Double T, String arithmeticSign)
+        public DataGridView BottomOrTopTableToSecondLevel(DataGridView elevatorTable, List<String> marks, Double measurementError, String arithmeticSign)
         {
             //Считается также как в методе выше, только включаем не все колонки, а только переданные в листе marks
             DataGridView Table = new DataGridView();
@@ -257,11 +264,11 @@ namespace CourseWorkFinal.Analysis
                     {
                         if (arithmeticSign.Equals("-"))
                         {
-                            Table.Rows[i].Cells[col.Name].Value = Convert.ToDouble(elevatorTable.Rows[i].Cells[col.Name].Value) - T;
+                            Table.Rows[i].Cells[col.Name].Value = Convert.ToDouble(elevatorTable.Rows[i].Cells[col.Name].Value) - measurementError;
                         }
                         else if (arithmeticSign.Equals("+"))
                         {
-                            Table.Rows[i].Cells[col.Name].Value = Convert.ToDouble(elevatorTable.Rows[i].Cells[col.Name].Value) + T;
+                            Table.Rows[i].Cells[col.Name].Value = Convert.ToDouble(elevatorTable.Rows[i].Cells[col.Name].Value) + measurementError;
                         }
 
                     }

@@ -15,13 +15,13 @@ namespace CourseWorkFinal.Analysis
         List<List<Double>> SmoothAValues = new List<List<Double>>();
         Calculations calculations = new Calculations();
 
-        public List<List<Double>> FirstLevelMValues(DataGridView elevationTable, DataTable dataTable, Double T, Double A)
+        public List<List<Double>> FirstLevelMValues(DataGridView elevationTable, DataTable dataTable, Double measurementError, Double A)
         {
 
             MValuesLists = new List<List<Double>>();
 
-            DataGridView bottomTable = calculations.BottomOrTopTable(dataTable, T, elevationTable, "-");
-            DataGridView topTable = calculations.BottomOrTopTable(dataTable, T, elevationTable, "+");
+            DataGridView bottomTable = calculations.BottomOrTopTable(dataTable, measurementError, elevationTable, "-");
+            DataGridView topTable = calculations.BottomOrTopTable(dataTable, measurementError, elevationTable, "+");
 
             List<Double> listOfBottomMValues = calculations.MValues(bottomTable);
             List<Double> listOfTopMValues = calculations.MValues(topTable);
@@ -252,6 +252,7 @@ namespace CourseWorkFinal.Analysis
             }
 
             //Считаем есть ли выход за границу
+            // Если L > 2E/2,то выход за границу
             for (int i = 0; i < statusTable.Rows.Count - 1; i++)
             {
                 if (Convert.ToDouble(statusTable.Rows[i].Cells[5].Value) < Convert.ToDouble(statusTable.Rows[i].Cells[4].Value) / 2)

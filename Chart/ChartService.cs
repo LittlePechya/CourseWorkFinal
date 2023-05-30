@@ -18,7 +18,7 @@ namespace CourseWorkFinal.Chart
         public static void SetResponseFunctionSettings(ChartControl responseFunction)
         {
             responseFunction.ChartAreas[0].AxisX.Title = "M";
-            responseFunction.ChartAreas[0].AxisY.Title = "Alpha";
+            responseFunction.ChartAreas[0].AxisY.Title = "Alpha (градусы)";
             responseFunction.ChartAreas[0].AxisY.IsStartedFromZero = false;
         }
 
