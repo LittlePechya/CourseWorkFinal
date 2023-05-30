@@ -661,6 +661,18 @@ namespace CourseWorkFinal
         {
             ButtonToCancelAllCheckboxes(checkBoxSecondLevelABottom, checkBoxSecondLevelAOriginal, checkBoxSecondLevelATop);
         }
+
+        private void toolStripButtonAboutAuthor_Click(object sender, EventArgs e)
+        {
+            FormAboutAuthor formAboutAuthor = new FormAboutAuthor();
+            formAboutAuthor.ShowDialog();
+        }
+
+        private void toolStripButtonGuideForm_Click(object sender, EventArgs e)
+        {
+            GuideForm guideForm = new GuideForm();
+            guideForm.ShowDialog();
+        }
     }
 
 }

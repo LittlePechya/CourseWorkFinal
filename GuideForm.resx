@@ -117,29 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Guide0" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Guide1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Guide1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Guide2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Guide2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Guide3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Guide3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Guide4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Guide4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Guide5" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Guide5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Guide6" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Guide6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Guide7" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Guide7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="infoText.Text" xml:space="preserve">
+    <value>Для начала работы в программе необходимо 
+нажать на кнопку "Открыть проект".
+Далее в открывшемся окне необходимо 
+выбрать папку с вариантом, 
+которая была сгенерирована в 
+программе VargenMM.
+Папка должна содержать картинку .png, 
+текстовый файл с информацией 
+и файл базы данных 
+.sqlite.
+</value>
   </data>
 </root>
