@@ -141,13 +141,13 @@ namespace CourseWorkFinal.Decomposition
             switch(location)
             {
                 case "нижняя":
-                    ChartService.AddXYLineToChart(chartM, "Функция отклика (нижняя граница)", "Прогнозное значение функции отклика (нижняя граница)", _MValues[0], _MValues[3],  _epochList);
+                    ChartService.AddXYLineToChart(chartM, "Функция M(t) (нижняя граница)", "Сглаженное значение функции M(t) (нижняя граница)", _MValues[0], _MValues[3],  _epochList);
                     break;
                 case "исходное":
-                    ChartService.AddXYLineToChart(chartM, "Функция отклика (исходное)", "Прогнозное значение функции отклика (исходное)", _MValues[4], _MValues[5], _epochList);
+                    ChartService.AddXYLineToChart(chartM, "Функция M(t) (исходное)", "Сглаженное значение функции M(t) (исходное)", _MValues[4], _MValues[5], _epochList);
                     break;
                 case "верхняя":
-                    ChartService.AddXYLineToChart(chartM, "Функция отклика (верхняя граница)", "Прогнозное значение функции отклика (верхняя граница)", _MValues[1], _MValues[2], _epochList);
+                    ChartService.AddXYLineToChart(chartM, "Функция M(t) (верхняя граница)", "Сглаженное значение функции M(t) (верхняя граница)", _MValues[1], _MValues[2], _epochList);
                     break;
             }
         }
@@ -160,24 +160,25 @@ namespace CourseWorkFinal.Decomposition
             switch (location)
             {
                 case "нижняя":
-                    ChartService.AddXYLineToChart(chartM, "Функция отклика (нижняя граница)", "Прогнозное значение функции отклика (нижняя граница)", _AValues[0], _AValues[3], _epochList);
+                    ChartService.AddXYLineToChart(chartM, "Функция a(t) (нижняя граница)", "Сглаженное значение функции a(t) (нижняя граница)", _AValues[0], _AValues[3], _epochList);
                     break;
                 case "исходное":
-                    ChartService.AddXYLineToChart(chartM, "Функция отклика (исходное)", "Прогнозное значение функции отклика (исходное)", _AValues[4], _AValues[5], _epochList);
+                    ChartService.AddXYLineToChart(chartM, "Функция a(t) (исходное)", "Сглаженное значение функции a(t) (исходное)", _AValues[4], _AValues[5], _epochList);
                     break;
                 case "верхняя":
-                    ChartService.AddXYLineToChart(chartM, "Функция отклика (верхняя граница)", "Прогнозное значение функции отклика (верхняя граница)", _AValues[1], _AValues[2], _epochList);
+                    ChartService.AddXYLineToChart(chartM, "Функцияa(t) (верхняя граница)", "Сглаженное значение функции a(t) (верхняя граница)", _AValues[1], _AValues[2], _epochList);
                     break;
             }
         }
 
-        public void ResetFirstLevel(ChartControl chartM, ChartControl chartA)
+        public void ResetFirstLevel(ChartControl chartM, ChartControl chartA, ChartControl chartResponseFunction)
         {
             _AValues.Clear();
             _MValues.Clear();
             _epochList.Clear();
-            //chartM.Series.Clear();
-            //chartA.Series.Clear();
+            chartM.Series.Clear();
+            chartA.Series.Clear();
+            chartResponseFunction.Series.Clear();
         }
 
     }

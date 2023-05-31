@@ -40,14 +40,25 @@ namespace CourseWorkFinal
         private string _tableName;
 
         // Список всех чекбоксов на втором уровне
+        private List<CheckBox> _checkBoxFirstLevelList = new List<CheckBox>();
         private List <CheckBox> _checkBoxSecondLevelList = new List<CheckBox>();
         /// <summary>
-        /// Конструктор основной формы проекта MainForm
+        /// Конструктор основной формы пprivate List <CheckBox> _checkBoxSecondLevelList = new List<CheckBox>();роекта MainForm
         /// Здесь иницализируются все компоненты
         /// </summary>
         public MainForm()
         {
             InitializeComponent();
+            // Добавляем чекбоксы с первого уровня в список
+            _checkBoxFirstLevelList.Add(checkBoxFirstLevelMBottom);
+            _checkBoxFirstLevelList.Add(checkBoxFirstLevelMOriginal);
+            _checkBoxFirstLevelList.Add(checkBoxFirstLevelMTop);
+            _checkBoxFirstLevelList.Add(checkBoxFirstLevelABottom);
+            _checkBoxFirstLevelList.Add(checkBoxFirstLevelAOriginal);
+            _checkBoxFirstLevelList.Add(checkBoxFirstLevelATop);
+            _checkBoxFirstLevelList.Add(checkBoxFirstLevelResponseFunctionBottom);
+            _checkBoxFirstLevelList.Add(checkBoxFirstLevelResponseFunctionOriginal);
+            _checkBoxFirstLevelList.Add(checkBoxFirstLevelResponseFunctionTop);
             // Добавляем чекбоксы со второго уровня в список
             _checkBoxSecondLevelList.Add(checkBoxSecondLevelMBottom);
             _checkBoxSecondLevelList.Add(checkBoxSecondLevelMOriginal);
@@ -457,29 +468,17 @@ namespace CourseWorkFinal
         {
             // Важно! Сначала отключаем чекбоксы, потом используем метод ResetLevel
             RemoveCheckFromCheckBoxes(_checkBoxSecondLevelList);
-
-            checkBoxFirstLevelABottom.Checked = false;
-            checkBoxFirstLevelAOriginal.Checked = false;
-            checkBoxFirstLevelATop.Checked = false;
-            checkBoxSecondLevelABottom.Checked = false;
-            checkBoxSecondLevelAOriginal.Checked = false;
-            checkBoxSecondLevelATop.Checked = false;
-            
-            checkBoxFirstLevelMBottom.Checked = false;
-            checkBoxSecondLevelMBottom.Checked = false;
-            checkBoxFirstLevelMOriginal.Checked = false;
-            checkBoxSecondLevelMOriginal.Checked = false;
-            checkBoxFirstLevelMTop.Checked = false;
-            checkBoxSecondLevelMTop.Checked = false;
+            RemoveCheckFromCheckBoxes(_checkBoxFirstLevelList);
 
             comboBoxSecondLevelChooseBlock.Items.Clear();
             dataGridViewSecondLevelPhaseCoordinates.Rows.Clear();
             dataGridViewSecondLevelObjectStatus.Rows.Clear();
-            _decompositionFirst.ResetFirstLevel(chartFirstLevelM, chartFirstLevelM);
+            dataGridViewFirstLevelObjectStatus.Rows.Clear();
+            dataGridViewFirstLevelPhaseCoordinates.Rows.Clear();
+            _decompositionFirst.ResetFirstLevel(chartFirstLevelM, chartFirstLevelM, chartFirstLevelResponseFunction);
             _decompositionSecond.resetFlag = true;
           
             comboBoxFourthLevelChooseBlock.Items.Clear();
-
             _decompositionFourth.ResetFourthLevel(_points, chartFourthLevel, checkedListBoxFourthLevelAvailablePoints, comboBoxFourthLevelChooseBlock);
             _decompositionSecond.ResetSecondLevel();
 
@@ -687,6 +686,7 @@ namespace CourseWorkFinal
             }
             else
             {
+                _measurmentError = Convert.ToDouble(numericUpDownMeasurementError.Value);
                 showSaveStatus(false);
                 ResetFormAfterSmoothingFactorChanged();
             }
@@ -743,6 +743,11 @@ namespace CourseWorkFinal
         {
             GuideForm guideForm = new GuideForm();
             guideForm.ShowDialog();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
         }
 
     }

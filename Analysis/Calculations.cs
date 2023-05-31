@@ -13,6 +13,12 @@ namespace CourseWorkFinal.Analysis
     {
         public Calculations() { }
 
+        /// <summary>
+        /// Расчет M (длины векторов) как суммы квадратов
+        /// </summary>
+        /// <param name="elevatorTable"></param>
+        /// <param name="marks"></param>
+        /// <returns></returns>
         public List<Double> MValues(DataGridView elevatorTable, List<String> marks)
         {
             Double M = 0;
@@ -44,7 +50,12 @@ namespace CourseWorkFinal.Analysis
             return listOfMValues;
 
         }
-
+        
+        /// <summary>
+        /// Расчет значений M
+        /// </summary>
+        /// <param name="elevatorTable"></param>
+        /// <returns></returns>
         public List<Double> MValues(DataGridView elevatorTable)
         {
             Double M = 0;
@@ -119,6 +130,12 @@ namespace CourseWorkFinal.Analysis
 
         }
 
+        /// <summary>
+        /// Расчет альфы, как аркосинус суммы произведений, деленный на произведение длин векторов
+        /// </summary>
+        /// <param name="elevatorTable"></param>
+        /// <param name="listOfMValues"></param>
+        /// <returns></returns>
         public List<Double> AValues(DataGridView elevatorTable, List<Double> listOfMValues)
         {
             Double calculateAcos = 0;
@@ -135,7 +152,7 @@ namespace CourseWorkFinal.Analysis
             int leftEdge = 0;
 
             //Если первая колонка называется Эпоха, то левой границе присваеваем 1, чтобы не брать в рассчеты колонку Эпоха
-            //Нижней границы присваеваем Количество строчек таблицы - 2, изза пустых строчек внизу.
+            //Нижней границы присваеваем Количество строчек таблицы - 2, из-за пустых строчек внизу.
             if (elevatorTable.Columns[0].Name.Equals("Эпоха"))
             {
                 leftEdge = 1;
@@ -172,6 +189,12 @@ namespace CourseWorkFinal.Analysis
 
         }
 
+        /// <summary>
+        /// Расчет сглаженных значений
+        /// </summary>
+        /// <param name="listOfValues"> Список значений альфа или M </param>
+        /// <param name="a"> Коэффициент сглаживания </param>
+        /// <returns></returns>
         public List<Double> SmoothValue(List<Double> listOfValues, Double a)
         {
             List<Double> forecastValues = new List<Double>();
